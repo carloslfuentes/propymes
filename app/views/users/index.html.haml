@@ -1,0 +1,4 @@
+.wrapper
+  .grid_8.top
+    .grid_4.first
+      = render :partial => '/partials/datagrid', :locals => {:links=>["show","edit","delete"],:objects => @users, :fild_names=> [:name, :email,:language,:comments]}

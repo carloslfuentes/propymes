@@ -1,0 +1,26 @@
+%aside.grid_3.top
+  .columns
+    .grid_3.first
+      %fieldset.panel
+        = f.fields_for :addresses, @addresses do |address|
+          .clearfix
+            =address.label :street
+            =address.text_field :street
+          .clearfix
+            =address.label :number
+            =address.text_field :number, :style=>"width:50px;"
+          .clearfix
+            =address.label :colonia
+            =address.text_field :colonia
+          .clearfix
+            =address.label :city
+            =address.text_field :city
+          .clearfix
+            =address.label :state
+            =address.text_field :state
+          .clearfix
+            =address.label :phone
+            =address.text_field :phone, :style=>"width:150px;"
+          .clearfix
+            =address.label :email
+            =address.text_field :email 

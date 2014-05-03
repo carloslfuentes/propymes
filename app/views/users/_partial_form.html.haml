@@ -1,0 +1,70 @@
+%section#content
+  .wrapper
+    %section.grid_3.first
+      %h4
+        =#"Medico: #{current_user.login}"
+      .columns
+        - @user.errors.full_messages.each do |msg|
+          =msg
+          %br
+        .grid_2.first
+          %fieldset.panel
+            .clearfix
+              =f.label :organization_id
+              -if current_user.is_manager
+                =text_field_tag :val, current_user.organization.name, :readonly => true
+                =f.hidden_field :organization_id, :value=>current_user.organization_id
+              -else
+                =f.collection_select :organization_id, Organization.all.sort_by(&:name), :id, :name, {:selected=>current_user.organization_id}
+            = f.fields_for :person, @person do |p|
+              .clearfix
+                =p.label :name
+                =p.text_field :name
+              .clearfix
+                =p.label :last_name
+                =p.text_field :last_name
+            .clearfix
+              = f.label :login 
+              = f.text_field :login 
+            .clearfix
+              = f.label :password 
+              = f.password_field :password 
+            .clearfix
+              = f.label :password_confirmation
+              = f.password_field :password_confirmation 
+            .clearfix
+              = f.label :email
+              = f.text_field :email 
+            .clearfix
+              = f.label :is_enabled
+              = f.check_box :is_enabled  
+            %br
+            %br
+            .clearfix
+              %button.button.button-blue{:type => "submit", :onclick=>"addTimeToDate();"}
+                = t :save
+              =link_to "atras", users_path, :class=>"button button-red"
+    %aside.grid_3.top
+      .columns
+        .grid_3.first
+          %fieldset.panel
+            -if current_user.is_system_user
+              .clearfix
+                = f.label :is_system_user 
+                = f.check_box :is_system_user 
+              .clearfix
+                = f.label :is_manager
+                = f.check_box :is_manager
+            .clearfix
+              = f.label :is_medic
+              = f.check_box :is_medic 
+            .clearfix
+              = f.label :is_assistant
+              = f.check_box :is_assistant  
+    = render :partial => '/partials/partial_form_addresses', :locals => { :f => f }
+:javascript
+  $(document).ready(function(){
+    $("#user_email").keyup(function(){
+      $("#user_addresses_attributes_0_email").val($(this).val());
+    }) ;
+  });

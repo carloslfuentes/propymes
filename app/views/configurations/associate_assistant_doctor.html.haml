@@ -1,0 +1,74 @@
+.wrapper.top
+  .grid_8
+    = form_tag(create_associate_configurations_path, method: "post") do
+      .grid_4.first
+        %h3
+          ="asisttant"
+        .panel
+          .clearfix
+            =label_tag :user_id
+            =select_tag :user_id, options_from_collection_for_select(@assistants.sort_by(&:name), :id, :name), {:include_blank => ''}
+          .clearfix
+            =hidden_field_tag :medics
+          .clearfix
+            %button.button{:type => "submit"}
+              = t :save
+        
+        %h3
+          ="medics"
+        %table.style
+          -@count = 0
+          %thead
+            %tr{:style => "text-align:center;"}
+              %th
+                = "Nombre"
+              %th
+          %tbody
+            -@medics.each do |medic|
+              %tr
+                %td
+                  =medic.name
+                %td.ar
+                  =check_box_tag @count, nil, nil, "medic_id-data" => medic.id, :class=>"add_medic #{medic.id}"
+                  -@count +=1 
+:javascript
+  
+  $(".add_medic").click(function() {
+    var permission_id = new Array();
+    for (var i = 0; i < "#{@count}"; i++) {
+      var checkBox = document.getElementById(i.toString());
+      if(checkBox.checked){
+        permission_id.push(checkBox.getAttribute("medic_id-data"));
+      }
+    }
+    $("#medics").val(permission_id.toString());
+  });
+  
+  $("#user_id").change(function() {
+    var user_id = $(this).find("option:selected").val();
+    if(user_id){}else{
+      clearCheckBox();
+      return;
+    }
+    $.get("/users/get_assosiate_assitant",{user_id: user_id}).done(function(data){
+      clearCheckBox();
+      if(data){
+        datos = data.split(",");
+        for (var i = 0; i < "#{@count}"; i++) {
+          var checkBox = document.getElementById(i.toString());
+          if(datos.indexOf(checkBox.getAttribute("medic_id-data")) >= 0){
+            checkBox.checked = true;
+          }else{
+            checkBox.checked = false;
+          }
+        }
+      }
+      $.uniform.update();
+    });
+  });
+  function clearCheckBox(){
+    for (var i = 0; i < "#{@count}"; i++) {
+      document.getElementById(i.toString()).checked = false;
+    }
+    $.uniform.update();
+  }

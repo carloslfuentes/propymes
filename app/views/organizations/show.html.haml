@@ -1,0 +1,33 @@
+.wrapper.top
+  %section.grid_10.first
+    %h4
+      ="Medico: #{current_user.login}"
+    .columns
+      .grid_4.first
+        %fieldset.panel
+          %table
+            %thead
+              %tr
+                %td
+                  ="organization: "
+                %td.class_right
+                  =@organization.name
+              %tr
+                %td
+                  ="description: "
+                %td.class_right
+                  =@organization.description
+              %tr
+                %td
+                  ="Activo: "
+                %td.class_right
+                  =@organization.is_enabled ? "Si" : "No"
+              %tr
+                %td
+                  =link_to "Editar", edit_organization_path(@organization.id)
+                %td
+                  =#link_to "Consultar", new_consult_path(:patient_id=>@patient.id), :class=>"button button-blue"
+        = render :partial => '/partials/partial_show_addresses', :locals => { :object => @organization}
+      .grid_3
+        .panel
+          = render :partial => '/partials/datagrid', :locals => {:objects => @organization.users, :fild_names=> [:name,:is_enabled]}

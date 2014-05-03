@@ -1,0 +1,35 @@
+.action-button {
+  cursor: pointer;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  text-indent: -999em;
+  outline: none !important;
+  /* IE7 hack */
+  zoom: 1;
+  *display: inline;
+}
+
+.action-button span {
+  margin-top: -2px;
+  display: block;
+  width: 20px;
+  height: 20px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.action-button span.list {
+  margin-top: 0px;
+}
+
+.action-button span.pencil {
+  background: transparent url(/images/d02/icons/pencil.png) no-repeat center center;
+}
+
+#FIXME Agregar Imagen
+.action-button span.delete {
+  background: transparent url(/images/d02/icons/delete.png) no-repeat center center;
+}

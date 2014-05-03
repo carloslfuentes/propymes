@@ -1,0 +1,41 @@
+%section#content
+  .wrapper
+    %section.grid_8.first
+      %h4
+        ="Medico: #{current_user.login}"
+      .columns
+        .grid_4.first
+          %fieldset.panel
+            %table
+              %thead
+                %tr
+                  %td
+                    ="nombre: "
+                  %td.class_right
+                    =@patient.name
+                %tr
+                  %td
+                    ="apellidos: "
+                  %td.class_right
+                    =@patient.last_name_p + " " + @patient.last_name_m
+                %tr
+                  %td
+                    ="edad: "
+                  %td.class_right
+                    =@patient.age
+                %tr
+                  %td
+                    ="Fecha de nacimiento: "
+                  %td.class_right
+                    =@patient.date_birth
+                %tr
+                  %td
+                    ="Activo: "
+                  %td.class_right
+                    =@patient.is_active ? "Si" : "No"
+                %tr
+                  %td
+                    =link_to "Editar", edit_patient_path(@patient.id)
+                  %td
+                    =#link_to "Consultar", new_consult_path(:patient_id=>@patient.id), :class=>"button button-blue"
+          = render :partial => '/partials/partial_show_addresses', :locals => { :object => @patient}

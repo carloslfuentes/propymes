@@ -1,0 +1,32 @@
+.wrapper
+  .grid_8.top
+    .grid_4.first
+      %table.style.full
+        %thead
+          %tr
+            %th
+              = "Nombre"
+            %th
+              = "Medic"
+            %th
+              = "Organization"
+            %th
+              = "Description"
+            %th
+              = "Costos"
+            %th
+        %tbody
+          - @services.each do |service|
+            %tr
+              %td
+                =service.name
+              %td.ac
+                =service.user.nullo.name.if_nil("--")
+              %td.ac
+                =service.organization.nullo.name.if_nil("--")
+              %td
+                =service.description
+              %td
+                =service.cost
+              %td
+                =link_to "ver", service_path(service.id)

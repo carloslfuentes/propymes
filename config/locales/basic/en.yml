@@ -1,0 +1,23 @@
+en:
+  authentification_required: "Authentification Required"
+  sigmed: 'SIGMED - Medical Management System'
+  registered_as: 'Registered As'
+  user: 'User'
+  password: 'Password'
+  login: 'Login'
+  welcome: 'Welcome !'
+  forgot_your_password: "¿Forgot your password?"
+  success_login: '¡ Successful Login !'
+  please_login: 'Please Login'
+  welcome_message: 'Bienvenido al sistema lksncd lksdm klsmdc klsmcd klmsdc m sdmclsc lksndk lksmcdls lksmdclsdc lksmclksmc lkmsdc.'
+  profile: 'My Profile'
+  configuration: 'Configuration'
+  logout: 'Logout'
+  patients: 'Patients'
+  diary: 'Diary'
+  invoices: 'Invoices'
+  new_cite: 'New Cite'
+  save: 'Save'
+  cancel: 'Cancel'
+  clear: 'Clear'
+  minutes: 'Minutes'

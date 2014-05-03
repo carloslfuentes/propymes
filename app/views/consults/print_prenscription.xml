@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<print_prenscription>
+  <doctor>carlos</doctor>
+  <paciente>nano</paciente>
+  <prenscription>
+    <medicine>
+      <doctor>carlos</doctor>
+      <paciente>nano</paciente>
+      <medicine>uno</medicine>
+      <dose>uno</dose>
+      <description>uno</description>
+    </medicine>
+    <medicine>
+      <doctor>carlos</doctor>
+      <paciente>nano</paciente>
+      <medicine>dos</medicine>
+      <dose>dos</dose>
+      <description>dos</description>
+    </medicine>
+  </prenscription>
+</print_prenscription>

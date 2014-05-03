@@ -1,0 +1,21 @@
+.wrapper
+  = form_for @configuration_value, url: {action: "update"} do |f|
+    .grid_8.top
+      .grid_3
+        .panel
+          .clearfix
+            = f.label :name
+            = f.text_field :name, :required=>"required"
+          .clearfix
+            = f.label :value
+            -if @configuration_value.option_type == "combo"
+              = f.select(:value, options_for_select(@configuration_value.options.split("|").map{|row| [row,row]}, @configuration_value.value))
+            -else
+              = f.text_field :value
+          .clearfix
+            =f.label :description
+            %br
+            = f.text_area :description, :style => "width:220px;height:100px"
+          .clearfix
+            %button.button.button-blue{:type => "submit"}
+              = t :save

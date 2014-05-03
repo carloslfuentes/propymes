@@ -1,0 +1,34 @@
+%table.paginate.sortable.full
+  %thead
+    %tr{:style => "text-align:center;"}
+      %th
+        = "street"
+      %th
+        = "number"
+      %th
+        = "colonia"
+      %th
+        = "city"
+      %th
+        = "state"
+      %th
+        = "phone"
+      %th
+        = "email"
+  %tbody
+    - object.addresses.each do |address|
+      %tr
+        %td{:style => "text-align:center;"}
+          =address.street
+        %td{:style => "text-align:center;"}
+          =address.number
+        %td{:style => "text-align:center;"}
+          =address.colonia
+        %td{:style => "text-align:center;"}
+          =address.city
+        %td{:style => "text-align:center;"}
+          =address.state
+        %td{:style => "text-align:center;"}
+          =address.phone
+        %td{:style => "text-align:center;"}
+          =address.email

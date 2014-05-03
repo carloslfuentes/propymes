@@ -1,0 +1,29 @@
+%table.style.full
+  -links = [] if links.blank? 
+  %thead
+    %tr
+      - fild_names.each do |fild_name|
+        %th
+          = fild_name
+      - fild_names.each do |fild_name|
+        %th
+  %tbody
+    - objects.each do |object|
+      %tr
+      - fild_names.each do |fild_name|
+        %td
+          -if fild_name == "name".to_sym
+            =object.name
+          -else
+            =object[fild_name.to_sym]
+      - links.each do |link|
+        -table_name = object.class.table_name
+        -if link == "show"
+          %td
+            =link_to link, "/#{table_name}/#{object.id}"
+        -elsif link == "edit"
+          %td
+            =link_to link, "/#{table_name}/#{object.id}/edit"
+        -elsif link == "delete"
+          %td
+            =link_to link, "#{table_name}/#{object.id}", :method=> :delete

@@ -1,0 +1,37 @@
+en:
+  activerecord:
+    attributes:
+      user:
+        name: "Name"
+        last_name: "Last name"
+        login: "Login"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        email: "Email"
+        is_enabled: "Is active"
+        is_medic: "Is medic"
+        is_system_user: "Is system user"
+        is_manager: "Is manager"
+        is_assistant: "Is assistant"
+        organization_id: "Organization"
+      person:
+        name: "Name"
+        last_name: "Last Name"
+      address:
+        street: "Street"
+        number: "Number"
+        colonia: "Colonia"
+        city: "City"
+        state: "State"
+        phone: "Phone"
+        email: "Email"
+      organization:
+        name: "Name"
+        description: "Description"
+      cite:
+        user_id: "Doctor"
+        patient_id: "Patient"
+        date_cite: "Date Cite"
+        period_time: "Period Time"
+        description: "Description"
+        send_notification: "Send Notification"

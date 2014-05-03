@@ -1,0 +1,36 @@
+%section#content
+  .wrapper
+    %section.grid_3.first
+      %h4
+        ="Medico: #{current_user.login}"
+      .columns
+        .grid_2.first
+          %fieldset.panel
+            .clearfix
+              =f.label :user_id
+              =f.collection_select :user_id, User.only_medic.sort_by(&:login), :id, :login, {:include_blank => '',:selected=>current_user.id}
+            .clearfix
+              = f.label :name
+              = f.text_field :name
+            .clearfix
+              = f.label :last_name_p
+              = f.text_field :last_name_p
+            .clearfix
+              = f.label :last_name_m
+              = f.text_field :last_name_m
+            .clearfix
+              = f.label :age
+              = f.text_field :age, :style=>"width:50px;"
+            .clearfix
+              = f.label :date_birth
+              = f.text_field :date_birth, :style=>"width:150px;"
+            .clearfix
+              = f.label :is_active
+              = f.check_box :is_active
+            %br
+            %br
+            .clearfix
+              %button.button.button-blue{:type => "submit", :onclick=>"addTimeToDate();"}
+                = t :save
+              =link_to "atras", patients_path, :class=>"button button-red"
+    = render :partial => '/partials/partial_form_addresses', :locals => { :f => f }                  

@@ -1,0 +1,38 @@
+es:
+  activerecord:
+    attributes:
+      user:
+        name: "Nombre"
+        last_name: "Apellido"
+        login: "Cuenta"
+        password: "Contraseña"
+        password_confirmation: "Confirmar Contraseña"
+        email: "Email"
+        is_enabled: "Activo"
+        is_medic: "Es Medico"
+        is_system_user: "Es usuario de sistema"
+        is_manager: "Es Representante"
+        is_assistant: "Es asistente"
+        organization_id: "Organizacion"
+      person:
+        name: "Nombre"
+        last_name: "Apellido"
+      address:
+        street: "Calle"
+        number: "Numero"
+        colonia: "Colonia"
+        city: "Ciudad"
+        state: "Estado"
+        phone: "Telefono"
+        email: "Email"
+      organization:
+        name: "Nombres"
+        description: "Descripcion"
+      cite:
+        user_id: "Doctor"
+        patient_id: "Paciente"
+        date_cite: "Fecha de Cita"
+        end_cite: "Finaliza"
+        period_time: "Tiempo de Cita"
+        description: "Descripción"
+        send_notification: "Enviar Notificacion"

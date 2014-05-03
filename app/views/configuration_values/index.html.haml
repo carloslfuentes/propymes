@@ -1,0 +1,4 @@
+.wrapper.top
+  .grid_8.first
+    .grid_4.first
+      = render :partial => '/partials/datagrid', :locals => {:links=>["show","edit"],:objects => @configuration_values, :fild_names=> [:name, :value,:group,:description]}

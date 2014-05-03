@@ -1,0 +1,11 @@
+.wrapper.top
+  =flash[:warning]
+  =flash[:notice]
+  - @user = current_user
+  %br
+  - if @user.is_medic
+    = render :partial => "medics"
+  - elsif @user.is_assistant
+    = render :partial => "assistants"
+  - elsif @user.is_manager
+    = render :partial => "managers"

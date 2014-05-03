@@ -1,0 +1,46 @@
+.wrapper.top
+  .grid_8
+    .grid_4.first.panel.padding1.form.background_gray_clear
+      %h3
+        = t :new_cite
+      = form_for Cite.new , :as => "cite", :metod=>:put do |f|
+        .clearfix
+          = f.label :user_id
+          = f.collection_select :user_id, @doctors, :id, :login, {:include_blank => true}
+        .clearfix
+          = f.label :patient_id
+          = f.collection_select :patient_id, [], :id, :name, {}
+        .clearfix
+          = f.label :date_cite
+          = f.hidden_field :date_cite, :value => @date_cite_hidden
+          = text_field_tag :date_cite_show, (l @date_cite_show, :format => :format_date_picker), :readonly => true
+        .clearfix
+          = f.label :end_cite
+          = text_field_tag :end_cite, (l @end_cite, :format => :format_date_picker), :readonly => true, :disabled => true
+        .clearfix
+          = f.label :period_time
+          = f.text_field :period_time, :value => @period_time, :readonly => true, :style => "width:50px;"
+          .float_right
+            %h5
+              = t :minutes
+        .clearfix
+          = f.label :description
+          = f.text_area :description
+        .clearfix
+          = f.label :send_notification
+          = f.check_box :send_notification
+        %hr/
+        .ar
+          .clearfix.top
+            %button.button.background_blue.white{:type => "submit"}
+              = t :save
+            %button.button.background_gray.royal_blue{:type => "reset"}
+              = t :clear
+            %a.button.background_gray.royal_blue{:href => home_path}
+              = t :cancel
+
+:javascript
+  $(document).ready(function(){
+    console.log("#{@date_cite_show.to_s(:default) }");
+    $("#date_cite_show").calendarDatePicker({language:"#{current_user.language}", set_date:"#{@date_cite_show}"})
+  })

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SIGMED</title>
+    <!-- Action Buttons -->
+    <%= stylesheet_link_tag "action-buttons" %>
+    <!-- Class Colors -->
+    <%= stylesheet_link_tag "colors" %>
+    <!-- Globals -->
+    <%= stylesheet_link_tag "sigmed" %>
+    <!-- Uniform Aristo -->
+    <%= stylesheet_link_tag "uniform.aristo" %>
+    <!-- Menu Config -->
+    <%= stylesheet_link_tag "menu_config/menu_config" %>
+    <!-- Calendar Date Picker -->
+    <%= stylesheet_link_tag "calendar_date_picker/calendar_date_picker" %>
+    <!-- Calendar -->
+    <%= stylesheet_link_tag "calendar/calendar" %>
+    <!-- CSS Aditionals -->
+    <%= yield :css %>
+    <!-- JQuery-->
+    <%= javascript_include_tag "jquery-1.6.4" %>
+    <!-- Globals -->
+    <%= javascript_include_tag "sigmed" %>
+    <!-- Uniform Aristo -->
+    <%= javascript_include_tag "jquery.uniform" %>
+    <!-- Menu Config -->
+    <%= javascript_include_tag "menu_config/menu_config" %>
+    <!-- Calendar Pick -->
+    <%= javascript_include_tag "calendar_date_picker/calendar_date_picker" %>
+    <!-- Calendar -->
+    <%= javascript_include_tag "calendar/dhtmlxscheduler" %>
+    <%= javascript_include_tag "calendar/dhtmlxscheduler_pdf" %>
+    <%= javascript_include_tag "calendar/calendar" %>
+    <!-- Java Aditionals -->
+    <%= yield :js %>
+  </head>
+  <body>
+    <%= render :partial => "layouts/header" %>
+    <%= yield %>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+.wrapper
+  .grid_8.top
+    .ar{:style => "margin-right:30px;"}
+      %h3
+        = t :welcome
+    %hr/
+    .grid_4.first.top
+      = ""
+    .grid_3.top.panel.padding3.background_gray_clear{:style => "height:300px; float:right"}
+      = errorFlash(flash)
+      %h5.not_bold.justify
+        = t :welcome_message
+      %hr/
+      %h5
+        = t :please_login
+      = form_for(@user_session, url: {action: "create_session"}) do |f|
+        .ac
+          .clearfix
+            = f.text_field :login, :value=>"", :id=>"login", :placeholder=> t(:user)
+          .clearfix
+            = f.password_field :password , :value=>"", :id=>"password", :placeholder=> t(:password)
+        %hr/
+        %br/
+        .ar
+          %button.button.background_blue.white{:type => "submit"}
+            = t :login
+          %br/
+          %br/
+          %a.not_decoration{:href => "#"}
+            = t :forgot_your_password

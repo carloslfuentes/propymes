@@ -1,0 +1,24 @@
+.wrapper
+  .grid_8.top
+    .grid_3
+      .panel
+        .clearfix
+          = f.label :name
+          = f.text_field :name, :required=>"required"
+        .clearfix
+          =f.label :organization_id
+          =f.collection_select :organization_id, Organization.all.sort_by(&:name), :id, :name, {:include_blank => ''}
+        .clearfix
+          =f.label :user_id
+          =f.collection_select :user_id, User.only_medic.sort_by(&:login), :id, :login, {:include_blank => '',:selected=>current_user.id}
+        .clearfix
+          = f.label :is_active
+          = f.check_box :is_active
+        .clearfix
+          =f.label :description
+          %br
+          = f.text_area :description, :style => "width:220px;height:100px"
+        .clearfix
+          %button.button.button-blue{:type => "submit"}
+            = t :save
+          

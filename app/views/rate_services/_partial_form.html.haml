@@ -1,0 +1,60 @@
+.wrapper
+  .grid_8.top
+    .grid_3
+      .panel
+        .clearfix
+          = f.label :name
+          = f.text_field :name, :required=>"required"
+        .clearfix
+          =f.label :organization_id
+          =f.collection_select :organization_id, Organization.all.sort_by(&:name), :id, :name, {:include_blank => ''}
+        .clearfix
+          =f.label :user_id
+          =f.collection_select :user_id, User.only_medic.sort_by(&:login), :id, :login, {:include_blank => '',:selected=>current_user.id}
+        .clearfix
+          =f.label :service_id
+          =f.collection_select :service_id, Service.for_user(current_user.id).sort_by(&:name), :id, :name, {:include_blank => ''}
+        .clearfix
+          = f.label :cost
+          = f.text_field :cost, :required=>"required"
+        .clearfix
+          %button.button.button-blue{:type => "submit"}
+            = t :save
+:javascript
+  $(document).ready(function(){
+    $("#rate_service_organization_id").change(function() {
+        var organizationId = $(this).find("option:selected").val();
+        if(organizationId){
+          $("#rate_service_user_id").hide();
+          getServices(organizationId,'organization_id');
+        }else{
+          $("#rate_service_user_id").show();
+          document.getElementById("rate_service_service_id").innerHTML = "";
+        }
+        $.uniform.update();
+    }); 
+    $("#rate_service_user_id").change(function() {
+        var userId = $(this).find("option:selected").val();
+        if(userId){
+          $("#rate_service_organization_id").hide();
+          getServices(userId,'user_id');
+        }else{
+          $("#rate_service_organization_id").show();
+          document.getElementById("rate_service_service_id").innerHTML = "";
+        }
+        $.uniform.update();
+    });
+      
+      function getServices(id,type){
+        $.get("/services/get_services",{id: id, type: type}).done(function(data){
+          document.getElementById("rate_service_service_id").innerHTML = "";
+          if(data){
+            $.each(data,function(id,name){
+              $.each(name,function(key,val){
+                $("#rate_service_service_id").append('<option value="' + val[1] +'">' + val[0] + '</option>');
+              });
+            });
+          }
+        });
+      }
+  });           

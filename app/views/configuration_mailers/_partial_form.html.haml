@@ -1,0 +1,43 @@
+.wrapper.top
+  .grid_8
+    .grid_3.first
+      .panel
+        =flash[:warning]
+        =@configuration_mailer.errors.full_messages if @configuration_mailer.errors.present?
+        = f.hidden_field :object_id, :value=>current_user.id
+        .clearfix
+          = f.label :name
+          = f.text_field :name
+        .clearfix
+          = f.label :delivery_method
+          = f.text_field :delivery_method
+        .clearfix
+          = f.label :address
+          = f.text_field :address
+        .clearfix
+          = f.label :port
+          = f.text_field :port
+        .clearfix
+          = f.label :domain
+          = f.text_field :domain
+        .clearfix
+          = f.label :user_name
+          = f.text_field :user_name
+        .clearfix
+          = f.label :password
+          = f.text_field :password
+        .clearfix
+          = f.label :authentication
+          = f.text_field :authentication
+        .clearfix
+          = f.label :enable_starttls_auto
+          = f.text_field :enable_starttls_auto
+        .clearfix
+          =f.label :is_active
+          =f.check_box :is_active
+        .clearfix
+          %button.button{:type => "submit"}
+            = t :save
+        
+:javascript
+  

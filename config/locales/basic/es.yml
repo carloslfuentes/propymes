@@ -1,0 +1,23 @@
+es:
+  authentification_required: "Autenticacion Requerida"
+  sigmed: 'SIGMED - Sistema de Gestion Médico'
+  registered_as: 'Registrado como'
+  user: 'Usuario'
+  password: 'Contraseña'
+  login: 'Iniciar Sesión'
+  welcome: 'Bienvenido !'
+  forgot_your_password: "¿Olvidaste tu Contraseña?"
+  success_login: '¡ Entrada Exitosa !'
+  please_login: 'Por Favor Inicia Sesión'
+  welcome_message: 'Bienvenido al sistema lksncd lksdm klsmdc klsmcd klmsdc m sdmclsc lksndk lksmcdls lksmdclsdc lksmclksmc lkmsdc.'
+  profile: 'Mi Perfil'
+  configuration: 'Configuración'
+  logout: 'Cerrar Sesión'
+  patients: 'Pacientes'
+  diary: 'Agenda'
+  invoices: 'Facturas'
+  new_cite: 'Nueva Cita'
+  save: 'Guardar'
+  cancel: 'Cancelar'
+  clear: 'Limpiar'
+  minutes: 'Minutos'

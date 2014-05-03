@@ -1,0 +1,67 @@
+.wrapper.top
+  .grid_6.first
+    %hr
+    %h3
+      ="Organization"
+    %hr
+    = form_for @organization do |f|
+      .grid_3.first.top
+        .columns
+          =@organization.errors.full_messages if @organization.errors.present?
+          .grid_2.first
+            %fieldset.panel
+              .clearfix
+                =f.label :name
+                =f.text_field :name
+              .clearfix
+                =f.label :description
+                = f.text_area :description, :style => "width:200px;height:100px"
+              .clearfix
+              %button.button.button-blue{:type => "submit"}
+                = t :save
+      = render :partial => '/partials/partial_form_addresses', :locals => { :f => f }
+      .grid_6.first
+        = f.fields_for :users, User.new do |u|
+          %hr
+          %h3
+            ="User"
+          %hr
+          .grid_3.first.top
+            .panel
+              .clearfix
+                = u.fields_for :person, Person.new do |p|
+                  .clearfix
+                    =p.label :name
+                    =p.text_field :name
+                  .clearfix
+                    =p.label :last_name
+                    =p.text_field :last_name
+                .clearfix
+                  =u.label :login
+                  =u.text_field :login
+                .clearfix
+                  = u.label :password 
+                  = u.password_field :password 
+                .clearfix
+                  = u.label :password_confirmation
+                  = u.password_field :password_confirmation 
+                .clearfix
+                  = u.label :email
+                  = u.text_field :email 
+                .clearfix
+                  = u.label :is_enabled
+                  = u.check_box :is_enabled
+                .clearfix{:style => "display: none;"}
+                  = u.check_box :is_manager, :checked=>true
+                
+          .grid_3.first.top
+            .panel
+              .clearfix
+                =f.label :product_id
+                =f.select :product_id, Product.select_product_costs, {:blank=>true}
+          
+:javascript
+  
+  $(document).ready(function() {
+    
+  });

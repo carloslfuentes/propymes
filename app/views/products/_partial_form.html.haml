@@ -1,0 +1,23 @@
+.wrapper
+  .grid_8.top
+    .grid_3
+      .panel
+        .clearfix
+          = f.label :name
+          = f.text_field :name, :required=>"required"
+        .clearfix
+          =f.label :product_type
+          =f.select :product_type, [["mes","month"], ["año","year"]]
+        .clearfix
+          =f.label :quantity
+          =f.text_field :quantity, :required=>"required"
+        .clearfix
+          =f.label :cost
+          =f.text_field :cost, :required=>"required"
+        .clearfix
+          = f.label :is_active
+          = f.check_box :is_active
+        .clearfix
+          %button.button.button-blue{:type => "submit"}
+            = t :save
+          

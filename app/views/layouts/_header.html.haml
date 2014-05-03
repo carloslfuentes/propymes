@@ -1,0 +1,13 @@
+#header.background_blue
+  .wrapper
+    %h1.shadow.float_left
+      = t :sigmed
+    .ar
+      %h5.not_bold
+        - if current_user.present?
+          = t(:registered_as) + ": "
+          %a.sky_blue{:href => "#"}
+            = current_user.name
+          = " | "
+          %a.sky_blue{:href => destroy_session_user_sessions_path}
+            = t :logout
