@@ -1,6 +1,6 @@
 # Be sure to restart your server when you modify this file.
 
-SIGMED::Application.config.session_store :cookie_store, :key => '_sigmed_session'
+PROPYMES::Application.config.session_store :cookie_store, :key => '_sigmed_session'
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information

@@ -1,4 +1,4 @@
-SIGMED::Application.routes.draw do
+PROPYMES::Application.routes.draw do
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
