@@ -1,6 +1,6 @@
 en:
   authentification_required: "Authentification Required"
-  sigmed: 'SIGMED - Medical Management System'
+  propymes: 'PROPYMES'
   registered_as: 'Registered As'
   user: 'User'
   password: 'Password'
@@ -13,11 +13,10 @@ en:
   profile: 'My Profile'
   configuration: 'Configuration'
   logout: 'Logout'
-  patients: 'Patients'
-  diary: 'Diary'
-  invoices: 'Invoices'
-  new_cite: 'New Cite'
   save: 'Save'
   cancel: 'Cancel'
   clear: 'Clear'
   minutes: 'Minutes'
+  new: 'New'
+  operating_parameters: 'Operating Parameters'
+  products: 'Products'

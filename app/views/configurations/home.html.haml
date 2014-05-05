@@ -1,38 +1,13 @@
 .wrapper.top
   .grid_8
-    .grid_3.first
-      %hr
-      %h3
-        = "Organizacion"
-      %hr
-      %table
+    .grid_2.first
+      %h3.background_gray_clear.gray
+        = t :operating_parameters
+      %table.full.not-style
         %tr
           %td
-            = link_to "Agregar permisos",add_permissions_user_configurations_path
-        %tr
-          %td
-            = link_to "Usuarios",users_path
-        %tr
-          %td
-            = link_to "Asociar Asistente con Doctor",associate_assistant_doctor_configurations_path
-        %tr
-          %td
-            = link_to "Aseguradoras",insurances_path
-        %tr
-          %td
-            = link_to "Metodos de pago",payment_methods_path
-    .grid_3.first
-      %hr
-      %h3
-        = "Configuracion"
-      %hr
-      %table
-        %tr
-          %td
-            = link_to "Configurasiones", configuration_values_path
-        %tr
-          %td
-            -if current_user.configuration_mailer.present?
-              = link_to "Configurar Email", edit_configuration_mailer_path(current_user.configuration_mailer.id)
-            -else
-              = link_to "Configurar Email", new_configuration_mailer_path
+            %a.not_decoration.gray{:href => products_path}
+              = t :products
+          %td.ar
+            %a.action-button{:href => new_product_path}
+              %span.add

@@ -1,11 +1,6 @@
 class CreateUsers < ActiveRecord::Migration
   def self.up
     create_table :users do |t|
-      t.boolean  :is_medic,                                                        :default => false
-      t.boolean  :is_system_user,                                                  :default => false
-      t.boolean  :is_manager,                                                      :default => false
-      t.boolean  :is_assistant,                                                    :default => false
-      t.integer  :organization_id
       t.boolean  :is_enabled,                                                      :default => true
       t.text     :comments
       t.string   :login,               :limit => 32#,                                                  :null => false

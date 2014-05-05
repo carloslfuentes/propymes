@@ -15,7 +15,6 @@ gem 'declarative_authorization', '0.5.4'
 gem "default_value_for"
 gem "jquery-rails"
 gem "savon", "2.2.0"
-gem 'rmodbus', '1.2.2'
 #gem "jasper-rails", '1.0.3'
 
 

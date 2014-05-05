@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
-SIGMED::Application.load_tasks
+PROPYMES::Application.load_tasks

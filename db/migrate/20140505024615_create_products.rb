@@ -2,10 +2,12 @@ class CreateProducts < ActiveRecord::Migration
   def self.up
     create_table :products do |t|
       t.string :name
-      t.string :product_type
-      t.integer :quantity
-      t.boolean :is_active, :default=>true
-      t.decimal :cost, :precision => 15, :scale => 3
+      t.string :machinery
+      t.string :time_total_workday
+      t.string :time_available
+      t.string :effective_time
+      t.boolean :is_enabled, :default => false
+      t.string :comments
       t.timestamps
     end
   end

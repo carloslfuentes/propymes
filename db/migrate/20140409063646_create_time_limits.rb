@@ -6,6 +6,7 @@ class CreateTimeLimits < ActiveRecord::Migration
       t.date :start_date
       t.date :end_date
       t.string :description
+      t.boolean :is_active, :default => true
       t.timestamps
     end
   end

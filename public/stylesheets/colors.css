@@ -27,6 +27,10 @@
   color:gray;
 }
 
+.red{
+  color:#83061D;
+}
+
 /* Backgrounds */
 .background_blue{
   background-color: #4A96C4;
@@ -54,5 +58,14 @@
 
 .background_gray{
   background-color: #D4D4D4;
+}
+
+.background_red{
+  background:#83061D;
+}
+
+.background_red_gradient{
+  background: -moz-linear-gradient(top,  #83061D 0%,  #CB4153 80%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #83061D), color-stop(0.8, #CB4153));
 }
 

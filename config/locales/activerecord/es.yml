@@ -14,25 +14,12 @@ es:
         is_manager: "Es Representante"
         is_assistant: "Es asistente"
         organization_id: "Organizacion"
-      person:
+      product:
+        id: "ID"
         name: "Nombre"
-        last_name: "Apellido"
-      address:
-        street: "Calle"
-        number: "Numero"
-        colonia: "Colonia"
-        city: "Ciudad"
-        state: "Estado"
-        phone: "Telefono"
-        email: "Email"
-      organization:
-        name: "Nombres"
-        description: "Descripcion"
-      cite:
-        user_id: "Doctor"
-        patient_id: "Paciente"
-        date_cite: "Fecha de Cita"
-        end_cite: "Finaliza"
-        period_time: "Tiempo de Cita"
-        description: "Descripción"
-        send_notification: "Enviar Notificacion"
+        machinery: 'Maquinaria'
+        time_total_workday: 'Tiempo Total de Jornada Laboral'
+        time_available: 'Tiempo Disponible'
+        effective_time: 'Tiempo Efectivo'
+        is_enabled: 'Habilitado'
+        

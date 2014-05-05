@@ -1,7 +1,6 @@
 class UsersController < InheritedResources::Base
   def new
     @user = User.new
-    @addresses = Address.new
     @person = Person.new
   end
   

@@ -2,7 +2,6 @@ class UserSession < Authlogic::Session::Base
   validate :check_sessions
   after_save :set_session_id
 
-
   single_access_allowed_request_types :any
 
   logout_on_timeout true # default if false
@@ -24,14 +23,16 @@ class UserSession < Authlogic::Session::Base
       end
     end
   end
-
+  
   def set_session_id
      temp = controller.request.session_options[:id] 
      record.session_key =  controller.request.session_options[:id]           
-  end   
+  end
+  
   def to_key
     new_record? ? nil : [ self.send(self.class.primary_key) ]
   end
+  
   def persisted?
     false
   end

@@ -25,11 +25,10 @@
   margin-top: 0px;
 }
 
-.action-button span.pencil {
-  background: transparent url(/images/d02/icons/pencil.png) no-repeat center center;
+.action-button span.add {
+  background: transparent url(/images/d02/icons/add.png) no-repeat center center;
 }
 
-#FIXME Agregar Imagen
-.action-button span.delete {
-  background: transparent url(/images/d02/icons/delete.png) no-repeat center center;
+.action-button span.pencil {
+  background: transparent url(/images/d02/icons/pencil.png) no-repeat center center;
 }

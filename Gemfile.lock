@@ -93,7 +93,6 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     responders (0.6.5)
-    rmodbus (1.2.2)
     savon (2.2.0)
       akami (~> 1.2.0)
       builder (>= 2.1.2)
@@ -126,5 +125,4 @@ DEPENDENCIES
   jquery-rails
   mysql (= 2.8.1)
   rails (= 3.0.10)
-  rmodbus (= 1.2.2)
   savon (= 2.2.0)

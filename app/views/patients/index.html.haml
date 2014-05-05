@@ -1,9 +1,0 @@
-%section#content
-  .wrapper
-    %section.grid_8.first
-      %h4
-        ="Medico: #{current_user.login}"
-      .columns
-        .grid_4.first
-          =link_to "nuevo", new_patient_path
-          = render :partial => '/partials/datagrid', :locals => {:links=>["show","edit"],:objects => @patients, :fild_names=> [:name, :last_name_p]}

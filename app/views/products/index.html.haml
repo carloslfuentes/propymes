@@ -1,0 +1,37 @@
+.wrapper.top
+  .grid_8
+    .grid_6.first
+      %table.full.style
+        %thead
+          %th.ac
+            = Product.human_attribute_name("id")
+          %th.ac
+            = Product.human_attribute_name("name")
+          %th.ac
+            = Product.human_attribute_name("machinery")
+          %th.ac
+            = Product.human_attribute_name("time_total_workday")
+          %th.ac
+            = Product.human_attribute_name("time_available")
+          %th.ac
+            = Product.human_attribute_name("effective_time")
+          %th.ac
+            = Product.human_attribute_name("is_enabled")
+        %tbody
+          - @products.each do |product|
+            %td.ac
+              = product.name
+            %td.ac
+              = product.machinery
+            %td.ac
+              = product.time_total_workday
+            %td.ac
+              = product.time_available
+            %td.ac
+              = product.effective_time
+            %td.ac
+              = product.is_enabled
+    .grid_2
+      .panel.padding3
+        %button.button.background_red.white{:href => new_product_path}
+          = t :new

@@ -1,6 +1,6 @@
 es:
   authentification_required: "Autenticacion Requerida"
-  sigmed: 'SIGMED - Sistema de Gestion Médico'
+  propymes: 'PROPYMES'
   registered_as: 'Registrado como'
   user: 'Usuario'
   password: 'Contraseña'
@@ -13,11 +13,10 @@ es:
   profile: 'Mi Perfil'
   configuration: 'Configuración'
   logout: 'Cerrar Sesión'
-  patients: 'Pacientes'
-  diary: 'Agenda'
-  invoices: 'Facturas'
-  new_cite: 'Nueva Cita'
   save: 'Guardar'
   cancel: 'Cancelar'
   clear: 'Limpiar'
   minutes: 'Minutos'
+  new: 'Nuevo'
+  operating_parameters: 'Parámetros Operativos'
+  products: 'Productos'

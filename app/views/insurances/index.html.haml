@@ -1,5 +1,0 @@
-.wrapper
-  .grid_8.first
-    .grid_4.first
-      =link_to "nuevo", new_insurance_path
-      = render :partial => '/partials/datagrid', :locals => {:links=>["show","edit"],:objects => @insurances, :fild_names=> [:name, :description]}
