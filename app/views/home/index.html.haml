@@ -1,0 +1,5 @@
+.wrapper.top
+  - if current_user.is_manager?
+    = render :partial => "manager"
+  - else
+    = render :partial => "operator"

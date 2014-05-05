@@ -1,0 +1,47 @@
+.wrapper.top
+  .grid_8
+    .grid_4.first.panel.padding1.background_gray_clear
+      %h3
+        = t :new_product
+      .form
+        = form_for @product, :url=>{:action=> "update"} do |f|
+          .clearfix
+            = f.label :name
+            = f.text_field :name
+          .clearfix
+            = f.label :machinery
+            = f.text_field :machinery
+          .clearfix
+            = f.label :time_total_workday
+            = f.text_field :time_total_workday, :class=> "only_numbers", :style => "width:120px;"
+          .clearfix
+            = f.label :time_available
+            = f.text_field :time_available, :class=> "only_numbers", :style => "width:120px;"
+          .clearfix
+            = f.label :effective_time
+            = f.text_field :effective_time, :class=> "only_numbers", :style => "width:120px;"
+          .clearfix
+            = f.label :is_enabled
+            = f.check_box :is_enabled, :value => false
+          .clearfix
+            = f.label :comments
+            = f.text_area :comments
+          %hr/
+          .ar
+            .clearfix.top
+              %button.button.background_orange.white{:type => "submit"}
+                = t :save
+              %button.button.background_gray.gray{:type => "reset"}
+                = t :clear
+              %a.button.background_gray.gray{:href => products_path}
+                = t :cancel
+
+:javascript
+  $(document).ready(function(){
+    //Only Numbers
+    $('.only_numbers').keypress(function (e){
+      if( e.which!=8 && e.which!=0 && (e.which<48 || e.which>57)){
+        return false;
+      }
+    });
+  })

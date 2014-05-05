@@ -1,6 +1,7 @@
 .wrapper.top
   .grid_8
     .grid_6.first
+      //Utilizar el DataGrid 
       %table.full.style
         %thead
           %th.ac
@@ -17,10 +18,14 @@
             = Product.human_attribute_name("effective_time")
           %th.ac
             = Product.human_attribute_name("is_enabled")
+          %th.ac
         %tbody
           - @products.each do |product|
             %td.ac
-              = product.name
+              = product.id
+            %td.ac
+              %a.not_decoration.royal_blue{:href => product_path(product.id)}
+                = product.name
             %td.ac
               = product.machinery
             %td.ac
@@ -30,8 +35,13 @@
             %td.ac
               = product.effective_time
             %td.ac
-              = product.is_enabled
+              = t(product.is_enabled)
+            %td.ac
+              %a.action-button{:href => edit_product_path(product.id)}
+                %span.pencil
     .grid_2
       .panel.padding3
-        %button.button.background_red.white{:href => new_product_path}
+        %a.button.background_orange.white{:href => new_product_path}
           = t :new
+        %a.button.background_gray.gray{:href => configurations_path}
+          = t :configuration

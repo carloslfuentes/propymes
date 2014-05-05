@@ -22,22 +22,24 @@ $(function($){
     var settings = $.extend( {
       'set_date' : undefined,
       'format' : undefined,
-      'language' : undefined
+      'language' : undefined,
+      'hideTime' : undefined
     }, options);
     
     var element = $(this).attr("id") ;
     
     var set_date = settings.set_date == undefined ? new Date() : new Date(settings.set_date);
-    var format = settings.format == undefined ? '%l, %d %F %Y %H:%i' : settings.format;
+    var format = settings.format == undefined ? '%Y-%m-%d' : settings.format;
     var language = settings.language == undefined ? 'es' : settings.language;
+    var hideTime = settings.hideTime == undefined ? 'false' : settings.hideTime;
     
     var CalendarDatePicker;
     CalendarDatePicker = new dhtmlXCalendarObject([element]);
+    if(hideTime == "true"){CalendarDatePicker.hideTime();}
     CalendarDatePicker.loadUserLanguage(language);
     CalendarDatePicker.setDate(set_date);
     CalendarDatePicker.setDateFormat(format);
     
-    //FIXME Falta que al cargar setDate nos agrege la hora
   };
 });
 

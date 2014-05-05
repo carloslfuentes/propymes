@@ -61,7 +61,6 @@
             .clearfix
               = f.label :is_assistant
               = f.check_box :is_assistant  
-    = render :partial => '/partials/partial_form_addresses', :locals => { :f => f }
 :javascript
   $(document).ready(function(){
     $("#user_email").keyup(function(){
