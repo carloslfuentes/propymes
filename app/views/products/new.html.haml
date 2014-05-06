@@ -35,13 +35,3 @@
                 = t :clear
               %a.button.background_gray.gray{:href => products_path}
                 = t :cancel
-
-:javascript
-  $(document).ready(function(){
-    //Only Numbers
-    $('.only_numbers').keypress(function (e){
-      if( e.which!=8 && e.which!=0 && (e.which<48 || e.which>57)){
-        return false;
-      }
-    });
-  })

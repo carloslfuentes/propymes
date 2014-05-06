@@ -32,3 +32,7 @@
 .action-button span.pencil {
   background: transparent url(/images/d02/icons/pencil.png) no-repeat center center;
 }
+
+.action-button span.magnifier {
+  background: transparent url(/images/d02/icons/magnifier.png) no-repeat center center;
+}

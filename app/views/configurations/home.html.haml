@@ -1,13 +1,14 @@
 .wrapper.top
   .grid_8
-    .grid_2.first
+    .grid_3.first
       %h3.background_gray_clear.gray
         = t :operating_parameters
       %table.full.not-style
         %tr
           %td
-            %a.not_decoration.gray{:href => products_path}
+            %a.not_decoration.blue{:href => products_path}
               = t :products
-          %td.ar
-            %a.action-button{:href => new_product_path}
-              %span.add
+        %tr
+          %td
+            %a.not_decoration.blue{:href => standards_path}
+              = t :standards

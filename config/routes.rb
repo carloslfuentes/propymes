@@ -11,6 +11,7 @@ PROPYMES::Application.routes.draw do
   resources :configuration_values
   
   resources :products
+  resources :standards
 
   resources :configurations do
     collection do

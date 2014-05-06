@@ -23,10 +23,12 @@
         -table_name = object.class.table_name
         -if link == "show"
           %td
-            =link_to link, "/#{table_name}/#{object.id}"
+            %a.action-button{:href => "/#{table_name}/#{object.id}"}
+              %span.magnifier
         -elsif link == "edit"
           %td
-            =link_to link, "/#{table_name}/#{object.id}/edit"
+            %a.action-button{:href => "/#{table_name}/#{object.id}/edit"}
+              %span.pencil
         -elsif link == "delete"
           %td
             =link_to link, "#{table_name}/#{object.id}", :method=> :delete

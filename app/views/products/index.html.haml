@@ -1,44 +1,7 @@
 .wrapper.top
   .grid_8
     .grid_6.first
-      //Utilizar el DataGrid 
-      %table.full.style
-        %thead
-          %th.ac
-            = Product.human_attribute_name("id")
-          %th.ac
-            = Product.human_attribute_name("name")
-          %th.ac
-            = Product.human_attribute_name("machinery")
-          %th.ac
-            = Product.human_attribute_name("time_total_workday")
-          %th.ac
-            = Product.human_attribute_name("time_available")
-          %th.ac
-            = Product.human_attribute_name("effective_time")
-          %th.ac
-            = Product.human_attribute_name("is_enabled")
-          %th.ac
-        %tbody
-          - @products.each do |product|
-            %td.ac
-              = product.id
-            %td.ac
-              %a.not_decoration.royal_blue{:href => product_path(product.id)}
-                = product.name
-            %td.ac
-              = product.machinery
-            %td.ac
-              = product.time_total_workday
-            %td.ac
-              = product.time_available
-            %td.ac
-              = product.effective_time
-            %td.ac
-              = t(product.is_enabled)
-            %td.ac
-              %a.action-button{:href => edit_product_path(product.id)}
-                %span.pencil
+      = render :partial => '/partials/datagrid', :locals => {:links => ["edit"],:objects => @products, :fild_names=> [:id, :name, :machinery, :time_total_workday, :time_available, :effective_time]}
     .grid_2
       .panel.padding3
         %a.button.background_orange.white{:href => new_product_path}
