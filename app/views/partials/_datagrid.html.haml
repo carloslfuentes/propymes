@@ -5,15 +5,18 @@
       - fild_names.each do |fild_name|
         %th
           = t("activerecord.attributes.#{objects.first.class.name.downcase}."+fild_name.to_s)
-      - links.each do |fild_name|
+      - fild_names.each do |fild_name|
         %th
   %tbody
     - objects.each do |object|
       %tr
       - fild_names.each do |fild_name|
-        %td
+        %td.ac
           -if fild_name == "name".to_sym
             =object.name
+          -elsif object[fild_name.to_sym].class.to_s == "TrueClass"
+            -#FIXME arreglar la traduccion, no quiere funcionar
+            =object[fild_name.to_sym] ? "Si" : "No"
           -else
             =object[fild_name.to_sym]
       - links.each do |link|
