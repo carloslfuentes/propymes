@@ -4,8 +4,8 @@
     %tr
       - fild_names.each do |fild_name|
         %th
-          = fild_name
-      - fild_names.each do |fild_name|
+          = t("activerecord.attributes.#{objects.first.class.name.downcase}."+fild_name.to_s)
+      - links.each do |fild_name|
         %th
   %tbody
     - objects.each do |object|
