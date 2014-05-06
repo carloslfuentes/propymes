@@ -22,4 +22,8 @@ es:
         time_available: 'Tiempo Disponible'
         effective_time: 'Tiempo Efectivo'
         is_enabled: 'Habilitado'
+      station:
+        name: "Nombre"
+        is_enabled: "Activo"
+        description: "Descripción"
         

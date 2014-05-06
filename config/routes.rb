@@ -6,6 +6,7 @@ PROPYMES::Application.routes.draw do
   match 'home/' => 'home#index'
   match 'user_sessions/' => 'user_sessions#new'
   
+  resources :stations
   resources :configuration_mailers
   resources :configuration_values
   

@@ -1,0 +1,10 @@
+.wrapper
+  .grid_8.first.top
+    .grid_4.first
+      = render :partial => '/partials/datagrid', :locals => {:links=>["edit"],:objects => @stations, :fild_names=> [:name, :description, :is_enabled]}
+    .grid_2
+      .panel.padding3
+        %a.button.background_orange.white{:href => new_station_path}
+          = t :new
+        %a.button.background_gray.gray{:href => configurations_path}
+          = t :configuration

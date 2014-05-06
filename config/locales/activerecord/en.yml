@@ -22,3 +22,7 @@ en:
         time_available: 'Time Available'
         effective_time: 'Effective Time'
         is_enabled: 'Enabled'
+      station:
+        name: "Name"
+        is_enabled: "Active"
+        description: "Description"
