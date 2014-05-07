@@ -1,2 +1,2 @@
-class StandardsController < ApplicationController
+class StandardsController < InheritedResources::Base
 end

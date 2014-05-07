@@ -2,28 +2,30 @@ es:
   activerecord:
     attributes:
       user:
-        name: "Nombre"
-        last_name: "Apellido"
-        login: "Cuenta"
-        password: "Contraseña"
-        password_confirmation: "Confirmar Contraseña"
-        email: "Email"
-        is_enabled: "Activo"
-        is_medic: "Es Medico"
-        is_system_user: "Es usuario de sistema"
-        is_manager: "Es Representante"
-        is_assistant: "Es asistente"
-        organization_id: "Organizacion"
+        name: 'Nombre'
+        last_name: 'Apellido'
+        login: 'Cuenta'
+        password: 'Contraseña'
+        password_confirmation: 'Confirmar Contraseña'
+        email: 'Email'
+        is_enabled: 'Activo'
+        is_medic: 'Es Medico'
+        is_system_user: 'Es usuario de sistema'
+        is_manager: 'Es Representante'
+        is_assistant: 'Es asistente'
+        organization_id: 'Organizacion'
       product:
-        id: "ID"
-        name: "Nombre"
+        name: 'Nombre'
         machinery: 'Maquinaria'
         time_total_workday: 'Tiempo Total de Jornada Laboral'
-        time_available: 'Tiempo Disponible'
-        effective_time: 'Tiempo Efectivo'
         is_enabled: 'Habilitado'
+      standard:
+        name: 'Nombre'
+        description: 'Descripción'
+        unit_type: 'Tipo de Unidad'
+        item_number: 'Número de Piezas por Jornada'
       station:
-        name: "Nombre"
-        is_enabled: "Activo"
-        description: "Descripción"
+        name: 'Nombre'
+        is_enabled: 'Activo'
+        description: 'Descripción'
         

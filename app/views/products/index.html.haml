@@ -1,7 +1,7 @@
 .wrapper.top
   .grid_8
     .grid_6.first
-      = render :partial => '/partials/datagrid', :locals => {:links => ["edit"],:objects => @products, :fild_names=> [:id, :name, :machinery, :time_total_workday, :time_available, :effective_time]}
+      = render :partial => '/partials/datagrid', :locals => {:links => ["edit", "add_standard"],:objects => @products, :fild_names=> [:id, :name, :machinery, :time_total_workday]}
     .grid_2
       .panel.padding3
         %a.button.background_orange.white{:href => new_product_path}

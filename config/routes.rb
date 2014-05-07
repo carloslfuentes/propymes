@@ -6,19 +6,6 @@ PROPYMES::Application.routes.draw do
   match 'home/' => 'home#index'
   match 'user_sessions/' => 'user_sessions#new'
   
-  resources :stations
-  resources :configuration_mailers
-  resources :configuration_values
-  
-  resources :products
-  resources :standards
-
-  resources :configurations do
-    collection do
-      get :home
-    end
-  end
-  
   resources :time_limits
   
   resources :users do
@@ -36,5 +23,20 @@ PROPYMES::Application.routes.draw do
   end
   
   root :to => "user_sessions#new"
+  
+  #Configurations
+  resources :configuration_mailers
+  resources :configuration_values
+  
+  resources :products
+  resources :standards
+  resources :stations
+  resources :work_times
+
+  resources :configurations do
+    collection do
+      get :home
+    end
+  end
   
 end

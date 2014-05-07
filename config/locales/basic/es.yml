@@ -1,6 +1,6 @@
 es:
   authentification_required: "Autenticacion Requerida"
-  propymes: 'PROPYMES'
+  piemp: 'PIEMP - Proyecto Integral para Empresas'
   registered_as: 'Registrado como'
   user: 'Usuario'
   password: 'Contraseña'
@@ -28,3 +28,4 @@ es:
   yes: 'Sí'
   no: 'No'
   stations: 'Estaciones'
+  piece: 'Pieza'

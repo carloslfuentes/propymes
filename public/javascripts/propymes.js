@@ -42,11 +42,12 @@ $(function($){
     
     var CalendarDatePicker;
     CalendarDatePicker = new dhtmlXCalendarObject([element]);
-    if(hideTime == "true"){CalendarDatePicker.hideTime();}
+    if(hideTime == "true"){
+      CalendarDatePicker.hideTime();
+    }
     CalendarDatePicker.loadUserLanguage(language);
     CalendarDatePicker.setDate(set_date);
     CalendarDatePicker.setDateFormat(format);
-    
   };
 });
 

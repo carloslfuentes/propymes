@@ -15,13 +15,15 @@ en:
         is_assistant: "Is assistant"
         organization_id: "Organization"
       product:
-        id: "ID"
         name: "Name"
         machinery: 'Machinery'
         time_total_workday: 'Time Total Workday'
-        time_available: 'Time Available'
-        effective_time: 'Effective Time'
         is_enabled: 'Enabled'
+      standard:
+        name: 'Name'
+        description: 'Description'
+        unit_type: 'Unit Type'
+        item_number: 'Number of Pieces per Day'
       station:
         name: "Name"
         is_enabled: "Active"

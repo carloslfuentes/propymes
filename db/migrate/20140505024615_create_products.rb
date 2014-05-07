@@ -4,8 +4,6 @@ class CreateProducts < ActiveRecord::Migration
       t.string :name
       t.string :machinery
       t.string :time_total_workday
-      t.string :time_available
-      t.string :effective_time
       t.boolean :is_enabled, :default => false
       t.string :comments
       t.timestamps
