@@ -23,15 +23,15 @@
         -table_name = object.class.table_name
         -if link == "show"
           %td
-            %a.action-button{:href => "/#{table_name}/#{object.id}"}
+            %a.action-button{:href => "#{request.request_uri}/#{object.id}"}
               %span.magnifier
         -elsif link == "edit"
           %td
-            %a.action-button{:href => "/#{table_name}/#{object.id}/edit"}
+            %a.action-button{:href => "#{request.request_uri}/#{object.id}/edit"}
               %span.pencil
         -elsif link == "delete"
           %td
-            =link_to link, "#{table_name}/#{object.id}", :method=> :delete
+            =link_to link, "#{request.request_uri}/#{object.id}", :method=> :delete
         -elsif link == "add_standard"
           %td
             %a.action-button{:href => new_standard_path(:product_id => object.id)}
