@@ -9,13 +9,6 @@
           %br
         .grid_2.first
           %fieldset.panel
-            .clearfix
-              =f.label :organization_id
-              -if current_user.is_manager
-                =text_field_tag :val, current_user.organization.name, :readonly => true
-                =f.hidden_field :organization_id, :value=>current_user.organization_id
-              -else
-                =f.collection_select :organization_id, Organization.all.sort_by(&:name), :id, :name, {:selected=>current_user.organization_id}
             = f.fields_for :person, @person do |p|
               .clearfix
                 =p.label :name
@@ -48,19 +41,7 @@
       .columns
         .grid_3.first
           %fieldset.panel
-            -if current_user.is_system_user
-              .clearfix
-                = f.label :is_system_user 
-                = f.check_box :is_system_user 
-              .clearfix
-                = f.label :is_manager
-                = f.check_box :is_manager
-            .clearfix
-              = f.label :is_medic
-              = f.check_box :is_medic 
-            .clearfix
-              = f.label :is_assistant
-              = f.check_box :is_assistant  
+           
 :javascript
   $(document).ready(function(){
     $("#user_email").keyup(function(){
