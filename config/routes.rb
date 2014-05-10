@@ -4,32 +4,32 @@ PROPYMES::Application.routes.draw do
   # first created -> highest priority.
   
   match 'home/' => 'home#index'
-  match 'user_sessions/' => 'user_sessions#new'
+  match 'user_sessions/' => 'p_config/user_sessions#new'
   
   resources :time_limits
   
-  root :to => "user_sessions#new"
-  resources :user_sessions do
-    collection do
-      post :new
-      post :create_session
-      get :destroy_session
-    end
-  end
+  root :to => "p_config/user_sessions#new"
   resources :configuration_mailers
   resources :configuration_values
-  resources :users do
-    collection do
-      get :get_permission_selected
-      get :get_assosiate_assitant
-    end
-  end
+  
   #Configurations
   namespace :p_config do
     resources :products
     resources :standards
     resources :stations
-    
+    resources :users do
+      collection do
+        get :get_permission_selected
+        get :get_assosiate_assitant
+      end
+    end
+    resources :user_sessions do
+      collection do
+        post :new
+        post :create_session
+        get :destroy_session
+      end
+    end
   end
   resources :configurations do
     collection do

@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
-    @current_user_session = UserSession.find
+    @current_user_session = PConfig::UserSession.find
   end
   
   def current_user
@@ -28,8 +28,8 @@ class ApplicationController < ActionController::Base
   def login_with_access_token
     return if params[:user_credentials].nil?
     logger.info "login_with_access_token = "+ params[:user_credentials]
-    user = User.find_by_single_access_token(params[:user_credentials])
-    UserSession.create(user) if(user.present?)
+    user = PConfig::User.find_by_single_access_token(params[:user_credentials])
+    PConfig::UserSession.create(user) if(user.present?)
   end
   
   def set_user_language
