@@ -8,14 +8,17 @@
           = f.label :name
           = f.text_field :name, :required => true
         .clearfix
-          = f.label :unit_type
-          = f.select :unit_type, options_for_select([[t(:piece), "piece"]]),{:include_blank => true}, :required => true #FIXME Agregar mas tipos de medida
+          = f.label :machinery
+          = f.text_field :machinery, :required => true
         .clearfix
-          = f.label :item_number
-          = f.text_field :item_number, :type => :number, :required => true, :style => "width:120px;"
+          = f.label :time_total_workday
+          = f.text_field :time_total_workday, :type => :time, :required => true
         .clearfix
-          = f.label :description
-          = f.text_area :description
+          = f.label :is_enabled
+          = f.check_box :is_enabled
+        .clearfix
+          = f.label :comments
+          = f.text_area :comments
         %hr/
         .ar
           .clearfix.top
@@ -23,6 +26,6 @@
               = t :save
             %button.button.background_gray.gray{:type => "reset"}
               = t :clear
-            %a.button.background_gray.gray{:href => configuration_standards_path}
+            %a.button.background_gray.gray{:href => p_config_products_path}
               = t :cancel
 

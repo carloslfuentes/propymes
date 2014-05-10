@@ -1,30 +1,34 @@
 en:
   activerecord:
     attributes:
-      user:
-        name: "Name"
-        last_name: "Last name"
-        login: "Login"
-        password: "Password"
-        password_confirmation: "Password confirmation"
-        email: "Email"
-        is_enabled: "Is active"
-        is_medic: "Is medic"
-        is_system_user: "Is system user"
-        is_manager: "Is manager"
-        is_assistant: "Is assistant"
-        organization_id: "Organization"
-      product:
-        name: "Name"
-        machinery: 'Machinery'
-        time_total_workday: 'Time Total Workday'
-        is_enabled: 'Enabled'
-      standard:
-        name: 'Name'
-        description: 'Description'
-        unit_type: 'Unit Type'
-        item_number: 'Number of Pieces per Day'
-      station:
-        name: "Name"
-        is_enabled: "Active"
-        description: "Description"
+      p_config:
+        user:
+          name: "Name"
+          last_name: "Last name"
+          login: "Login"
+          password: "Password"
+          password_confirmation: "Password confirmation"
+          email: "Email"
+          is_enabled: "Is active"
+          is_medic: "Is medic"
+          is_system_user: "Is system user"
+          is_manager: "Is manager"
+          is_assistant: "Is assistant"
+          organization_id: "Organization"
+        product:
+          name: "Name"
+          machinery: 'Machinery'
+          time_total_workday: 'Time Total Workday'
+          is_enabled: 'Enabled'
+        standard:
+          name: 'Name'
+          description: 'Description'
+          unit_type: 'Unit Type'
+          item_number: 'Number of Pieces per Day'
+        station:
+          name: "Name"
+          is_enabled: "Active"
+          description: "Description"
+          product_id: 'Product'
+          standard_id: 'Standard'
+          ip_station: 'IP station'

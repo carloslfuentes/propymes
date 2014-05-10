@@ -1,0 +1,33 @@
+.wrapper.top
+  .grid_8
+    .grid_4.first.panel.padding1.background_gray_clear
+      %h3
+        = t :new_station
+      .form
+        .clearfix
+          = f.label :name
+          = f.text_field :name, :required => true
+        .clearfix
+          = f.label :product_id
+          = f.select :product_id, options_for_select(PConfig::Product.all.nullo.sort_by(&:name).if_nil([]).map{|p| [p.name, p.id]}),{:include_blank => true}, :required => true
+        .clearfix
+          = f.label :standard_id
+          = f.select :standard_id, options_for_select(PConfig::Standard.all.nullo.sort_by(&:name).if_nil([]).map{|s| [s.name, s.id]}),{:include_blank => true}, :required => true
+        .clearfix
+          = f.label :ip_station
+          = f.text_field :ip_station, :required => true
+        .clearfix
+          = f.label :is_enabled
+          = f.check_box :is_enabled
+        .clearfix
+          = f.label :description
+          = f.text_area :description
+        %hr/
+        .ar
+          .clearfix.top
+            %button.button.background_orange.white{:type => "submit"}
+              = t :save
+            %button.button.background_gray.gray{:type => "reset"}
+              = t :clear
+            %a.button.background_gray.gray{:href => p_config_products_path}
+              = t :cancel

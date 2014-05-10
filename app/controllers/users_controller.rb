@@ -8,7 +8,6 @@ class UsersController < InheritedResources::Base
     @user = User.find_by_id params[:id]
     @addresses = @user.addresses
     @person = @user.person
-    @addresses = Address.new if @addresses.blank?
     @person = Person.new if @person.blank?
   end
   

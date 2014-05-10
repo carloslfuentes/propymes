@@ -6,10 +6,13 @@
       .form
         .clearfix
           = f.label :name
-          = f.text_field :name
+          = f.text_field :name, :required => true
         .clearfix
-          = f.label :is_enabled
-          = f.check_box :is_enabled, :value => false
+          = f.label :unit_type
+          = f.select :unit_type, options_for_select([[t(:piece), "piece"]]),{:include_blank => true}, :required => true #FIXME Agregar mas tipos de medida
+        .clearfix
+          = f.label :item_number
+          = f.text_field :item_number, :type => :number, :required => true, :style => "width:120px;"
         .clearfix
           = f.label :description
           = f.text_area :description
@@ -20,5 +23,6 @@
               = t :save
             %button.button.background_gray.gray{:type => "reset"}
               = t :clear
-            %a.button.background_gray.gray{:href => configuration_products_path}
+            %a.button.background_gray.gray{:href => p_config_standards_path}
               = t :cancel
+

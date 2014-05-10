@@ -8,6 +8,7 @@ PROPYMES::Application.routes.draw do
   
   resources :time_limits
   
+  root :to => "user_sessions#new"
   resources :user_sessions do
     collection do
       post :new
@@ -15,24 +16,20 @@ PROPYMES::Application.routes.draw do
       get :destroy_session
     end
   end
-  
-  root :to => "user_sessions#new"
-  
+  resources :configuration_mailers
+  resources :configuration_values
+  resources :users do
+    collection do
+      get :get_permission_selected
+      get :get_assosiate_assitant
+    end
+  end
   #Configurations
-  namespace :configuration do
-    resources :configuration_mailers
-    resources :configuration_values
-    
+  namespace :p_config do
     resources :products
     resources :standards
     resources :stations
-    resources :work_times
-    resources :users do
-      collection do
-        get :get_permission_selected
-        get :get_assosiate_assitant
-      end
-    end
+    
   end
   resources :configurations do
     collection do

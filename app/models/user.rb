@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   has_one    :person
   has_one    :configuration_mailer, :foreign_key => "object_id"
   has_many   :roles
+  belongs_to :station, :foreign_key => "station_id"
   
   accepts_nested_attributes_for :person
   attr_accessor :name
