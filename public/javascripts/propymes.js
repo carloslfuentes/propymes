@@ -7,10 +7,10 @@ $(document).ready(function(e) {
     );
   });
   
-  //Close Widget Modal FIXME Verificar que es correcto el cierre
+  //Close modal Press ESC
   $(document).keyup(function(e) { 
     if (e.keyCode == 27) { 
-      $('.widget').hide();
+      $().closeModal();
     }
   });
   
@@ -42,9 +42,7 @@ $(function($){
     
     var CalendarDatePicker;
     CalendarDatePicker = new dhtmlXCalendarObject([element]);
-    if(hideTime == "true"){
-      CalendarDatePicker.hideTime();
-    }
+    if(hideTime == "true"){CalendarDatePicker.hideTime();}
     CalendarDatePicker.loadUserLanguage(language);
     CalendarDatePicker.setDate(set_date);
     CalendarDatePicker.setDateFormat(format);
@@ -58,5 +56,28 @@ $(function() {
     //Effect to Open
     $(id).fadeIn(400);
     $(id).fadeTo("slow",1.0);
+    //Passing Params
+    var id_row = $(this).attr('id_row'),
+        param = $(this).attr('param');
+    $(id_row).val(param);
   }); 
+  
+});
+
+//Close Modal
+$(function() {
+  $.fn.closeModal = function(){
+    $('.widget').hide();
+  };
+});
+
+//KeyPad
+$(function() {
+  $.fn.keyPad = function(){
+    var input = $(this);
+    $("#keyPad a.button").click(function(){
+      var num = $(this)[0].innerText;
+      $(input).val(input.val() + num);
+    });
+  };
 });

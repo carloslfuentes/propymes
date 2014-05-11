@@ -11,3 +11,9 @@
           = " | "
           %a.white.not_decoration{:href => destroy_session_user_sessions_path}
             = t :logout
+        - else
+          %a.action-button{:class => "modal", :rel => "#login_manager"}
+            %span.key
+          %a.not_decoration.white{:href => "#", :class => "modal", :rel => "#login_manager"}
+            %h4.not_bold.float_right
+              = t :dashboard

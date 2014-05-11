@@ -300,6 +300,7 @@ select[required=required], textarea[required=required], input[required=required]
 select {
   padding: 3px;
 }
+
 textarea {
   margin-bottom: 7px;
   resize: vertical;
@@ -335,11 +336,6 @@ hr{
   border: 0;
   background-color: #eeeeee;
   height: 3px;
-}
-
-/* Color Text */
-.gray{
-  color:gray;
 }
 
 /* Errors Messages*/
@@ -401,6 +397,15 @@ hr{
   position:absolute;
 }
 
+/* Div In Center */
+.center_of_the_page{
+  width:300px;
+  margin: 0 auto;
+  margin-left: -175px;
+  top: 40%;
+  left: 55%;
+  position: absolute;
+}
 
 /* Style Scroll 
 ::-webkit-scrollbar {
@@ -415,4 +420,15 @@ hr{
 ::-webkit-scrollbar-thumb {
   -webkit-box-shadow: inset 4px 4px 2px rgba(36,110,153, 0.8); 
   background-color:#00FFFF;
+}*/
+
+/* Operators 
+
+
+.operator_access ul li.active a {
+    background: #eee;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f1f1f1), to(#eee));
+    background: -moz-linear-gradient(top,  #f1f1f1,  #eee);
+    border-bottom: 1px solid #eee;
+    margin-bottom: -1px;
 }*/

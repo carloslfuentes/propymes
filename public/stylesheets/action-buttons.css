@@ -36,3 +36,12 @@
 .action-button span.magnifier {
   background: transparent url(/images/d02/icons/magnifier.png) no-repeat center center;
 }
+
+.action-button span.key {
+  background: transparent url(/images/d02/icons/key.png) no-repeat center center;
+}
+
+.action-button span.operators {
+  background: transparent url(/images/d02/icons/operators.png) no-repeat center center;
+}
+

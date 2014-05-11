@@ -34,5 +34,5 @@
             =link_to link, "#{request.request_uri}/#{object.id}", :method=> :delete
         -elsif link == "add_standard"
           %td
-            %a.action-button{:href => new_standard_path(:product_id => object.id)}
+            %a.action-button{:href => new_configuration_standard_path(:product_id => object.id)}
               %span.add

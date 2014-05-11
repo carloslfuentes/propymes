@@ -1,6 +1,9 @@
 es:
   activerecord:
     attributes:
+      person:
+        name: 'Nombre'
+        last_name: 'Apellido'
       user:
         name: 'Nombre'
         last_name: 'Apellido'
@@ -8,12 +11,13 @@ es:
         password: 'Contraseña'
         password_confirmation: 'Confirmar Contraseña'
         email: 'Email'
-        is_enabled: 'Activo'
+        is_enabled: 'Habilitado'
         is_medic: 'Es Medico'
         is_system_user: 'Es usuario de sistema'
         is_manager: 'Es Representante'
         is_assistant: 'Es asistente'
         organization_id: 'Organizacion'
+        language: 'Lenguaje'
       product:
         name: 'Nombre'
         machinery: 'Maquinaria'
@@ -26,6 +30,5 @@ es:
         item_number: 'Número de Piezas por Jornada'
       station:
         name: 'Nombre'
-        is_enabled: 'Activo'
+        is_enabled: 'Habilitado'
         description: 'Descripción'
-        

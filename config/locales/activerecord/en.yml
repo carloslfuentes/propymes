@@ -1,6 +1,9 @@
 en:
   activerecord:
     attributes:
+      person:
+        name: "Name"
+        last_name: "Last name"
       user:
         name: "Name"
         last_name: "Last name"
@@ -8,12 +11,13 @@ en:
         password: "Password"
         password_confirmation: "Password confirmation"
         email: "Email"
-        is_enabled: "Is active"
+        is_enabled: "Enabled"
         is_medic: "Is medic"
         is_system_user: "Is system user"
         is_manager: "Is manager"
         is_assistant: "Is assistant"
         organization_id: "Organization"
+        language: 'Language'
       product:
         name: "Name"
         machinery: 'Machinery'
@@ -26,5 +30,5 @@ en:
         item_number: 'Number of Pieces per Day'
       station:
         name: "Name"
-        is_enabled: "Active"
+        is_enabled: "Enabled"
         description: "Description"

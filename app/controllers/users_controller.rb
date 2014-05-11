@@ -1,4 +1,13 @@
 class UsersController < InheritedResources::Base
+  
+  def index
+    if params[:user_type] == "is_manager"
+      @users = User.is_manager
+    else
+      @users = User.is_operator
+    end
+  end
+  
   def new
     @user = User.new
     @person = Person.new

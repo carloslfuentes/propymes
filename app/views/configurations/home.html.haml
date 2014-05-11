@@ -16,3 +16,16 @@
           %td
             %a.not_decoration.blue{:href => configuration_stations_path}
               = t :stations
+      
+    .grid_3
+      %h3.background_gray_clear.gray
+        = t :users
+      %table.full.not-style
+        %tr
+          %td
+            %a.not_decoration.blue{:href => configuration_users_path(:user_type => :is_operator)}
+              = t :new_operator
+        %tr
+          %td
+            %a.not_decoration.blue{:href => configuration_users_path(:user_type => :is_manager)}
+              = t :new_user

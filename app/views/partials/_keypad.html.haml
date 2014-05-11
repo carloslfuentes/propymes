@@ -1,0 +1,27 @@
+.ac
+  #keyPad
+    %table.full
+      %tr
+        - (1..3).each  do |num|
+          %td
+            %a.button.background_gray.gray
+              %h1
+                = num
+      %tr
+        - (4..6).each  do |num|
+          %td
+            %a.button.background_gray.gray
+              %h1
+                = num
+      %tr
+        - (7..9).each  do |num|
+          %td
+            %a.button.background_gray.gray
+              %h1
+                = num
+      %tr
+        %td
+        %td
+          %a.button.background_gray.gray
+            %h1
+              = 0

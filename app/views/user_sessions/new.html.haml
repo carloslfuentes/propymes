@@ -1,13 +1,21 @@
-.wrapper
-  .grid_8.top
-    .ar{:style => "margin-right:30px;"}
-      %h3
-        = t :welcome
-    %hr/
-    .grid_4.first.top
-      = ""
-    .grid_3.top.panel.padding3.background_gray_clear{:style => "height:300px; float:right"}
-      = errorFlash(flash)
+.wrapper.top
+  .grid_8
+    = errorFlash(flash)
+    .center_of_the_page.panel
+      .padding3.ac
+        - User.is_operator.each do |user|
+          %a.action-button{:class =>"modal", :rel => "#login_operator", :param => user.login, :id_row => "#loginOperator"}
+            %span.operators{:style => "width: 31px; height: 31px;"}
+          .float_left
+            %h2.gray
+              = user.name
+
+//Login Manager
+#login_manager.widget.panel.padding1.background_gray_clear
+  .content
+    %h3
+      = t :dashboard
+    .form
       %h5.not_bold.justify
         = t :welcome_message
       %hr/
@@ -24,7 +32,43 @@
         .ar
           %button.button.background_orange.white{:type => "submit"}
             = t :login
+          %a.button.background_gray.gray{:href => "#", :onclick => "$().closeModal();"}
+            = t :cancel
           %br/
           %br/
           %a.not_decoration.blue{:href => "#"}
             = t :forgot_your_password
+
+//Login Operator
+#login_operator.widget.panel.padding1.background_gray_clear{:style => "height:430px;"}
+  .content
+    %h3
+      = t("station") + " - " + request.ip
+    .form
+      %h5.not_bold.justify
+        //= Station.find_by_ip_station(request.ip).nullo.description.if_nil("")
+      %hr/
+      %h5
+        = t :please_password
+      = form_for(@user_session, url: {action: "create_session"}) do |f|
+        .ac
+          = f.hidden_field :login, :value=>"", :id=>"loginOperator", :placeholder=> t(:user)
+          .clearfix
+            = f.password_field :password , :id=>"passwordOperator", :placeholder=> t(:password), :style => "height:25px;"
+        //KeyPad
+        %hr/
+        = render :partial => "/partials/keypad"
+        %hr/
+        %br/
+        .ar
+          %button.button.background_orange.white{:type => "submit"}
+            = t :login
+          %button.button.background_gray.gray{:type => "reset"}
+            = t :clear
+          %a.button.background_gray.gray{:href => "#", :onclick => "$().closeModal();"}
+            = t :cancel
+
+:javascript
+  $(document).ready(function(){
+    $("#passwordOperator").keyPad();
+  });

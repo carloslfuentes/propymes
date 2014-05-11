@@ -1,4 +1,11 @@
-.wrapper
-  .grid_8.top
-    .grid_4.first
-      = render :partial => '/partials/datagrid', :locals => {:links=>["show","edit","delete"],:objects => @users, :fild_names=> [:name, :email,:language,:comments]}
+.wrapper.top
+  .grid_8
+    .grid_6.first
+      = render :partial => '/partials/datagrid', :locals => {:links => ["edit"],:objects => @users, :fild_names=> [:name, :email, :login, :language, :is_enabled]}
+    .grid_2
+      .panel.padding3
+        //FIXME Ver la manera de manejar variable default para el tipo de usuario 
+        %a.button.background_orange.white{:href => new_configuration_user_path} 
+          = t :new
+        %a.button.background_gray.gray{:href => configurations_path}
+          = t :configuration

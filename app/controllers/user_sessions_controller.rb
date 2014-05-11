@@ -13,7 +13,7 @@ class UserSessionsController < ApplicationController
   def create_session
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
-       flash[:notice] = "Entrada exitosa"
+       flash[:notice] = t :success_login
        redirect_to home_path
      else
        flash[:error] = @user_session.errors.full_messages.join(",")

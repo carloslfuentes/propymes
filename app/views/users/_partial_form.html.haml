@@ -1,50 +1,37 @@
-%section#content
-  .wrapper
-    %section.grid_3.first
-      %h4
-        =#"Medico: #{current_user.login}"
-      .columns
-        - @user.errors.full_messages.each do |msg|
-          =msg
-          %br
-        .grid_2.first
-          %fieldset.panel
-            = f.fields_for :person, @person do |p|
-              .clearfix
-                =p.label :name
-                =p.text_field :name
-              .clearfix
-                =p.label :last_name
-                =p.text_field :last_name
-            .clearfix
-              = f.label :login 
-              = f.text_field :login 
-            .clearfix
-              = f.label :password 
-              = f.password_field :password 
-            .clearfix
-              = f.label :password_confirmation
-              = f.password_field :password_confirmation 
-            .clearfix
-              = f.label :email
-              = f.text_field :email 
-            .clearfix
-              = f.label :is_enabled
-              = f.check_box :is_enabled  
-            %br
-            %br
-            .clearfix
-              %button.button.button-blue{:type => "submit", :onclick=>"addTimeToDate();"}
-                = t :save
-              =link_to "atras", users_path, :class=>"button button-red"
-    %aside.grid_3.top
-      .columns
-        .grid_3.first
-          %fieldset.panel
-           
-:javascript
-  $(document).ready(function(){
-    $("#user_email").keyup(function(){
-      $("#user_addresses_attributes_0_email").val($(this).val());
-    }) ;
-  });
+.wrapper.top
+  .grid_8
+    .grid_4.first.panel.padding1.background_gray_clear
+      %h3
+        = t :new_user
+      .form
+        = f.fields_for :person, @person do |p|
+          .clearfix
+            =p.label :name
+            =p.text_field :name
+          .clearfix
+            =p.label :last_name
+            =p.text_field :last_name
+        .clearfix
+          = f.label :login 
+          = f.text_field :login 
+        .clearfix
+          = f.label :password 
+          = f.password_field :password 
+        .clearfix
+          = f.label :password_confirmation
+          = f.password_field :password_confirmation 
+        .clearfix
+          = f.label :email
+          = f.text_field :email 
+        .clearfix
+          = f.label :is_enabled
+          = f.check_box :is_enabled
+        %hr/
+        .ar
+          .clearfix.top
+            %button.button.background_orange.white{:type => "submit"}
+              = t :save
+            %button.button.background_gray.gray{:type => "reset"}
+              = t :clear
+            %a.button.background_gray.gray{:href => configuration_users_path}
+              = t :cancel
