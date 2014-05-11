@@ -4,6 +4,8 @@ PROPYMES::Application.routes.draw do
   # first created -> highest priority.
   
   match 'home/' => 'home#index'
+  match 'home/operator' => 'home#operator', :as => "operator", :via => :get
+  match 'home/manager' => 'home#manager', :as => "manager", :via => :get
   match 'user_sessions/' => 'p_config/user_sessions#new'
   
   resources :time_limits
