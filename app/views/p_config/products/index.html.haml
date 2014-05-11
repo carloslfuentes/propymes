@@ -4,7 +4,7 @@
       = render :partial => '/partials/datagrid', :locals => {:links => ["edit", "add_standard"],:objects => @products, :fild_names=> [:id, :name, :machinery, :time_total_workday]}
     .grid_2
       .panel.padding3
-        %a.button.background_orange.white{:href => new_configuration_product_path}
+        %a.button.background_orange.white{:href => new_p_config_product_path}
           = t :new
         %a.button.background_gray.gray{:href => configurations_path}
           = t :configuration

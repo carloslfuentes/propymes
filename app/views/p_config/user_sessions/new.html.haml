@@ -21,7 +21,7 @@
       %hr/
       %h5
         = t :please_login
-      = form_for(@user_session, url: {action: "create_session"}) do |f|
+      = form_for(@user_session, url: {:controller=>"p_config/user_sessions", :action=> "create_session"}) do |f|
         .ac
           .clearfix
             = f.text_field :login, :value=>"", :id=>"login", :placeholder=> t(:user)

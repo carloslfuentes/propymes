@@ -4,7 +4,7 @@
     %tr
       - fild_names.each do |fild_name|
         %th
-          = t("activerecord.attributes.#{objects.first.class.name.downcase}."+fild_name.to_s)
+          = t("activerecord.attributes.#{request.request_uri.singularize.gsub('/','.')}."+fild_name.to_s)
       - links.each do |fild_name|
         %th
   %tbody
@@ -20,18 +20,18 @@
           -else
             =object[fild_name.to_sym]
       - links.each do |link|
-        -table_name = object.class.table_name
+        -table_name = request.request_uri
         -if link == "show"
           %td
-            %a.action-button{:href => "#{request.request_uri}/#{object.id}"}
+            %a.action-button{:href => "#{table_name}/#{object.id}"}
               %span.magnifier
         -elsif link == "edit"
           %td
-            %a.action-button{:href => "#{request.request_uri}/#{object.id}/edit"}
+            %a.action-button{:href => "#{table_name}/#{object.id}/edit"}
               %span.pencil
         -elsif link == "delete"
           %td
-            =link_to link, "#{request.request_uri}/#{object.id}", :method=> :delete
+            =link_to link, "#{table_name}/#{object.id}", :method=> :delete
         -elsif link == "add_standard"
           %td
             %a.action-button{:href => new_configuration_standard_path(:product_id => object.id)}

@@ -1,34 +1,38 @@
 es:
   activerecord:
     attributes:
-      person:
-        name: 'Nombre'
-        last_name: 'Apellido'
-      user:
-        name: 'Nombre'
-        last_name: 'Apellido'
-        login: 'Cuenta'
-        password: 'Contraseña'
-        password_confirmation: 'Confirmar Contraseña'
-        email: 'Email'
-        is_enabled: 'Habilitado'
-        is_medic: 'Es Medico'
-        is_system_user: 'Es usuario de sistema'
-        is_manager: 'Es Representante'
-        is_assistant: 'Es asistente'
-        organization_id: 'Organizacion'
-        language: 'Lenguaje'
-      product:
-        name: 'Nombre'
-        machinery: 'Maquinaria'
-        time_total_workday: 'Tiempo Total de Jornada Laboral'
-        is_enabled: 'Habilitado'
-      standard:
-        name: 'Nombre'
-        description: 'Descripción'
-        unit_type: 'Tipo de Unidad'
-        item_number: 'Número de Piezas por Jornada'
-      station:
-        name: 'Nombre'
-        is_enabled: 'Habilitado'
-        description: 'Descripción'
+      p_config:
+        person:
+          name: 'Nombre'
+          last_name: 'Apellido'
+        user:
+          name: 'Nombre'
+          last_name: 'Apellido'
+          login: 'Cuenta'
+          password: 'Contraseña'
+          password_confirmation: 'Confirmar Contraseña'
+          email: 'Email'
+          is_enabled: 'Habilitado'
+          is_medic: 'Es Medico'
+          is_system_user: 'Es usuario de sistema'
+          is_manager: 'Es Representante'
+          is_assistant: 'Es asistente'
+          organization_id: 'Organizacion'
+          language: 'Lenguaje'
+        product:
+          name: 'Nombre'
+          machinery: 'Maquinaria'
+          time_total_workday: 'Tiempo Total de Jornada Laboral'
+          is_enabled: 'Habilitado'
+        standard:
+          name: 'Nombre'
+          description: 'Descripción'
+          unit_type: 'Tipo de Unidad'
+          item_number: 'Número de Piezas por Jornada'
+        station:
+          name: 'Nombre'
+          is_enabled: 'Habilitado'
+          description: 'Descripción'
+          product_id: 'Producto'
+          standard_id: 'Proceso'
+          ip_station: 'IP de la estación'
