@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
     unless current_user
       #store_location
       flash[:notice] = t :authentification_required
-      redirect_to new_user_session_path
+      redirect_to new_p_config_user_session_path
       #return false
     end
   end
