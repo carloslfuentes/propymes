@@ -26,6 +26,13 @@
         .clearfix
           = f.label :is_enabled
           = f.check_box :is_enabled
+        .clearfix
+          - if params[:user_type] == "is_manager"
+            = f.label :is_manager
+            = f.check_box :is_manager, :checked => true, :disabled => true
+          - else
+            = f.label :is_operator
+            = f.check_box :is_operator, :checked => true, :disabled => true
         %hr/
         .ar
           .clearfix.top

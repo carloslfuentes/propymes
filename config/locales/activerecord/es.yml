@@ -13,11 +13,8 @@ es:
           password_confirmation: 'Confirmar Contraseña'
           email: 'Email'
           is_enabled: 'Habilitado'
-          is_medic: 'Es Medico'
-          is_system_user: 'Es usuario de sistema'
-          is_manager: 'Es Representante'
-          is_assistant: 'Es asistente'
-          organization_id: 'Organizacion'
+          is_operator: 'Es Operador'
+          is_manager: 'Es Administrador'
           language: 'Lenguaje'
         product:
           name: 'Nombre'

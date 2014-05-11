@@ -5,7 +5,7 @@
     .grid_2
       .panel.padding3
         //FIXME Ver la manera de manejar variable default para el tipo de usuario 
-        %a.button.background_orange.white{:href => new_p_config_user_path} 
+        %a.button.background_orange.white{:href => new_p_config_user_path(:user_type => params[:user_type])} 
           = t :new
         %a.button.background_gray.gray{:href => configurations_path}
           = t :configuration

@@ -13,11 +13,8 @@ en:
           password_confirmation: "Password confirmation"
           email: "Email"
           is_enabled: "Enabled"
-          is_medic: "Is medic"
-          is_system_user: "Is system user"
-          is_manager: "Is manager"
-          is_assistant: "Is assistant"
-          organization_id: "Organization"
+          is_operator: 'Es Operador'
+          is_manager: 'Es Administrador'
           language: 'Language'
         product:
           name: "Name"
