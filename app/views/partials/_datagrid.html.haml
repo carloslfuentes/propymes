@@ -28,7 +28,7 @@
         -elsif link == "edit"
           %td
             -params = request.fullpath.split("?")[1]
-            %a.action-button{:href => "#{table_name}/#{object.id}/edit"+(params.present? ? "?#{params}" : nil)}
+            %a.action-button{:href => "#{table_name}/#{object.id}/edit"+(params.present? ? "?#{params}" : "")}
               %span.pencil
         -elsif link == "delete"
           %td

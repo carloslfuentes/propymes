@@ -40,5 +40,5 @@
               = t :save
             %button.button.background_gray.gray{:type => "reset"}
               = t :clear
-            %a.button.background_gray.gray{:href => p_config_users_path}
+            %a.button.background_gray.gray{:href => p_config_users_path(:user_type=>params[:user_type] )}
               = t :cancel
