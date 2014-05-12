@@ -26,8 +26,8 @@ module PConfig
     after_initialize :load_name
     
     scope :is_active, where(:is_enabled=>true)
-    scope :is_operator, where(:is_operator => true)
     scope :is_manager, where(:is_manager => true)
+    scope :is_operator, where(:is_operator => true)
     
     def load_name
       self.name = "#{person.name}, #{person.last_name}" if person.present?

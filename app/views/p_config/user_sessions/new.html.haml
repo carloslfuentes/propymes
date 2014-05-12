@@ -54,7 +54,7 @@
         .ac
           = f.hidden_field :login, :value=>"", :id=>"loginOperator", :placeholder=> t(:user)
           .clearfix
-            = f.password_field :password , :id=>"passwordOperator", :placeholder=> t(:password), :style => "height:25px;"
+            = f.password_field :password , :id=>"passwordOperator", :placeholder=> t(:password), :readonly => true, :style => "height:25px;"
         //KeyPad
         %hr/
         = render :partial => "/partials/keypad"

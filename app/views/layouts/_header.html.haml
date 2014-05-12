@@ -11,6 +11,10 @@
           = " | "
           %a.white.not_decoration{:href => destroy_session_p_config_user_sessions_path}
             = t :logout
+          .clear
+            - if current_user.is_manager?
+              %a.action-button{:href => configurations_path, :style => "margin-right:15px;"}
+                %span.engine
         - else
           %a.action-button{:class => "modal", :rel => "#login_manager"}
             %span.key

@@ -1,16 +1,21 @@
 module PConfig
   class UsersController < InheritedResources::Base
+    
+    def index
+      #@users = PConfig::User.find_by_
+    end
+    
     def new
       @user = PConfig::User.new
       @person = PConfig::Person.new
     end
     
-    def edit
-      @user = PConfig::User.find_by_id params[:id]
-      @addresses = @user.addresses
-      @person = @user.person
-      @person = PConfig::Person.new if @person.blank?
-    end
+    #def edit
+      #@user = PConfig::User.find_by_id params[:id]
+      #@addresses = @user.addresses
+      #@person = @user.person
+      #@person = PConfig::Person.new if @person.blank?
+    #end
     
     def get_permission_selected
       @user = PConfig::User.find_by_id params[:user_id]

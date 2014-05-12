@@ -4,7 +4,7 @@
     %tr
       - fild_names.each do |fild_name|
         %th
-          = t("activerecord.attributes.#{request.request_uri.singularize.gsub('/','.')}."+fild_name.to_s)
+          = t("activerecord.attributes.#{request.fullpath.singularize.gsub('/','.')}."+fild_name.to_s)
       - links.each do |fild_name|
         %th
   %tbody
@@ -20,7 +20,7 @@
           -else
             =object[fild_name.to_sym]
       - links.each do |link|
-        -table_name = request.request_uri
+        -table_name = request.fullpath
         -if link == "show"
           %td
             %a.action-button{:href => "#{table_name}/#{object.id}"}
@@ -34,5 +34,5 @@
             =link_to link, "#{table_name}/#{object.id}", :method=> :delete
         -elsif link == "add_standard"
           %td
-            %a.action-button{:href => new_configuration_standard_path(:product_id => object.id)}
+            %a.action-button{:href => new_p_config_standard_path(:product_id => object.id)}
               %span.add

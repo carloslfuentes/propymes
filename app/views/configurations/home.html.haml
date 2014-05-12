@@ -16,7 +16,6 @@
           %td
             %a.not_decoration.blue{:href => p_config_stations_path}
               = t :stations
-      
     .grid_3
       %h3.background_gray_clear.gray
         = t :users
@@ -29,3 +28,7 @@
           %td
             %a.not_decoration.blue{:href => p_config_users_path(:user_type => :is_manager)}
               = t :new_user
+    .grid_2
+      .panel.padding3
+        %a.button.background_gray.gray{:href => home_path}
+          = t :home

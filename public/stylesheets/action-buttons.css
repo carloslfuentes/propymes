@@ -45,3 +45,7 @@
   background: transparent url(/images/d02/icons/operators.png) no-repeat center center;
 }
 
+.action-button span.engine {
+  background: transparent url(/images/d02/icons/engine.png) no-repeat center center;
+}
+

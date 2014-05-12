@@ -51,7 +51,8 @@ $(function($){
 
 //Widget Modal
 $(function() {
-  $('.modal').click(function() { 
+  $('.modal').click(function() {
+    $().closeModal();
     var id = $(this).attr('rel') + ".widget";
     //Effect to Open
     $(id).fadeIn(400);
