@@ -4,7 +4,7 @@
     %tr
       - fild_names.each do |fild_name|
         %th
-          = t("activerecord.attributes.#{request.fullpath.singularize.gsub('/','.')}."+fild_name.to_s)
+          = t("activerecord.attributes.#{request.path.singularize.gsub('/','.')}."+fild_name.to_s)
       - links.each do |fild_name|
         %th
   %tbody
@@ -20,14 +20,15 @@
           -else
             =object[fild_name.to_sym]
       - links.each do |link|
-        -table_name = request.fullpath
+        -table_name = request.path
         -if link == "show"
           %td
             %a.action-button{:href => "#{table_name}/#{object.id}"}
               %span.magnifier
         -elsif link == "edit"
           %td
-            %a.action-button{:href => "#{table_name}/#{object.id}/edit"}
+            -params = request.fullpath.split("?")[1]
+            %a.action-button{:href => "#{table_name}/#{object.id}/edit"+(params.present? ? "?#{params}" : nil)}
               %span.pencil
         -elsif link == "delete"
           %td

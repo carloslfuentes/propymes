@@ -2,7 +2,11 @@ module PConfig
   class UsersController < InheritedResources::Base
     
     def index
-      #@users = PConfig::User.find_by_
+      if params[:user_type] == "is_manager"
+        @users = PConfig::User.is_manager
+      else
+        @users = PConfig::User.is_operator
+      end
     end
     
     def new

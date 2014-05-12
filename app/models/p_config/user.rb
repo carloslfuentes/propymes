@@ -6,7 +6,7 @@ module PConfig
   class User < ActiveRecord::Base
     #attr_accessible :login, :password, :password_confirmation, :crypted_password, :email
     acts_as_authentic do |c|
-      c.logged_in_timeout = 10.minutes # default is 10.minutes
+      c.logged_in_timeout = 30.minutes # default is 10.minutes
       c.session_class = Session
     end
     default_value_for         :language, "es"

@@ -1,11 +1,12 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.10'
+gem 'rails', '3.2.14'
+gem 'rack', '1.4.5'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'authlogic', '3.0.3'
-gem 'mysql', '2.8.1'
+gem 'mysql'#, '2.8.1'
 #gem 'pg', '0.17.1'
 gem 'haml', '4.0.5'
 gem 'inherited_resources'
@@ -15,6 +16,9 @@ gem 'declarative_authorization', '0.5.4'
 gem "default_value_for"
 gem "jquery-rails"
 gem "savon", "2.2.0"
+gem "activevalidators"
+gem "net-ping"
+#gem 'chartx'
 #gem "jasper-rails", '1.0.3'
 
 

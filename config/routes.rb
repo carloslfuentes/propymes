@@ -18,7 +18,11 @@ PROPYMES::Application.routes.draw do
   namespace :p_config do
     resources :products
     resources :standards
-    resources :stations
+    resources :stations do
+      collection do
+        get :comprovate_ip
+      end
+    end
     resources :users do
       collection do
         get :get_permission_selected

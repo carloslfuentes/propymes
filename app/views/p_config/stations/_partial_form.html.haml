@@ -1,5 +1,6 @@
 .wrapper.top
   .grid_8
+    = errorFlash(flash)
     .grid_4.first.panel.padding1.background_gray_clear
       %h3
         = t :new_station
@@ -9,13 +10,15 @@
           = f.text_field :name, :required => true
         .clearfix
           = f.label :product_id
-          = f.select :product_id, options_for_select(PConfig::Product.all.nullo.sort_by(&:name).if_nil([]).map{|p| [p.name, p.id]}),{:include_blank => true}, :required => true
+          = f.collection_select :product_id, PConfig::Product.all.sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
         .clearfix
           = f.label :standard_id
-          = f.select :standard_id, options_for_select(PConfig::Standard.all.nullo.sort_by(&:name).if_nil([]).map{|s| [s.name, s.id]}),{:include_blank => true}, :required => true
+          = f.collection_select :standard_id, PConfig::Standard.all.sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
         .clearfix
           = f.label :ip_station
           = f.text_field :ip_station, :required => true
+          %img{:src => "/images/d02/icons/help.png",:style => "float:center;", :id => "icon-acept"}
+          =link_to "probar", "#", :id=>"probar"
         .clearfix
           = f.label :is_enabled
           = f.check_box :is_enabled
@@ -29,5 +32,19 @@
               = t :save
             %button.button.background_gray.gray{:type => "reset"}
               = t :clear
-            %a.button.background_gray.gray{:href => p_config_products_path}
+            %a.button.background_gray.gray{:href => p_config_stations_path}
               = t :cancel
+:javascript
+  $(document).ready(function(){
+    $("#probar").click(function() {
+      $("#icon-acept").attr("src","/images/d02/icons/help.png");
+      $.get("/p_config/stations/comprovate_ip",{ip_station: $("#p_config_station_ip_station").val()}).done(function(data){
+        if(data["ping"]){
+          $("#icon-acept").attr("src","/images/d02/icons/accept.png");
+        }else{
+          $("#icon-acept").attr("src","/images/d02/icons/exclamation-red.png");
+        }
+        $.uniform.update();
+      });
+    });
+  });
