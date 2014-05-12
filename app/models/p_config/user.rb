@@ -7,7 +7,7 @@ module PConfig
     #attr_accessible :login, :password, :password_confirmation, :crypted_password, :email
     acts_as_authentic do |c|
       c.logged_in_timeout = 30.minutes # default is 10.minutes
-      c.session_class = Session
+      #c.session_class = Session
     end
     default_value_for         :language, "es"
     default_value_for         :verified, false

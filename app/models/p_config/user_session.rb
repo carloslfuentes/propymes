@@ -30,8 +30,8 @@ module PConfig
        record.session_key =  controller.request.session_options[:id]           
     end
     
-    def to_key
-      new_record? ? nil : [ self.send(self.class.primary_key) ]
+    def to_key 
+      new_record? ? nil : [ self.send(self.class.primary_key) ] 
     end
     
     def persisted?

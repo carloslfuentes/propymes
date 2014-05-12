@@ -9,6 +9,7 @@ module PConfig
               :presence => true, 
               :uniqueness => true,
               :ip => { :format => :v4 } 
+    scope :is_actived, where(:is_enabled=>true)
     def self.rev_ip(host)
       Net::Ping::TCP.new(host, 'http')
     end

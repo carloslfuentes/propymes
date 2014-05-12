@@ -33,6 +33,9 @@
           - else
             = f.label :is_operator
             = f.check_box :is_operator, :checked => true, :disabled => true
+        .clearfix
+          =f.label :station_id
+          =f.collection_select :station_id, PConfig::Station.is_actived.sort_by(&:name), :id, :name
         %hr/
         .ar
           .clearfix.top
