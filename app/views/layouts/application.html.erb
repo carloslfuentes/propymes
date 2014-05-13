@@ -10,12 +10,10 @@
     <%= stylesheet_link_tag "propymes" %>
     <!-- Uniform Aristo -->
     <%= stylesheet_link_tag "uniform.aristo" %>
-    <!-- Menu Config -->
-    <%= stylesheet_link_tag "menu_config/menu_config" %>
     <!-- Calendar Date Picker -->
     <%= stylesheet_link_tag "calendar_date_picker/calendar_date_picker" %>
-    <!-- Calendar -->
-    <%= stylesheet_link_tag "calendar/calendar" %>
+    <!-- Charts -->
+    <%= stylesheet_link_tag "charts/nv.d3" %>
     <!-- CSS Aditionals -->
     <%= yield :css %>
     <!-- JQuery-->
@@ -24,14 +22,12 @@
     <%= javascript_include_tag "propymes" %>
     <!-- Uniform Aristo -->
     <%= javascript_include_tag "jquery.uniform" %>
-    <!-- Menu Config -->
-    <%= javascript_include_tag "menu_config/menu_config" %>
     <!-- Calendar Pick -->
     <%= javascript_include_tag "calendar_date_picker/calendar_date_picker" %>
-    <!-- Calendar -->
-    <%= javascript_include_tag "calendar/dhtmlxscheduler" %>
-    <%= javascript_include_tag "calendar/dhtmlxscheduler_pdf" %>
-    <%= javascript_include_tag "calendar/calendar" %>
+    <!-- Charts -->
+    <%= javascript_include_tag "charts/d3.v2.min" %>
+    <%= javascript_include_tag "charts/chart.d3" %>
+    <%= javascript_include_tag "charts/nv.d3" %>
     <!-- Java Aditionals -->
     <%= yield :js %>
   </head>

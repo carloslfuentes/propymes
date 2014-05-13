@@ -1,21 +1,25 @@
 .wrapper.top
-  .grid_8
+  .grid_6.first
     .grid_3.first
       %h3.background_gray_clear.gray
         = t :operating_parameters
       %table.full.not-style
         %tr
           %td
-            %a.not_decoration.blue{:href => p_config_products_path}
-              = t :products
+            %a.not_decoration.blue{:href => p_config_stations_path}
+              = t :stations
         %tr
           %td
             %a.not_decoration.blue{:href => p_config_standards_path}
               = t :standards
         %tr
           %td
-            %a.not_decoration.blue{:href => p_config_stations_path}
-              = t :stations
+            %a.not_decoration.blue{:href => p_config_products_path}
+              = t :products
+        %tr
+          %td
+            %a.not_decoration.blue{:href => p_config_boot_variables_path}
+              = t :boot_variables
     .grid_3
       %h3.background_gray_clear.gray
         = t :users
@@ -28,7 +32,7 @@
           %td
             %a.not_decoration.blue{:href => p_config_users_path(:user_type => :is_manager)}
               = t :new_user
-    .grid_2
-      .panel.padding3
-        %a.button.background_gray.gray{:href => home_path}
-          = t :home
+  .grid_2
+    .panel.padding3
+      %a.button.background_gray.gray{:href => home_path}
+        = t :home

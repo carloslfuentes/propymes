@@ -33,3 +33,10 @@ es:
           product_id: 'Producto'
           standard_id: 'Proceso'
           ip_station: 'IP de la estación'
+        boot_variable:
+          name: 'Nombre'
+          product_id: 'Producto'
+          station_id: 'Estación'
+          description: 'Descripción'
+          time: 'Tiempo'
+          is_enabled: 'Habilitado'

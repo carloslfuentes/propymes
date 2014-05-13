@@ -13,8 +13,8 @@
             = t :logout
           .clear
             - if current_user.is_manager?
-              %a.action-button{:href => configurations_path, :style => "margin-right:15px;"}
-                %span.engine
+              %a{:href => configurations_path, :style => "margin-right:15px;"}
+                %img{:src => "/images/d02/icons/engine2.png"}
         - else
           %a.action-button{:class => "modal", :rel => "#login_manager"}
             %span.key

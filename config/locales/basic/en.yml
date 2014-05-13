@@ -35,3 +35,5 @@ en:
   new_user: 'New User'
   new_operator: 'New Operator'
   station: 'Station'
+  boot_variables: 'Boot Variables'
+  new_boot_variable: 'New Boot Variable'

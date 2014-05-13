@@ -36,6 +36,7 @@ PROPYMES::Application.routes.draw do
         get :destroy_session
       end
     end
+    resources :boot_variables
   end
   resources :configurations do
     collection do

@@ -33,3 +33,10 @@ en:
           product_id: 'Product'
           standard_id: 'Standard'
           ip_station: 'IP station'
+        boot_variable:
+          name: 'Name'
+          product_id: 'Product'
+          station_id: 'Standard'
+          description: 'Description'
+          time: 'Time'
+          is_enabled: 'Enabled'

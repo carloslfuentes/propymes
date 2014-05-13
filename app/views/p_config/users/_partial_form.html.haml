@@ -29,10 +29,10 @@
         .clearfix
           - if params[:user_type] == "is_manager"
             = f.label :is_manager
-            = f.check_box :is_manager, :checked => true, :disabled => true
+            = f.check_box :is_manager, :checked => @user.id.blank? ? true : @user.is_manager?
           - else
             = f.label :is_operator
-            = f.check_box :is_operator, :checked => true, :disabled => true
+            = f.check_box :is_operator, :checked => @user.id.blank? ? true : @user.is_operator?
         .clearfix
           =f.label :station_id
           =f.collection_select :station_id, PConfig::Station.is_actived.sort_by(&:name), :id, :name
