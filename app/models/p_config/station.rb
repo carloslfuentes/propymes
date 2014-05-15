@@ -1,9 +1,10 @@
 require 'net/ping/tcp'
 module PConfig
   class Station < ActiveRecord::Base
-    belongs_to :product
-    belongs_to :standard
-    has_many :users
+    belongs_to  :product
+    belongs_to  :standard
+    has_many    :users
+    has_many    :working_day
     
     validates :ip_station, 
               :presence => true, 

@@ -19,6 +19,7 @@ module PConfig
     has_one    :person
     has_one    :configuration_mailer, :foreign_key => "object_id"
     has_many   :roles
+    has_many   :working_day, :foreign_key => "operator_id"
     #belongs_to :station,  :name_class=>'PConfig::Station',:foreign_key => "station_id"
     
     accepts_nested_attributes_for :person
