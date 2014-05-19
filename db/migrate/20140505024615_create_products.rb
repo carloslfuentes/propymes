@@ -3,6 +3,7 @@ class CreateProducts < ActiveRecord::Migration
     create_table :products do |t|
       t.string :name
       t.string :machinery
+      t.string :work_first_time
       t.string :time_total_workday
       t.boolean :is_enabled, :default => false
       t.string :comments

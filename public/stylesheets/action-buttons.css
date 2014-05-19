@@ -48,3 +48,23 @@
 .action-button span.page-copy {
   background: transparent url(/images/d02/icons/page_copy.png) no-repeat center center;
 }
+
+.action-button span.accept {
+  background: transparent url(/images/d02/icons/accept.png) no-repeat center center;
+}
+
+.action-button span.exclamation-red {
+  background: transparent url(/images/d02/icons/exclamation-red.png) no-repeat center center;
+}
+
+.action-button span.help {
+  background: transparent url(/images/d02/icons/help.png) no-repeat center center;
+}
+
+.action-button span.connect {
+  background: transparent url(/images/d02/icons/connect.png) no-repeat center center;
+}
+
+.action-button span.cross {
+  background: transparent url(/images/d02/icons/cross.png) no-repeat center center;
+}

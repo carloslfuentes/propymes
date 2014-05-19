@@ -16,9 +16,9 @@
           = f.collection_select :standard_id, PConfig::Standard.all.sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
         .clearfix
           = f.label :ip_station
-          = f.text_field :ip_station, :required => true
-          %img{:src => "/images/d02/icons/help.png",:style => "float:center;", :id => "icon-acept"}
-          =link_to "probar", "#", :id=>"probar"
+          = f.text_field :ip_station, :class => "validate[required,custom[ip]]"
+          %a.action-button.top{:id => "ping"}
+            %span.connect
         .clearfix
           = f.label :is_enabled
           = f.check_box :is_enabled
@@ -36,15 +36,21 @@
               = t :cancel
 :javascript
   $(document).ready(function(){
-    $("#probar").click(function() {
-      $("#icon-acept").attr("src","/images/d02/icons/help.png");
-      $.get("/p_config/stations/comprovate_ip",{ip_station: $("#p_config_station_ip_station").val()}).done(function(data){
-        if(data["ping"]){
-          $("#icon-acept").attr("src","/images/d02/icons/accept.png");
-        }else{
-          $("#icon-acept").attr("src","/images/d02/icons/exclamation-red.png");
-        }
-        $.uniform.update();
-      });
+    //Test Ping
+    $("#ping").click(function(){
+      var ip_station = $("#p_config_station_ip_station").val(),
+          span = $(this);
+      if(ip_station){
+        span.find("span").removeAttr('class').attr('class', 'help');
+        $.get("/p_config/stations/comprovate_ip",{ip_station: ip_station}).done(function(data){
+          if(data["ping"]){
+            span.find("span").removeAttr('class').attr('class', 'accept');
+          }else{
+            span.find("span").removeAttr('class').attr('class', 'exclamation-red');
+          }
+        });
+      }else{
+        span.find("span").removeAttr('class').attr('class', 'cross');
+      }
     });
   });

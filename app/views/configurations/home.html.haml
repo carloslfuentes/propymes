@@ -1,38 +1,96 @@
 .wrapper.top
   .grid_6.first
-    .grid_3.first
+    %hr
+    %h2
+      = t :operating_parameters
+    %hr
+    .grid_2.top.first
       %h3.background_gray_clear.gray
-        = t :operating_parameters
+        = PConfig::Station.model_name.human(:count => :other)
       %table.full.not-style
         %tr
           %td
             %a.not_decoration.blue{:href => p_config_stations_path}
-              = t :stations
+              = PConfig::Station.model_name.human(:count => :other)
+          %td.ar
+            = PConfig::Station.count.to_s
+    
+    .grid_2.top
+      %h3.background_gray_clear.gray
+        = PConfig::Standard.model_name.human(:count => :other)
+      %table.full.not-style
         %tr
           %td
             %a.not_decoration.blue{:href => p_config_standards_path}
-              = t :standards
-        %tr
-          %td
-            %a.not_decoration.blue{:href => p_config_products_path}
-              = t :products
-        %tr
-          %td
-            %a.not_decoration.blue{:href => p_config_boot_variables_path}
-              = t :boot_variables
-    .grid_3
+              = PConfig::Standard.model_name.human(:count => :other)
+          %td.ar
+            = PConfig::Standard.count.to_s
+    
+    .grid_2.top
       %h3.background_gray_clear.gray
-        = t :users
+        = PConfig::User.model_name.human(:count => :other)
       %table.full.not-style
         %tr
           %td
             %a.not_decoration.blue{:href => p_config_users_path(:user_type => :is_operator)}
               = t :new_operator
+          %td.ar
+            = PConfig::User.is_operator.count.to_s
         %tr
           %td
             %a.not_decoration.blue{:href => p_config_users_path(:user_type => :is_manager)}
               = t :new_user
+          %td.ar
+            = PConfig::User.is_manager.count.to_s
+    .clear
+    
+    .grid_2.top.first
+      %h3.background_gray_clear.gray
+        = PConfig::Product.model_name.human(:count => :other)
+      %table.full.not-style
+        %tr
+          %td
+            %a.not_decoration.blue{:href => p_config_products_path}
+              = PConfig::Product.model_name.human(:count => :other)
+          %td.ar
+            = PConfig::Product.count.to_s
+        %tr
+          %td
+            %a.not_decoration.blue{:href => p_config_product_types_path}
+              = PConfig::ProductType.model_name.human(:count => :other)
+          %td.ar
+            = PConfig::ProductType.count.to_s
+    
+    .grid_2.top
+      %h3.background_gray_clear.gray
+        = PConfig::BootVariable.model_name.human(:count => :other)
+      %table.full.not-style
+        %tr
+          %td
+            %a.not_decoration.blue{:href => p_config_boot_variables_path}
+              = PConfig::BootVariable.model_name.human(:count => :other)
+          %td.ar
+            = PConfig::BootVariable.count.to_s
+    
+    .grid_2.top
+      %h3.background_gray_clear.gray
+        = PConfig::Stoppage.model_name.human(:count => :other)
+      %table.full.not-style
+        %tr
+          %td
+            %a.not_decoration.blue{:href => p_config_stoppages_path}
+              = PConfig::Stoppage.model_name.human(:count => :other)
+          %td.ar
+            = PConfig::Stoppage.count.to_s
+        %tr
+          %td
+            %a.not_decoration.blue{:href => p_config_stoppage_by_categories_path}
+              = PConfig::StoppageByCategory.model_name.human(:count => :other)
+          %td.ar
+            = PConfig::StoppageByCategory.count.to_s
+
   .grid_2
     .panel.padding3
-      %a.button.background_gray.gray{:href => home_path}
+      %a.button.background_orange.white{:href => home_path}
         = t :home
+

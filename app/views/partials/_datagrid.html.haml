@@ -4,7 +4,7 @@
     %tr
       - fild_names.each do |fild_name|
         %th
-          = t("activerecord.attributes.#{request.path.singularize.gsub('/','.')}."+fild_name.to_s)
+          = t("activerecord.attributes.#{request.path.singularize.sub('/','.')}."+fild_name.to_s)
       - links.each do |fild_name|
         %th
   %tbody

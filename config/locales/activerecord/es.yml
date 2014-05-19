@@ -1,42 +1,54 @@
 es:
   activerecord:
     attributes:
-      p_config:
-        person:
-          name: 'Nombre'
-          last_name: 'Apellido'
-        user:
-          name: 'Nombre'
-          last_name: 'Apellido'
-          login: 'Cuenta'
-          password: 'Contraseña'
-          password_confirmation: 'Confirmar Contraseña'
-          email: 'Email'
-          is_enabled: 'Habilitado'
-          is_operator: 'Es Operador'
-          is_manager: 'Es Administrador'
-          language: 'Lenguaje'
-        product:
-          name: 'Nombre'
-          machinery: 'Maquinaria'
-          time_total_workday: 'Tiempo Total de Jornada Laboral'
-          is_enabled: 'Habilitado'
-        standard:
-          name: 'Nombre'
-          description: 'Descripción'
-          unit_type: 'Tipo de Unidad'
-          item_number: 'Número de Piezas por Jornada'
-        station:
-          name: 'Nombre'
-          is_enabled: 'Habilitado'
-          description: 'Descripción'
-          product_id: 'Producto'
-          standard_id: 'Proceso'
-          ip_station: 'IP de la estación'
-        boot_variable:
-          name: 'Nombre'
-          product_id: 'Producto'
-          station_id: 'Estación'
-          description: 'Descripción'
-          time: 'Tiempo'
-          is_enabled: 'Habilitado'
+      p_config/person:
+        name: 'Nombre'
+        last_name: 'Apellido'
+      p_config/user:
+        name: 'Nombre'
+        last_name: 'Apellido'
+        login: 'Cuenta'
+        password: 'Contraseña'
+        password_confirmation: 'Confirmar Contraseña'
+        email: 'Email'
+        is_enabled: 'Habilitado'
+        is_operator: 'Es Operador'
+        is_manager: 'Es Administrador'
+        language: 'Lenguaje'
+      p_config/product:
+        name: 'Nombre'
+        machinery: 'Maquinaria'
+        time_total_workday: 'Tiempo Total de Jornada Laboral'
+        is_enabled: 'Habilitado'
+      p_config/product_type:
+        name: 'Nombre'
+        description: 'Descripción'
+        is_enabled: 'Habilitado'
+      p_config/standard:
+        name: 'Nombre'
+        description: 'Descripción'
+        unit_type: 'Tipo de Unidad'
+        item_number: 'Número de Piezas por Jornada'
+      p_config/station:
+        name: 'Nombre'
+        is_enabled: 'Habilitado'
+        description: 'Descripción'
+        product_id: 'Producto'
+        standard_id: 'Proceso'
+        ip_station: 'IP de la estación'
+      p_config/boot_variable:
+        name: 'Nombre'
+        product_id: 'Producto'
+        station_id: 'Estación'
+        description: 'Descripción'
+        time: 'Tiempo'
+        is_enabled: 'Habilitado'
+      p_config/stoppage:
+        name: 'Nombre'
+        category_id: 'Categoria'
+        time: 'Tiempo'
+        solve: 'Solución'
+      p_config/stoppage_by_category:
+        name: 'Nombre'
+        description: 'Descripción'
+        is_enabled: 'Habilitado'

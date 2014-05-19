@@ -1,0 +1,25 @@
+.wrapper.top
+  .grid_8
+    .grid_4.first.panel.padding1.background_gray_clear
+      %h3
+        = t :new_product_type
+      .form
+        .clearfix
+          = f.label :name
+          = f.text_field :name, :required => true
+        .clearfix
+          = f.label :description
+          = f.text_area :description, :required => true
+        .clearfix
+          = f.label :is_enabled
+          = f.check_box :is_enabled
+        %hr/
+        .ar
+          .clearfix.top
+            %button.button.background_orange.white{:type => "submit"}
+              = t :save
+            %button.button.background_gray.gray{:type => "reset"}
+              = t :clear
+            %a.button.background_gray.gray{:href => p_config_product_types_path}
+              = t :cancel
+

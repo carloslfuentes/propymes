@@ -37,6 +37,9 @@ PROPYMES::Application.routes.draw do
       end
     end
     resources :boot_variables
+    resources :product_types
+    resources :stoppages
+    resources :stoppage_by_categories
   end
   resources :configurations do
     collection do

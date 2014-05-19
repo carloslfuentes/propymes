@@ -77,8 +77,9 @@ $(function() {
   $.fn.keyPad = function(){
     var input = $(this);
     $("#keyPad a.button").click(function(){
-      var num = $(this)[0].innerText;
+      var num = $(this)[0].textContent.replace(/\s+/g,"");;
       $(input).val(input.val() + num);
+      
     });
   };
 });

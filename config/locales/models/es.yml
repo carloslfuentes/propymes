@@ -1,0 +1,30 @@
+es:
+  activerecord:
+    models:
+      p_config/person:
+        one: 'Persona'
+        other: 'Personas'
+      p_config/user:
+        one: 'Usuario'
+        other: 'Usuarios'
+      p_config/product:
+        one: 'Producto'
+        other: 'Productos'
+      p_config/product_type:
+        one: 'Tipo de Producto'
+        other: 'Tipos de Productos'
+      p_config/standard:
+        one: 'Estandar'
+        other: 'Estandares'
+      p_config/station:
+        one: 'Estación'
+        other: 'Estaciones'
+      p_config/boot_variable:
+        one: 'Variable de Arranque'
+        other: 'Variables de Arranque'
+      p_config/stoppage:
+        one: 'Paro'
+        other: 'Paros'
+      p_config/stoppage_by_category:
+        one: 'Paro por Categoria'
+        other: 'Paros por Categorias'

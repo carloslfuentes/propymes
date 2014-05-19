@@ -1,0 +1,30 @@
+en:
+  activerecord:
+    models:
+      p_config/person:
+        one: 'Person'
+        other: 'Personas'
+      p_config/user:
+        one: 'User'
+        other: 'Users'
+      p_config/product:
+        one: 'Product'
+        other: 'Products'
+      p_config/product_type:
+        one: 'Product Type'
+        other: 'Product Types'
+      p_config/standard:
+        one: 'Standard'
+        other: 'Standards'
+      p_config/station:
+        one: 'Station'
+        other: 'Stations'
+      p_config/boot_variable:
+        one: 'Boot Variable'
+        other: 'Boot Variables'
+      p_config/stoppage:
+        one: 'Stoppage'
+        other: 'Stoppages'
+      p_config/stoppage_by_category:
+        one: 'Stoppage_by_category'
+        other: 'Stoppage_by_categories'

@@ -1,42 +1,54 @@
 en:
   activerecord:
     attributes:
-      p_config:
-        person:
-          name: "Name"
-          last_name: "Last name"
-        user:
-          name: "Name"
-          last_name: "Last name"
-          login: "Login"
-          password: "Password"
-          password_confirmation: "Password confirmation"
-          email: "Email"
-          is_enabled: "Enabled"
-          is_operator: 'Es Operador'
-          is_manager: 'Es Administrador'
-          language: 'Language'
-        product:
-          name: "Name"
-          machinery: 'Machinery'
-          time_total_workday: 'Time Total Workday'
-          is_enabled: 'Enabled'
-        standard:
-          name: 'Name'
-          description: 'Description'
-          unit_type: 'Unit Type'
-          item_number: 'Number of Pieces per Day'
-        station:
-          name: "Name"
-          is_enabled: "Enabled"
-          description: "Description"
-          product_id: 'Product'
-          standard_id: 'Standard'
-          ip_station: 'IP station'
-        boot_variable:
-          name: 'Name'
-          product_id: 'Product'
-          station_id: 'Standard'
-          description: 'Description'
-          time: 'Time'
-          is_enabled: 'Enabled'
+      p_config/person:
+        name: "Name"
+        last_name: "Last name"
+      p_config/user:
+        name: "Name"
+        last_name: "Last name"
+        login: "Login"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        email: "Email"
+        is_enabled: "Enabled"
+        is_operator: 'Es Operador'
+        is_manager: 'Es Administrador'
+        language: 'Language'
+      p_config/product:
+        name: "Name"
+        machinery: 'Machinery'
+        time_total_workday: 'Time Total Workday'
+        is_enabled: 'Enabled'
+      p_config/product_type:
+        name: "Name"
+        description: 'Description'
+        is_enabled: 'Enabled'
+      p_config/standard:
+        name: 'Name'
+        description: 'Description'
+        unit_type: 'Unit Type'
+        item_number: 'Number of Pieces per Day'
+      p_config/station:
+        name: "Name"
+        is_enabled: "Enabled"
+        description: "Description"
+        product_id: 'Product'
+        standard_id: 'Standard'
+        ip_station: 'IP station'
+      p_config/boot_variable:
+        name: 'Name'
+        product_id: 'Product'
+        station_id: 'Standard'
+        description: 'Description'
+        time: 'Time'
+        is_enabled: 'Enabled'
+      p_config/stoppage:
+        name: 'Name'
+        category_id: 'Category'
+        time: 'Time'
+        solve: 'Solve'
+      p_config/stoppage_by_category:
+        name: 'Name'
+        description: 'Description'
+        is_enabled: 'Enabled'

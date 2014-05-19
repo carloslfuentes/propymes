@@ -1,0 +1,28 @@
+.wrapper.top
+  .grid_8
+    .grid_4.first.panel.padding1.background_gray_clear
+      %h3
+        = t :new_stoppage
+      .form
+        .clearfix
+          = f.label :name
+          = f.text_field :name, :required => true
+        .clearfix
+          = f.label :category_id
+          = f.select :category_id, options_for_select(PConfig::StoppageByCategory.is_enabled.map{|category| [category.name,category.id]}), {:include_blank => true, :required => true}
+        .clearfix
+          = f.label :time
+          = f.text_field :time, :type => :time, :required => true
+        .clearfix
+          = f.label :solve
+          = f.text_area :solve, :required => true
+        %hr/
+        .ar
+          .clearfix.top
+            %button.button.background_orange.white{:type => "submit"}
+              = t :save
+            %button.button.background_gray.gray{:type => "reset"}
+              = t :clear
+            %a.button.background_gray.gray{:href => p_config_stoppages_path}
+              = t :cancel
+
