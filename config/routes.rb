@@ -21,6 +21,7 @@ PROPYMES::Application.routes.draw do
     resources :stations do
       collection do
         get :comprovate_ip
+        get :change_status
       end
     end
     resources :users do
