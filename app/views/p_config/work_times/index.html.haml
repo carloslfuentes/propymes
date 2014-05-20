@@ -1,0 +1,10 @@
+.wrapper.top
+  .grid_8
+    .grid_6.first
+      = render :partial => '/partials/datagrid', :locals => {:links => ["edit"],:objects => @work_times, :fild_names=> [:id, :name, :first_hour, :last_hour ]}
+    .grid_2
+      .panel.padding3
+        %a.button.background_orange.white{:href => new_p_config_work_time_path}
+          = t :new
+        %a.button.background_gray.gray{:href => configurations_path}
+          = t :configuration

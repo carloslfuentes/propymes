@@ -17,15 +17,17 @@ es:
         language: 'Lenguaje'
       p_config/product:
         name: 'Nombre'
-        machinery: 'Maquinaria'
-        time_total_workday: 'Tiempo Total de Jornada Laboral'
+        product_type_id: 'Tipo de Producto'
         is_enabled: 'Habilitado'
+        description: 'Descripción'
       p_config/product_type:
         name: 'Nombre'
+        type: 'Tipo'
         description: 'Descripción'
         is_enabled: 'Habilitado'
       p_config/standard:
         name: 'Nombre'
+        boot_variable_id: 'Variable de Arranque'
         description: 'Descripción'
         unit_type: 'Tipo de Unidad'
         item_number: 'Número de Piezas por Jornada'
@@ -52,3 +54,15 @@ es:
         name: 'Nombre'
         description: 'Descripción'
         is_enabled: 'Habilitado'
+      p_config/work_time:
+        name: 'Nombre'
+        first_hour: 'Primera Hora Laboral'
+        last_hour: 'Ultima Hora Laboral'
+        monday: 'Lunes'
+        tuesday: 'Martes'
+        wednesday: 'Miércoles'
+        thursday: 'Jueves'  
+        friday: 'Viernes'
+        saturday: 'Sábado'
+        sunday: 'Domingo'
+

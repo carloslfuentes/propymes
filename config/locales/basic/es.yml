@@ -30,6 +30,7 @@ es:
   #Config FIXME Eliminar o cambiar ya que esto se utiliza en el edit y tmb dice nuevo.
   operating_parameters: 'Parámetros Operativos'
   new_product: 'Nuevo Producto'
+  new_standard: 'Nuevo Proceso'
   new_station: 'Nueva Estación'
   new_user: 'Nuevo Usuario [Administrador]'
   new_operator: 'Nuevo Operador'
@@ -37,3 +38,4 @@ es:
   new_product_type: 'Nuevo Tipo de Producto'
   new_stoppage: 'Nuevo Paro'
   new_stoppage_by_category: 'Nuevo Paro por Categoria'
+  new_work_time: 'Nuevo Tiempo Laboral'

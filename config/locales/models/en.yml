@@ -14,8 +14,8 @@ en:
         one: 'Product Type'
         other: 'Product Types'
       p_config/standard:
-        one: 'Standard'
-        other: 'Standards'
+        one: 'Process'
+        other: 'Processes'
       p_config/station:
         one: 'Station'
         other: 'Stations'
@@ -28,3 +28,6 @@ en:
       p_config/stoppage_by_category:
         one: 'Stoppage_by_category'
         other: 'Stoppage_by_categories'
+      p_config/work_time:
+        one: 'Work Time'
+        other: 'Work Times'

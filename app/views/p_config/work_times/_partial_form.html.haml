@@ -1,0 +1,47 @@
+.wrapper.top
+  .grid_8
+    .grid_4.first.panel.padding1.background_gray_clear
+      %h3
+        = t :new_work_time
+      .form
+        .clearfix
+          = f.label :name
+          = f.text_field :name, :required => true
+        .clearfix
+          = f.label :first_hour
+          = f.text_field :first_hour, :type => :time, :required => true
+        .clearfix
+          = f.label :last_hour
+          = f.text_field :last_hour, :type => :time, :required => true
+        %hr/
+        .clearfix
+          = f.label :monday
+          = f.check_box :monday
+        .clearfix
+          = f.label :tuesday
+          = f.check_box :tuesday
+        .clearfix
+          = f.label :wednesday
+          = f.check_box :wednesday
+        .clearfix
+          = f.label :thursday
+          = f.check_box :thursday
+        .clearfix
+          = f.label :friday
+          = f.check_box :friday
+        .clearfix
+          = f.label :saturday
+          = f.check_box :saturday
+        .clearfix
+          = f.label :sunday
+          = f.check_box :sunday
+        %hr/
+        .ar
+          .clearfix.top
+            %button.button.background_orange.white{:type => "submit"}
+              = t :save
+            %button.button.background_gray.gray{:type => "reset"}
+              = t :clear
+            %a.button.background_gray.gray{:href => p_config_work_times_path}
+              = t :cancel
+

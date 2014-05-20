@@ -26,9 +26,11 @@ en:
   false: 'No'
   yes: 'Yes'
   no: 'No'
+  piece: 'Piece'
   #Config
   operating_parameters: 'Operating Parameters'
   new_product: 'New Product'
+  new_standard: 'New Process'
   new_station: 'New Station'
   piece: 'Piece'
   new_user: 'New User [Administrator]'

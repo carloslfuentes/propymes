@@ -41,6 +41,7 @@ PROPYMES::Application.routes.draw do
     resources :product_types
     resources :stoppages
     resources :stoppage_by_categories
+    resources :work_times
   end
   resources :configurations do
     collection do

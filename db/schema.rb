@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140505024615) do
+ActiveRecord::Schema.define(:version => 20140520210908) do
+
+  create_table "boot_variables", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "time"
+    t.boolean  "is_enabled",  :default => true
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
 
   create_table "configuration_mailers", :force => true do |t|
     t.string   "name"
@@ -68,16 +77,22 @@ ActiveRecord::Schema.define(:version => 20140505024615) do
     t.datetime "updated_at"
   end
 
+  create_table "product_types", :force => true do |t|
+    t.string   "name"
+    t.string   "type"
+    t.string   "description"
+    t.boolean  "is_enabled",  :default => true
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
   create_table "products", :force => true do |t|
     t.string   "name"
-    t.string   "machinery"
-    t.string   "time_total_workday"
-    t.string   "time_available"
-    t.string   "effective_time"
-    t.boolean  "is_enabled",         :default => false
-    t.string   "comments"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer  "product_type_id"
+    t.string   "description"
+    t.boolean  "is_enabled",      :default => true
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
   create_table "roles", :force => true do |t|
@@ -100,6 +115,44 @@ ActiveRecord::Schema.define(:version => 20140505024615) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "standards", :force => true do |t|
+    t.string   "name"
+    t.integer  "boot_variable_id"
+    t.string   "description"
+    t.string   "unit_type"
+    t.integer  "item_number"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "stations", :force => true do |t|
+    t.string   "name"
+    t.integer  "product_id"
+    t.integer  "standard_id"
+    t.string   "description"
+    t.boolean  "is_enabled",  :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "ip_station"
+  end
+
+  create_table "stoppage_by_categories", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.boolean  "is_enabled"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "stoppages", :force => true do |t|
+    t.string   "name"
+    t.integer  "category_id"
+    t.string   "time"
+    t.string   "solve"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "time_limits", :force => true do |t|
     t.string   "name"
@@ -140,6 +193,9 @@ ActiveRecord::Schema.define(:version => 20140505024615) do
     t.integer  "updated_by"
     t.string   "perishable_token",                  :default => ""
     t.boolean  "verified",                          :default => false
+    t.boolean  "is_manager",                        :default => false
+    t.boolean  "is_operator",                       :default => false
+    t.integer  "station_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
@@ -147,5 +203,37 @@ ActiveRecord::Schema.define(:version => 20140505024615) do
   add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"
   add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token"
   add_index "users", ["single_access_token"], :name => "index_users_on_single_access_token"
+
+  create_table "work_times", :force => true do |t|
+    t.string   "name"
+    t.string   "first_hour"
+    t.string   "last_hour"
+    t.boolean  "monday"
+    t.boolean  "tuesday"
+    t.boolean  "wednesday"
+    t.boolean  "thursday"
+    t.boolean  "friday"
+    t.boolean  "saturday"
+    t.boolean  "sunday"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "working_day_logs", :force => true do |t|
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.string   "description"
+    t.integer  "working_day_id"
+  end
+
+  create_table "working_days", :force => true do |t|
+    t.integer  "station_id"
+    t.integer  "operator_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "status"
+    t.string   "description"
+    t.string   "reason"
+  end
 
 end

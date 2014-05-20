@@ -14,8 +14,8 @@ es:
         one: 'Tipo de Producto'
         other: 'Tipos de Productos'
       p_config/standard:
-        one: 'Estandar'
-        other: 'Estandares'
+        one: 'Proceso'
+        other: 'Procesos'
       p_config/station:
         one: 'Estación'
         other: 'Estaciones'
@@ -28,3 +28,6 @@ es:
       p_config/stoppage_by_category:
         one: 'Paro por Categoria'
         other: 'Paros por Categorias'
+      p_config/work_time:
+        one: 'Tiempo Laboral'
+        other: 'Tiempos Laborales'

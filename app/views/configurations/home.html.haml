@@ -88,6 +88,17 @@
               = PConfig::StoppageByCategory.model_name.human(:count => :other)
           %td.ar
             = PConfig::StoppageByCategory.count.to_s
+    
+    .grid_2.top.first
+      %h3.background_gray_clear.gray
+        = PConfig::WorkTime.model_name.human(:count => :other)
+      %table.full.not-style
+        %tr
+          %td
+            %a.not_decoration.blue{:href => p_config_work_times_path}
+              = PConfig::WorkTime.model_name.human(:count => :other)
+          %td.ar
+            = PConfig::WorkTime.count.to_s
 
   .grid_2
     .panel.padding3

@@ -8,6 +8,9 @@
           = f.label :name
           = f.text_field :name, :required => true
         .clearfix
+          = f.label :type
+          = f.select :type, options_for_select([["Lineal", "linear"], ["Batch", "batch"]]), :required => true
+        .clearfix
           = f.label :description
           = f.text_area :description, :required => true
         .clearfix
@@ -22,4 +25,3 @@
               = t :clear
             %a.button.background_gray.gray{:href => p_config_product_types_path}
               = t :cancel
-

@@ -2,6 +2,7 @@ class CreateStandards < ActiveRecord::Migration
   def self.up
     create_table :standards do |t|
       t.string :name
+      t.integer :boot_variable_id
       t.string :description
       t.string :unit_type
       t.integer :item_number

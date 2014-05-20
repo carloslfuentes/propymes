@@ -2,11 +2,14 @@
   .grid_8
     .grid_4.first.panel.padding1.background_gray_clear
       %h3
-        = t :new_product
+        = t :new_standard
       .form
         .clearfix
           = f.label :name
           = f.text_field :name, :required => true
+        .clearfix
+          = f.label :boot_variable_id
+          = f.select :boot_variable_id, []
         .clearfix
           = f.label :unit_type
           = f.select :unit_type, options_for_select([[t(:piece), "piece"]]),{:include_blank => true}, :required => true #FIXME Agregar mas tipos de medida
