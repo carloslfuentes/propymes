@@ -8,4 +8,11 @@ class WorkingDay < ActiveRecord::Base
   def add_log
       WorkingDayLog.create(:working_day_id=>self.id, :description=>self.reason)
   end
+  
+  def self.get_working_day(sation_id, current_user_id)
+    if (working_day = WorkingDay.where("status in ('pausa','waiting_active','active') and station_id = ? and operator_id = ?", sation_id, current_user_id).first).blank?
+        working_day = WorkingDay.create(:reason=>'por iniciar',:status=>'waiting_active',:station_id=>sation_id,:operator_id=>current_user_id)
+    end
+    return working_day
+  end
 end
