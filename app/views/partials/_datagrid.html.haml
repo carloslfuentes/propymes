@@ -17,7 +17,23 @@
           -elsif object[fild_name.to_sym].class.to_s == "TrueClass"
             -#FIXME arreglar la traduccion, no quiere funcionar
             =object[fild_name.to_sym] ? "Si" : "No"
-          -else
+          -elsif fild_name["id"]
+            -case fild_name
+            -when :station_id
+              =object.station.nullo.name.if_nil("-")
+            -when :product_id
+              =object.product.nullo.name.if_nil("-")
+            -when :standard_id
+              =object.standard.nullo.name.if_nil("-")
+            -when :product_type_id
+              =object.product_type.nullo.name.if_nil("-")
+            -when :work_time_id
+              =object.work_time.nullo.name.if_nil("-")
+            -when :boot_variable_id
+              =object.boot_variable.nullo.name.if_nil("-")
+            -else
+              =object[fild_name.to_sym]
+          -else 
             =object[fild_name.to_sym]
       - links.each do |link|
         -table_name = request.path
