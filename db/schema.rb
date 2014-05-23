@@ -229,6 +229,7 @@ ActiveRecord::Schema.define(:version => 20140523173315) do
     t.datetime "updated_at",     :null => false
     t.string   "description"
     t.integer  "working_day_id"
+    t.integer  "product_id"
   end
 
   create_table "working_days", :force => true do |t|
@@ -239,6 +240,7 @@ ActiveRecord::Schema.define(:version => 20140523173315) do
     t.string   "status"
     t.string   "description"
     t.string   "reason"
+    t.integer  "product_id"
   end
 
 end
