@@ -10,7 +10,7 @@ class HomeController < ApplicationController
   
   def operator
     if (@sation = PConfig::Station.find_by_ip_station(request.ip.to_s)).present?
-        @working_day = WorkingDay.get_working_day(@sation.id,current_user.id)
+        @working_day = WorkingDay.get_working_day(@sation.id,current_user.id, params[:product_id])
     else
       flash[:error] = "No se encontro estacion con ip " + request.ip
     end

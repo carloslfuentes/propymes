@@ -21,12 +21,5 @@ module PConfig
       render :json => hash.join(",").to_json
     end
     
-    def get_assosiate_assitant
-      @user = PConfig::User.find_by_id params[:user_id]
-      hash=[]
-      @user.my_medics.map{|m| hash << m.medic_id} if @user.my_medics.present?
-      render :json => hash.join(",").to_json
-    end
-    
   end
 end
