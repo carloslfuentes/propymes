@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140520210908) do
+ActiveRecord::Schema.define(:version => 20140523173315) do
 
   create_table "boot_variables", :force => true do |t|
     t.string   "name"
@@ -79,11 +79,11 @@ ActiveRecord::Schema.define(:version => 20140520210908) do
 
   create_table "product_types", :force => true do |t|
     t.string   "name"
-    t.string   "type"
+    t.string   "type_of_production"
     t.string   "description"
-    t.boolean  "is_enabled",  :default => true
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.boolean  "is_enabled",         :default => true
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
   end
 
   create_table "products", :force => true do |t|
@@ -93,6 +93,15 @@ ActiveRecord::Schema.define(:version => 20140520210908) do
     t.boolean  "is_enabled",      :default => true
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
+  end
+
+  create_table "reasons", :force => true do |t|
+    t.string   "name"
+    t.string   "color"
+    t.string   "description"
+    t.boolean  "is_enabled"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "roles", :force => true do |t|
@@ -115,6 +124,13 @@ ActiveRecord::Schema.define(:version => 20140520210908) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "standard_boot_variables", :force => true do |t|
+    t.integer  "standard_id"
+    t.integer  "boot_variable_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "standards", :force => true do |t|
     t.string   "name"
@@ -152,17 +168,6 @@ ActiveRecord::Schema.define(:version => 20140520210908) do
     t.string   "solve"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-  end
-
-  create_table "time_limits", :force => true do |t|
-    t.string   "name"
-    t.integer  "user_id"
-    t.date     "start_date"
-    t.date     "end_date"
-    t.string   "description"
-    t.boolean  "is_active",   :default => true
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "user_sessions", :force => true do |t|

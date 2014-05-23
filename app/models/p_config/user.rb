@@ -27,7 +27,7 @@ module PConfig
     attr_accessor :name
     after_initialize :load_name
     
-    scope :is_active, where(:is_enabled=>true)
+    scope :is_enabled, where(:is_enabled=>true)
     scope :is_manager, where(:is_manager => true)
     scope :is_operator, where(:is_operator => true)
     

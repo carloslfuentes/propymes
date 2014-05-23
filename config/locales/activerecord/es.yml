@@ -22,7 +22,7 @@ es:
         description: 'Descripción'
       p_config/product_type:
         name: 'Nombre'
-        type: 'Tipo'
+        type_of_production: 'Tipo de Producción'
         description: 'Descripción'
         is_enabled: 'Habilitado'
       p_config/standard:
@@ -65,4 +65,8 @@ es:
         friday: 'Viernes'
         saturday: 'Sábado'
         sunday: 'Domingo'
+      p_config/reason:
+        name: 'Nombre'
+        description: 'Descripción'
+        is_enabled: 'Habilitado'
 

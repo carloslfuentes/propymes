@@ -8,7 +8,12 @@ PROPYMES::Application.routes.draw do
   match 'home/manager' => 'home#manager', :as => "manager", :via => :get
   match 'user_sessions/' => 'p_config/user_sessions#new'
   
-  resources :time_limits
+  #home
+  resources :home do
+    collection do
+      get :validate_boot
+    end
+  end
   
   root :to => "p_config/user_sessions#new"
   resources :configuration_mailers
@@ -42,6 +47,7 @@ PROPYMES::Application.routes.draw do
     resources :stoppages
     resources :stoppage_by_categories
     resources :work_times
+    resources :reasons
   end
   resources :configurations do
     collection do

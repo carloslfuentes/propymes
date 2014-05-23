@@ -7,22 +7,30 @@
         = f.fields_for :person, @person do |p|
           .clearfix
             =p.label :name
-            =p.text_field :name
+            =p.text_field :name, :required => true
           .clearfix
             =p.label :last_name
-            =p.text_field :last_name
+            =p.text_field :last_name, :required => true
         .clearfix
           = f.label :login 
-          = f.text_field :login 
-        .clearfix
-          = f.label :password 
-          = f.password_field :password 
-        .clearfix
-          = f.label :password_confirmation
-          = f.password_field :password_confirmation 
+          = f.text_field :login, :required => true
+        - if params[:user_type] == "is_manager"
+          .clearfix
+            = f.label :password 
+            = f.password_field :password, :required => true
+          .clearfix
+            = f.label :password_confirmation
+            = f.password_field :password_confirmation, :required => true
+        - else
+          .clearfix
+            = f.label :password 
+            = f.password_field :password, :class => :only_numbers, :maxlength => 4, :placeholder => t("only_numbers"), :required => true
+          .clearfix
+            = f.label :password_confirmation
+            = f.password_field :password_confirmation, :class => :only_numbers, :maxlength => 4, :placeholder => t("only_numbers"), :required => true
         .clearfix
           = f.label :email
-          = f.text_field :email 
+          = f.text_field :email, :required => true
         .clearfix
           = f.label :is_enabled
           = f.check_box :is_enabled
@@ -34,8 +42,8 @@
             = f.label :is_operator
             = f.check_box :is_operator, :checked => @user.id.blank? ? true : @user.is_operator?
         .clearfix
-          =f.label :station_id
-          =f.collection_select :station_id, PConfig::Station.is_actived.sort_by(&:name), :id, :name
+          = f.label :station_id
+          = f.collection_select :station_id, PConfig::Station.is_enabled.sort_by(&:name), :id, :name, {:include_blank => :true, :required => true}
         %hr/
         .ar
           .clearfix.top

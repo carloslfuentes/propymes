@@ -277,7 +277,7 @@ table.style th, table.style td {
   margin-left: 6px;
 }
 
-select, textarea, input[type=text], input[type=password], input[type=email], input[type=url], input[type=date], input[type=number], input[type=time], input[type=date], input.date {
+select, textarea, input[type=text], input[type=password], input[type=email], input[type=url], input[type=date], input[type=number], input[type=time], input[type=date], input[type=color], input.date {
   background-color: #fff;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -291,6 +291,10 @@ select, textarea, input[type=text], input[type=password], input[type=email], inp
   font: 13px/16px Arial, sans-serif !important;
   margin: 7px 0 7px 10px;
   width: 240px;
+}
+
+input[type=color] {
+  width: 40px;
 }
 
 select[required=required], textarea[required=required], input[required=required], input.date {

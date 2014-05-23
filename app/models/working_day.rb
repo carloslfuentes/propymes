@@ -6,7 +6,7 @@ class WorkingDay < ActiveRecord::Base
   validates_presence_of :reason  
   
   def add_log
-      WorkingDayLog.create(:working_day_id=>self.id, :description=>self.reason)
+    WorkingDayLog.create(:working_day_id=>self.id, :description=>self.reason)
   end
   
   def self.get_working_day(sation_id, current_user_id)

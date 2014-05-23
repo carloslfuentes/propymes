@@ -31,3 +31,6 @@ en:
       p_config/work_time:
         one: 'Work Time'
         other: 'Work Times'
+      p_config/reason:
+        one: 'Reason'
+        other: 'Reasons'

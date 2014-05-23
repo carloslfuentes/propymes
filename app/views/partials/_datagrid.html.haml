@@ -30,11 +30,14 @@
             -when :work_time_id
               =object.work_time.nullo.name.if_nil("-")
             -when :boot_variable_id
-              =object.boot_variable.nullo.name.if_nil("-")
+              =object.boot_variables.nullo.first.name.if_nil("-")
             -else
               =object[fild_name.to_sym]
-          -else 
-            =object[fild_name.to_sym]
+          - elsif object[fild_name.to_sym].to_s['#']
+            #div{:style => "background:#{object[fild_name.to_sym]}; color:#{object[fild_name.to_sym]}"}
+              = object[fild_name.to_sym]
+          -else
+            = object[fild_name.to_sym]
       - links.each do |link|
         -table_name = request.path
         -if link == "show"
@@ -54,7 +57,6 @@
             %a.action-button{:href => new_p_config_standard_path(:product_id => object.id)}
               %span.add
         -elsif link == "clone"
-          
           %td
             %a.action-button{:href => "#{table_name}/new?object_id=" + object.id.to_s}
               %span.page-copy

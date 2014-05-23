@@ -8,11 +8,11 @@
           = f.label :name
           = f.text_field :name, :required => true
         .clearfix
-          = f.label :type
-          = f.select :type, options_for_select([["Lineal", "linear"], ["Batch", "batch"]]), :required => true
+          = f.label :type_of_production
+          = f.select :type_of_production, options_for_select([["Lineal", "linear"], ["Batch", "batch"]]), {:include_blank => true, :required => true}
         .clearfix
           = f.label :description
-          = f.text_area :description, :required => true
+          = f.text_area :description
         .clearfix
           = f.label :is_enabled
           = f.check_box :is_enabled

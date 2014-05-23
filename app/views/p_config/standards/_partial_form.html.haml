@@ -1,25 +1,35 @@
 .wrapper.top
   .grid_8
-    .grid_4.first.panel.padding1.background_gray_clear
-      %h3
-        = t :new_standard
-      .form
-        .clearfix
-          = f.label :name
-          = f.text_field :name, :required => true
-        .clearfix
-          = f.label :boot_variable_id
-          = f.select :boot_variable_id, []
-        .clearfix
-          = f.label :unit_type
-          = f.select :unit_type, options_for_select([[t(:piece), "piece"]]),{:include_blank => true}, :required => true #FIXME Agregar mas tipos de medida
-        .clearfix
-          = f.label :item_number
-          = f.text_field :item_number, :type => :number, :required => true, :style => "width:120px;"
-        .clearfix
-          = f.label :description
-          = f.text_area :description
-        %hr/
+    .grid_4.first
+      .panel.padding1.background_gray_clear
+        %h3
+          = t :new_standard
+        .form
+          .clearfix
+            = f.label :name
+            = f.text_field :name, :required => true
+          .clearfix
+            = f.label :unit_type
+            = f.select :unit_type, options_for_select([[t(:piece), "piece"]]),{:include_blank => true}, :required => true #FIXME Agregar mas tipos de medida
+          .clearfix
+            = f.label :item_number
+            = f.text_field :item_number, :type => :number, :required => true, :style => "width:120px;"
+          .clearfix
+            = f.label :description
+            = f.text_area :description
+    .grid_4
+      .panel.padding1.background_gray_clear
+        %h3
+          = PConfig::BootVariable.model_name.human(:count => :other)
+          .float_right
+            %a.action-button{:class => "modal", :rel => "#add_boot_variable"}
+              %span.add
+        %table.full.not-style
+          = f.fields_for :standard_boot_variables, PConfig::StandardBootVariable.new do |c|
+            %h4.not_bold.blue
+              #add_variables
+    .grid_4.top
+      .panel.padding1.background_gray_clear
         .ar
           .clearfix.top
             %button.button.background_orange.white{:type => "submit"}
@@ -28,4 +38,49 @@
               = t :clear
             %a.button.background_gray.gray{:href => p_config_standards_path}
               = t :cancel
+
+//Add Boot Variables
+#add_boot_variable.widget.panel.padding1.background_gray_clear{:style => "min-height:100px;"}
+  .content
+    .form
+      .clearfix
+        = label_tag PConfig::BootVariable.model_name.human(:count => :other)
+        = select_tag :boot_variable_id, options_for_select(PConfig::BootVariable.is_enabled.sort_by(&:name).map{|boot_variable| [boot_variable.name, boot_variable.id]}), {:multiple => true, :size =>15}
+      %hr/
+      .ar
+        .clearfix.top
+          %a.button.background_orange.white{:id => "addBootVariables"}
+            = t :add
+          %a.button.background_gray.gray{:onclick => "$().closeModal();"}
+            = t :cancel
+
+:javascript
+  $(document).ready(function(){
+    $("#addBootVariables").live("click", function(){
+      var id,
+          text,
+          element,
+          prefix_name,
+          prefix_id,
+          selected = $("#boot_variable_id"),
+          add_variables = $("#add_variables");
+      
+      $.each(selected.find("option:selected"), function(index, value){
+        id = value.value;
+        text = value.text;
+        prefix_name = "p_config_standard[standard_boot_variables_attributes]["+index+"]";
+        prefix_id = "p_config_standard_standard_boot_variables_attributes_"+index+"_";
+        
+        selected.find("option[value=" + id + "]").remove();
+        
+        element = "<tr><td>";
+        element += "<input id='" + prefix_id + "boot_variable_id' name='" + prefix_name + "[boot_variable_id]' value='" + id + "' type='hidden'/>";
+        element += "<text_field>" + text + "</text_field>";
+        element += "</td></tr>";
+        
+        add_variables.append(element);
+      });
+      $(this).closeModal();
+    });
+  })
 

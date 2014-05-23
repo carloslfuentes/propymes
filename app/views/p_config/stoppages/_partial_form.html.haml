@@ -9,7 +9,7 @@
           = f.text_field :name, :required => true
         .clearfix
           = f.label :category_id
-          = f.select :category_id, options_for_select(PConfig::StoppageByCategory.is_enabled.map{|category| [category.name,category.id]}), {:include_blank => true, :required => true}
+          = f.collection_select :category_id, PConfig::StoppageByCategory.is_enabled.sort_by(&:name), :id, :name, {:include_blank => :true, :required => true}
         .clearfix
           = f.label :time
           = f.text_field :time, :type => :time, :required => true
