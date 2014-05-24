@@ -1,2 +1,33 @@
-=@user.login
-%br
+.wrapper.top
+  / Main Section
+  .grid_6.first
+    .columns.leading
+      .grid_3.first
+        %h3
+          = t :users
+        %table.no-style.full
+          %tbody
+            %tr
+              %td
+                = t :login
+              %td.ar
+                = @user.login
+            %tr
+              %td.al
+                = t :email
+              %td.ar
+                = @user.email
+            %tr
+              %td.al
+                = t :lenguage
+              %td.ar
+                = @user.language
+            %tr
+              %td.al
+                = t :current_login_ip
+              %td.ar
+                = @user.current_login_ip
+  .grid_2
+    .panel.padding3
+      %a.button.background_gray.gray{:href => p_config_users_path(:user_type => params[:user_type])}
+        = t :return

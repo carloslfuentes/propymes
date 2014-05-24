@@ -14,6 +14,10 @@ module PConfig
       @person = PConfig::Person.new
     end
     
+    def show
+      @user = User.find_by_id params[:id]
+    end
+    
     def get_permission_selected
       @user = PConfig::User.find_by_id params[:user_id]
       hash=[]
