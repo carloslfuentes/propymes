@@ -10,11 +10,9 @@ class HomeController < ApplicationController
   
   def operator
     if (@sation = PConfig::Station.find_by_ip_station(request.ip.to_s)).present?
-      if (@working_day = WorkingDay.where("status in ('pausa','waiting_active','active') and station_id = ? and operator_id = ?", @sation.id, current_user.id).first).blank?
-        @working_day = WorkingDay.create(:reason=>'por iniciar',:status=>'waiting_active',:station_id=>@sation.id,:operator_id=>current_user.id)
-      end
+        @working_day = WorkingDay.get_working_day(@sation.id,current_user.id, params[:product_id])
     else
-      flash[:error] = "No se encontro estacion con ip " + request.ip
+      flash[:error] = t("messages.ip_not_found")
     end
   end
   

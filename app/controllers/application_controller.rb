@@ -2,7 +2,19 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_user, :current_user_session#,  :logged_in?, :current_user_is_admin?
   before_filter :require_authentification, :set_user_language, :set_current_user
-  #filter_access_to :all
+  filter_access_to :all
+  
+  def permission_denied
+    logger.info "Permision Denied.........."
+    #This line is because if you don't have permission always shows the message in english instead of in the language of the current user wants
+    set_user_language
+    flash[:error] = "No tiene privilegios"
+    respond_to do |format|
+      format.html { redirect_to(:back) rescue redirect_to('/home') }
+      format.xml  { head :unauthorized }
+      format.js   { head :unauthorized }
+    end
+  end
   
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
@@ -46,29 +58,6 @@ class ApplicationController < ActionController::Base
       flash[:notice] = t :authentification_required
       redirect_to new_p_config_user_session_path
       #return false
-    end
-  end
-  
-  private
-  def check_time_limit
-    if current_user
-      limit = current_user.organization.nullo.time_limit.if_nil([])
-      if limit.present?
-        if limit.next_check < Time.now
-          limit.next_check = (Time.now + 24.hour)
-          return_time_limit = WebService::AutenticationLimitTime.check_time_limit(current_user.organization.id)
-          if return_time_limit[:status]
-            detail = return_time_limit[:detail]
-            limit.start_date = detail["start_date"]
-            limit.end_date = detail["end_date"]
-            limit.number_sessions = detail["number_sessions"]
-            limit.status = detail["status"]
-          end
-          limit.save
-        end
-      else
-        
-      end
     end
   end
   

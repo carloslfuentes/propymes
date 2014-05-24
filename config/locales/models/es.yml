@@ -31,3 +31,6 @@ es:
       p_config/work_time:
         one: 'Tiempo Laboral'
         other: 'Tiempos Laborales'
+      p_config/reason:
+        one: 'Razón'
+        other: 'Razones'

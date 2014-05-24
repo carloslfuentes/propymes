@@ -2,17 +2,17 @@
   .grid_8
     .grid_4.first.panel.padding1.background_gray_clear
       %h3
-        = t :new_product
+        = t :new_reasons
       .form
         .clearfix
           = f.label :name
           = f.text_field :name, :required => true
         .clearfix
-          = f.label :product_type_id
-          =f.collection_select :product_type_id, PConfig::ProductType.is_enabled.sort_by(&:name), :id, :name, {:include_blank => :true, :required => true}
+          = f.label :color
+          = f.text_field :color, :type => :color
         .clearfix
           = f.label :description
-          = f.text_area :description
+          = f.text_area :description, :required => true
         .clearfix
           = f.label :is_enabled
           = f.check_box :is_enabled
@@ -23,6 +23,7 @@
               = t :save
             %button.button.background_gray.gray{:type => "reset"}
               = t :clear
-            %a.button.background_gray.gray{:href => p_config_products_path}
+            %a.button.background_gray.gray{:href => p_config_reasons_path}
               = t :cancel
+
 

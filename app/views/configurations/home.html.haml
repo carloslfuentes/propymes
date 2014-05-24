@@ -6,14 +6,31 @@
     %hr
     .grid_2.top.first
       %h3.background_gray_clear.gray
-        = PConfig::Station.model_name.human(:count => :other)
+        = PConfig::Product.model_name.human(:count => :other)
       %table.full.not-style
         %tr
           %td
-            %a.not_decoration.blue{:href => p_config_stations_path}
-              = PConfig::Station.model_name.human(:count => :other)
+            %a.not_decoration.blue{:href => p_config_product_types_path}
+              = PConfig::ProductType.model_name.human(:count => :other)
           %td.ar
-            = PConfig::Station.count.to_s
+            = PConfig::ProductType.count.to_s
+        %tr
+          %td
+            %a.not_decoration.blue{:href => p_config_products_path}
+              = PConfig::Product.model_name.human(:count => :other)
+          %td.ar
+            = PConfig::Product.count.to_s
+    
+    .grid_2.top
+      %h3.background_gray_clear.gray
+        = PConfig::BootVariable.model_name.human(:count => :other)
+      %table.full.not-style
+        %tr
+          %td
+            %a.not_decoration.blue{:href => p_config_boot_variables_path}
+              = PConfig::BootVariable.model_name.human(:count => :other)
+          %td.ar
+            = PConfig::BootVariable.count.to_s
     
     .grid_2.top
       %h3.background_gray_clear.gray
@@ -25,8 +42,30 @@
               = PConfig::Standard.model_name.human(:count => :other)
           %td.ar
             = PConfig::Standard.count.to_s
+    .clear
     
-    .grid_2.top
+    .grid_2.top.first
+      %h3.background_gray_clear.gray
+        = PConfig::Station.model_name.human(:count => :other)
+      %table.full.not-style
+        %tr
+          %td
+            %a.not_decoration.blue{:href => p_config_stations_path}
+              = PConfig::Station.model_name.human(:count => :other)
+          %td.ar
+            = PConfig::Station.count.to_s
+  .grid_2
+    .panel.padding3
+      %a.button.background_orange.white{:href => home_path}
+        = t :home
+  .clear
+  
+  .grid_6.top.first
+    %hr
+    %h2
+      = t :production_parameters
+    %hr
+    .grid_2.top.first
       %h3.background_gray_clear.gray
         = PConfig::User.model_name.human(:count => :other)
       %table.full.not-style
@@ -42,35 +81,6 @@
               = t :new_user
           %td.ar
             = PConfig::User.is_manager.count.to_s
-    .clear
-    
-    .grid_2.top.first
-      %h3.background_gray_clear.gray
-        = PConfig::Product.model_name.human(:count => :other)
-      %table.full.not-style
-        %tr
-          %td
-            %a.not_decoration.blue{:href => p_config_products_path}
-              = PConfig::Product.model_name.human(:count => :other)
-          %td.ar
-            = PConfig::Product.count.to_s
-        %tr
-          %td
-            %a.not_decoration.blue{:href => p_config_product_types_path}
-              = PConfig::ProductType.model_name.human(:count => :other)
-          %td.ar
-            = PConfig::ProductType.count.to_s
-    
-    .grid_2.top
-      %h3.background_gray_clear.gray
-        = PConfig::BootVariable.model_name.human(:count => :other)
-      %table.full.not-style
-        %tr
-          %td
-            %a.not_decoration.blue{:href => p_config_boot_variables_path}
-              = PConfig::BootVariable.model_name.human(:count => :other)
-          %td.ar
-            = PConfig::BootVariable.count.to_s
     
     .grid_2.top
       %h3.background_gray_clear.gray
@@ -89,7 +99,7 @@
           %td.ar
             = PConfig::StoppageByCategory.count.to_s
     
-    .grid_2.top.first
+    .grid_2.top
       %h3.background_gray_clear.gray
         = PConfig::WorkTime.model_name.human(:count => :other)
       %table.full.not-style
@@ -99,9 +109,16 @@
               = PConfig::WorkTime.model_name.human(:count => :other)
           %td.ar
             = PConfig::WorkTime.count.to_s
-
-  .grid_2
-    .panel.padding3
-      %a.button.background_orange.white{:href => home_path}
-        = t :home
+    .clear
+    
+    .grid_2.top.first
+      %h3.background_gray_clear.gray
+        = PConfig::Reason.model_name.human(:count => :other)
+      %table.full.not-style
+        %tr
+          %td
+            %a.not_decoration.blue{:href => p_config_reasons_path}
+              = PConfig::Reason.model_name.human(:count => :other)
+          %td.ar
+            = PConfig::Reason.count.to_s
 

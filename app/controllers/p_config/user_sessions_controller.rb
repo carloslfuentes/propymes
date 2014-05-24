@@ -1,7 +1,8 @@
 module PConfig
   class UserSessionsController < ApplicationController
     skip_filter :require_authentification
-    protect_from_forgery :only => [:edit, :update, :destroy_session] 
+    protect_from_forgery :only => [:edit, :update, :destroy] 
+    skip_filter :set_user_language,:only => [:new, :destroy_session,:create_session] 
     filter_access_to :index
     def new
       unless current_user

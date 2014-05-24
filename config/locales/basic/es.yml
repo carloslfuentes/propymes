@@ -27,8 +27,11 @@ es:
   yes: 'Sí'
   no: 'No'
   piece: 'Pieza'
+  only_numbers: 'Solo Números'
+  add: 'Agregar'
   #Config FIXME Eliminar o cambiar ya que esto se utiliza en el edit y tmb dice nuevo.
   operating_parameters: 'Parámetros Operativos'
+  production_parameters: 'Parámetros de Producción'
   new_product: 'Nuevo Producto'
   new_standard: 'Nuevo Proceso'
   new_station: 'Nueva Estación'

@@ -20,13 +20,14 @@ module PConfig
     has_one    :configuration_mailer, :foreign_key => "object_id"
     has_many   :roles
     has_many   :working_day, :foreign_key => "operator_id"
+    belongs_to :station
     #belongs_to :station,  :name_class=>'PConfig::Station',:foreign_key => "station_id"
     
     accepts_nested_attributes_for :person
     attr_accessor :name
     after_initialize :load_name
     
-    scope :is_active, where(:is_enabled=>true)
+    scope :is_enabled, where(:is_enabled=>true)
     scope :is_manager, where(:is_manager => true)
     scope :is_operator, where(:is_operator => true)
     
