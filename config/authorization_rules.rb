@@ -12,6 +12,7 @@ authorization do
     has_permission_on :p_config_stoppages, :to => :manage
     has_permission_on :p_config_user, :to => :manage
     has_permission_on :p_config_boot_variables, :to => :manage
+    has_permission_on :p_config_stations, :to => :manage
     has_permission_on :configurations, :to => :manage
   end
   
@@ -37,14 +38,15 @@ privileges do
     includes :create, :update, :dstroy
   end
   privilege :manage, :p_config_user_sessions,:includes =>[:create_session, :new, :destroy_session]
-  privilege :manage, :p_config_products,:includes =>[:index]
-  privilege :manage, :p_config_product_typess,:includes =>[:index]
-  privilege :manage, :p_config_standards,:includes =>[:index]
-  privilege :manage, :p_config_stoppage_by_categories,:includes =>[:index]
-  privilege :manage, :p_config_stoppages,:includes =>[:index]
-  privilege :manage, :p_config_user,:includes =>[:index]
-  privilege :manage, :p_config_boot_variables,:includes =>[:index]
+  privilege :manage, :p_config_products,:includes =>[:index, :new, :edit, :show]
+  privilege :manage, :p_config_product_typess,:includes =>[:index, :new, :edit, :show]
+  privilege :manage, :p_config_standards,:includes =>[:index, :new, :edit, :show]
+  privilege :manage, :p_config_stoppage_by_categories,:includes =>[:index, :new, :edit, :show]
+  privilege :manage, :p_config_stoppages,:includes =>[:index, :new, :edit, :show]
+  privilege :manage, :p_config_user,:includes =>[:index, :new, :edit, :show]
+  privilege :manage, :p_config_stations,:includes =>[:index, :new, :edit, :show]
+  privilege :manage, :p_config_boot_variables,:includes =>[:index, :new, :edit, :show]
   
   privilege :manage, :configurations,:includes =>[:index,:home,:add_permissions_user,:create_permission_user]
-  privilege :manage, :home,:includes =>[:index, :operator]
+  privilege :manage, :home,:includes =>[:index, :operator, :manager, :validate_status]
 end

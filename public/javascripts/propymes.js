@@ -55,14 +55,21 @@ $(function() {
     $().closeModal();
     var id = $(this).attr('rel') + ".widget";
     //Effect to Open
-    $(id).fadeIn(400);
-    $(id).fadeTo("slow",1.0);
+    $(id).openModal();
     //Passing Params
     var id_row = $(this).attr('id_row'),
         param = $(this).attr('param');
     $(id_row).val(param);
   }); 
   
+});
+
+//Open Modal
+$(function() {
+  $.fn.openModal = function(){
+    $(this).fadeIn(400);
+    $(this).fadeTo("slow",1.0);
+  };
 });
 
 //Close Modal
@@ -81,5 +88,65 @@ $(function() {
       $(input).val(input.val() + num);
       
     });
+  };
+});
+
+//Validate Status
+$(function() {
+  $.fn.validateStatus = function(){
+    var date = new Date(),
+        time = date.getHours() + ":" + date.getMinutes(),
+        id = $(this);
+    
+    $.get("/home/validate_status",{}).done(function(data){
+      if(data){
+        $(id).openModal();
+      }
+    });
+  };
+});
+
+//Add MultiElements
+$(function(){
+  $.fn.addElements = function(options){
+    var id,
+        text,
+        element,
+        prefix_name,
+        prefix_id;
+    
+    var settings = $.extend( {
+      'select' : undefined,
+      'be_added_to' : undefined,
+      'prefix_id' : undefined,
+      'prefix_name' : undefined
+    }, options);
+    
+    var select = settings.select == undefined ? "" : settings.select;
+    var be_added_to = settings.be_added_to == undefined ? "" : settings.be_added_to;
+    var prefix_id = settings.prefix_id == undefined ? "" : settings.prefix_id;
+    var prefix_name = settings.prefix_name == undefined ? "" : settings.prefix_name;
+    
+    if(select){
+      $.each(select.find("option:selected"), function(index, value){
+        id = value.value;
+        text = value.text;
+        
+        prefix_id = prefix_id+"_"+index+"_";
+        prefix_name = prefix_name+"["+index+"]";
+        
+        select.find("option[value=" + id + "]").remove();
+        
+        element = "<tr><td>";
+        element += "<input id='" + prefix_id + select[0].id + "' name='" + prefix_name + "[" + select[0].id + "]' value='" + id + "' type='hidden'/>";
+        element += "<text_field>" + text + "</text_field>";
+        element += "</td></tr>";
+        
+        be_added_to.append(element);
+      });
+    }
+    
+    
+    $(this).closeModal();
   };
 });

@@ -1,31 +1,41 @@
 .wrapper.top
   .grid_8
     = errorFlash(flash)
-    .grid_4.first.panel.padding1.background_gray_clear
-      %h3
-        = t :new_station
-      .form
-        .clearfix
-          = f.label :name
-          = f.text_field :name, :required => true
-        .clearfix
-          = f.label :product_id
-          = f.collection_select :product_id, PConfig::Product.all.sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
-        .clearfix
-          = f.label :standard_id
-          = f.collection_select :standard_id, PConfig::Standard.all.sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
-        .clearfix
-          = f.label :ip_station
-          = f.text_field :ip_station, :class => "validate[required,custom[ip]]"
-          %a.action-button.top{:id => "ping"}
-            %span.connect
-        .clearfix
-          = f.label :is_enabled
-          = f.check_box :is_enabled
-        .clearfix
-          = f.label :description
-          = f.text_area :description
-        %hr/
+    .grid_4.first
+      .panel.padding1.background_gray_clear
+        %h3
+          = t :new_station
+        .form
+          .clearfix
+            = f.label :name
+            = f.text_field :name, :required => true
+          .clearfix
+            = f.label :standard_id
+            = f.collection_select :standard_id, PConfig::Standard.all.sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
+          .clearfix
+            = f.label :ip_station
+            = f.text_field :ip_station, :class => "validate[required,custom[ip]]"
+            %a.action-button.top{:id => "ping"}
+              %span.connect
+          .clearfix
+            = f.label :is_enabled
+            = f.check_box :is_enabled
+          .clearfix
+            = f.label :description
+            = f.text_area :description
+    .grid_4
+      .panel.padding1.background_gray_clear
+        %h3
+          = PConfig::Product.model_name.human(:count => :other)
+          .float_right
+            %a.action-button{:class => "modal", :rel => "#add_products"}
+              %span.add
+        %table.full.not-style
+          = f.fields_for :product_stations, PConfig::ProductStation.new do |c|
+            %h4.not_bold.blue
+              #be_added_to
+    .grid_4.top
+      .panel.padding1.background_gray_clear
         .ar
           .clearfix.top
             %button.button.background_orange.white{:type => "submit"}
@@ -34,8 +44,29 @@
               = t :clear
             %a.button.background_gray.gray{:href => p_config_stations_path}
               = t :cancel
+
+//Add Products
+#add_products.widget.panel.padding1.background_gray_clear{:style => "min-height:100px;"}
+  .content
+    .form
+      .clearfix
+        = label_tag PConfig::Product.model_name.human(:count => :other)
+        = select_tag :product_id, options_for_select(PConfig::Product.all.map{|prod| [prod.name, prod.id]}), {:multiple => true, :size =>15}
+      %hr/
+      .ar
+        .clearfix.top
+          %a.button.background_orange.white{:id => "addProducts"}
+            = t :add
+          %a.button.background_gray.gray{:onclick => "$().closeModal();"}
+            = t :cancel
+
 :javascript
   $(document).ready(function(){
+  
+    $("#addProducts").live("click",function(){
+      $(this).addElements({select:$("#product_id"), be_added_to:$("#be_added_to"), prefix_id:"p_config_station_product_stations_attributes", prefix_name:"p_config_station[product_stations_attributes]", close_modal:true});
+    });
+    
     //Test Ping
     $("#ping").click(function(){
       var ip_station = $("#p_config_station_ip_station").val(),

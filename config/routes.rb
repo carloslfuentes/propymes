@@ -11,7 +11,7 @@ PROPYMES::Application.routes.draw do
   #home
   resources :home do
     collection do
-      get :validate_boot
+      get :validate_status
     end
   end
   

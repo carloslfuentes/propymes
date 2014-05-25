@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     logger.info "Permision Denied.........."
     #This line is because if you don't have permission always shows the message in english instead of in the language of the current user wants
     set_user_language
-    flash[:error] = "No tiene privilegios"
+    flash[:error] = t :priviledge_error
     respond_to do |format|
       format.html { redirect_to(:back) rescue redirect_to('/home') }
       format.xml  { head :unauthorized }
@@ -52,7 +52,8 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def require_authentification 
+  def require_authentification
+    set_user_language
     unless current_user
       #store_location
       flash[:notice] = t :authentification_required

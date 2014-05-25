@@ -1,1 +1,9 @@
 es:
+  ip_not_found: 'Su IP no fue localizada en su catálogo de Estaciones.'
+  success_login: 'Entrada Exitosa ! Bienvenido'
+  priviledge_error: 'No se tiene Privilegios para esta Aréa'
+  activerecord:
+    errors:
+      messages:
+        product_id: 'El Producto'
+        standard_id: 'El Proceso'
