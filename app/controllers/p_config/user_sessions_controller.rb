@@ -31,5 +31,9 @@ module PConfig
       @user_session.destroy
       redirect_to root_path
     end
+    
+    def heartbeat
+      
+    end
   end
 end
