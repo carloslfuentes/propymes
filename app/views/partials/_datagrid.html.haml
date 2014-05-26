@@ -42,7 +42,8 @@
         -table_name = request.path
         -if link == "show"
           %td
-            %a.action-button{:href => "#{table_name}/#{object.id}"}
+            -params = request.fullpath.split("?")[1]
+            %a.action-button{:href => "#{table_name}/#{object.id}"+(params.present? ? "?#{params}" : "")}
               %span.magnifier
         -elsif link == "edit"
           %td
