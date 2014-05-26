@@ -1,0 +1,38 @@
+.wrapper.top
+  / Main Section
+  .grid_6.first
+    .grid_3.first
+      %h3
+        = t :reason
+      .panel.padding1.background_gray_clear
+        %table.no-style.full
+          .form
+            %tbody
+              %tr
+                %td
+                  = t :name
+                %td.ar
+                  = @reason.name
+              %tr
+                %td.al
+                  = t :color
+                %td.ar
+                  = @reason.color
+              %tr
+                %td.al
+                  = t :description
+                %td.ar
+                  = @reason.description
+              %tr
+                %td.al
+                  = t :is_active
+                %td.ar
+                  = @reason.is_enabled
+  %h3
+    &nbsp;
+  .grid_2
+    .panel.padding3
+      %a.button.background_gray.gray{:href => p_config_reasons_path(:user_type => params[:user_type])}
+        = t :return
+      %a.button.background_orange.white{:href => edit_resource_path(:user_type => params[:user_type])}
+        = t :edit

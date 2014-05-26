@@ -1,33 +1,38 @@
 .wrapper.top
   / Main Section
   .grid_6.first
-    .columns.leading
-      .grid_3.first
-        %h3
-          = t :users
+    .grid_3.first
+      %h3
+        = t :user
+      .panel.padding3
         %table.no-style.full
-          %tbody
-            %tr
-              %td
-                = t :login
-              %td.ar
-                = @user.login
-            %tr
-              %td.al
-                = t :email
-              %td.ar
-                = @user.email
-            %tr
-              %td.al
-                = t :lenguage
-              %td.ar
-                = @user.language
-            %tr
-              %td.al
-                = t :current_login_ip
-              %td.ar
-                = @user.current_login_ip
+          .form
+            %tbody
+              %tr
+                %td
+                  = t :login
+                %td.ar
+                  = @user.login
+              %tr
+                %td.al
+                  = t :email
+                %td.ar
+                  = @user.email
+              %tr
+                %td.al
+                  = t :lenguage
+                %td.ar
+                  = @user.language
+              %tr
+                %td.al
+                  = t :current_login_ip
+                %td.ar
+                  = @user.current_login_ip
+  %h3
+    &nbsp;
   .grid_2
     .panel.padding3
       %a.button.background_gray.gray{:href => p_config_users_path(:user_type => params[:user_type])}
         = t :return
+      %a.button.background_orange.white{:href => edit_resource_path(:user_type => params[:user_type])}
+        = t :edit

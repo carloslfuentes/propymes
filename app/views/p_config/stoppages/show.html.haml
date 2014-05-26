@@ -1,0 +1,38 @@
+.wrapper.top
+  / Main Section
+  .grid_6.first
+    .grid_3.first
+      %h3
+        = t :stoppage
+      .panel.padding1.background_gray_clear
+        %table.no-style.full
+          .form
+            %tbody
+              %tr
+                %td
+                  = t :name
+                %td.ar
+                  = @stoppage.name
+              %tr
+                %td.al
+                  = t :category_id
+                %td.ar
+                  = @stoppage.category_id
+              %tr
+                %td.al
+                  = t :_time
+                %td.ar
+                  = @stoppage.time
+              %tr
+                %td.al
+                  = t :solve
+                %td.ar
+                  = @stoppage.solve
+  %h3
+    &nbsp;
+  .grid_2
+    .panel.padding3
+      %a.button.background_gray.gray{:href => p_config_stoppages_path(:user_type => params[:user_type])}
+        = t :return
+      %a.button.background_orange.white{:href => edit_resource_path(:user_type => params[:user_type])}
+        = t :edit

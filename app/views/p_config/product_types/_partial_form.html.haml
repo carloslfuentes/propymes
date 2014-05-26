@@ -8,8 +8,8 @@
           = f.label :name
           = f.text_field :name, :required => true
         .clearfix
-          = f.label :type_of_production
-          = f.select :type_of_production, options_for_select([["Lineal", "linear"], ["Batch", "batch"]]), {:include_blank => true, :required => true}
+          = f.label :type #:type_of_production
+          = f.select :type, options_for_select([["Lineal", "linear"], ["Batch", "batch"]]), {:include_blank => true, :required => true} #:type_of_production
         .clearfix
           = f.label :description
           = f.text_area :description
