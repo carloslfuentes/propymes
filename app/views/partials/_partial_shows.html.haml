@@ -1,0 +1,24 @@
+.wrapper.top
+  / Main Section
+  .grid_6.first
+    .grid_3.first
+      %h3
+        = t("activerecord.models.#{request.path.sub('/','.').sub(/\/[0-9]+/,'').singularize}.one")
+      .panel.padding1.background_gray_clear
+        %table.no-style.full
+          .form
+            %tbody
+              - fild_names.each do |fild_name|
+                %tr
+                  %td
+                    = t("activerecord.attributes.#{request.path.sub('/','.').sub(/\/[0-9]+/,'').singularize}."+fild_name.to_s)
+                  %td.ar
+                    = object[fild_name.to_sym]
+  %h3
+    &nbsp;
+  .grid_2
+    .panel.padding3
+      %a.button.background_gray.gray{:href => request.path.sub(/\/[0-9]+/,"")}
+        = t :return
+      %a.button.background_orange.white{:href => edit_resource_path}
+        = t :edit
