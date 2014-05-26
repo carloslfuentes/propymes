@@ -1,6 +1,11 @@
 en:
   activerecord:
     attributes:
+      p_config/fixed_amount:
+        name: 'Name'
+        description: 'Description'
+        amount: 'Amount'
+        is_enabled: 'Enabled'
       p_config/person:
         name: "Name"
         last_name: "Last name"

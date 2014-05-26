@@ -1,6 +1,9 @@
 es:
   activerecord:
     models:
+      p_config/fixed_amount:
+        one: 'Precio Fijo'
+        other: 'Precios Fijos'
       p_config/person:
         one: 'Persona'
         other: 'Personas'

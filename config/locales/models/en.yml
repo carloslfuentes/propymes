@@ -1,6 +1,9 @@
 en:
   activerecord:
     models:
+      p_config/fixed_amount:
+        one: 'Fixed Amount'
+        other: 'Fixed Amounts'
       p_config/person:
         one: 'Person'
         other: 'Personas'

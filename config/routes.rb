@@ -21,6 +21,7 @@ PROPYMES::Application.routes.draw do
   
   #Configurations
   namespace :p_config do
+    resources :fixed_amounts
     resources :products
     resources :standards
     resources :stations do
@@ -40,6 +41,7 @@ PROPYMES::Application.routes.draw do
         post :new
         post :create_session
         get :destroy_session
+        get :heartbeat
       end
     end
     resources :boot_variables
