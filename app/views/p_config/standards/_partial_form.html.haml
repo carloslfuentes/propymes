@@ -27,7 +27,7 @@
         %table.full.not-style
           = f.fields_for :standard_boot_variables, PConfig::StandardBootVariable.new do |c|
             %h4.not_bold.blue
-              #add_variables
+              #be_added_to
     .grid_4.top
       .panel.padding1.background_gray_clear
         .ar
@@ -56,31 +56,8 @@
 
 :javascript
   $(document).ready(function(){
-    $("#addBootVariables").live("click", function(){
-      var id,
-          text,
-          element,
-          prefix_name,
-          prefix_id,
-          selected = $("#boot_variable_id"),
-          add_variables = $("#add_variables");
-      
-      $.each(selected.find("option:selected"), function(index, value){
-        id = value.value;
-        text = value.text;
-        prefix_name = "p_config_standard[standard_boot_variables_attributes]["+index+"]";
-        prefix_id = "p_config_standard_standard_boot_variables_attributes_"+index+"_";
-        
-        selected.find("option[value=" + id + "]").remove();
-        
-        element = "<tr><td>";
-        element += "<input id='" + prefix_id + "boot_variable_id' name='" + prefix_name + "[boot_variable_id]' value='" + id + "' type='hidden'/>";
-        element += "<text_field>" + text + "</text_field>";
-        element += "</td></tr>";
-        
-        add_variables.append(element);
-      });
-      $(this).closeModal();
+    $("#addBootVariables").live("click",function(){
+      $(this).addElements({select:$("#boot_variable_id"), be_added_to:$("#be_added_to"), prefix_id:"p_config_standard_standard_boot_variables_attributes", prefix_name:"p_config_standard[standard_boot_variables_attributes]", close_modal:true});
     });
   })
 

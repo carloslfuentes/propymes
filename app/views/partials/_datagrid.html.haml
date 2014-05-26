@@ -22,7 +22,7 @@
             -when :station_id
               =object.station.nullo.name.if_nil("-")
             -when :product_id
-              =object.product.nullo.name.if_nil("-")
+              =object.products.nullo.first.name.if_nil("-")
             -when :standard_id
               =object.standard.nullo.name.if_nil("-")
             -when :product_type_id

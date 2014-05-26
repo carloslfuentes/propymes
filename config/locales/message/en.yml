@@ -1,1 +1,9 @@
 en:
+  ip_not_found: 'Your IP was not located in its catalog Station.'
+  success_login: 'Success Login ! Welcome'
+  priviledge_error: 'You do not have privileges for this Aréa'
+  activerecord:
+    errors:
+      messages:
+        product_id: 'Producto'
+        standard_id: 'Proceso'
