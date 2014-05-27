@@ -13,7 +13,7 @@
             = f.select :unit_type, options_for_select([[t(:piece), "piece"]]),{:include_blank => true}, :required => true #FIXME Agregar mas tipos de medida
           .clearfix
             = f.label :item_number
-            = f.text_field :item_number, :type => :number, :required => true, :style => "width:120px;"
+            = f.text_field :item_number, :type => :number, :class => :only_numbers, :required => true, :style => "width:120px;"
           .clearfix
             = f.label :description
             = f.text_area :description
@@ -27,7 +27,18 @@
         %table.full.not-style
           = f.fields_for :standard_boot_variables, PConfig::StandardBootVariable.new do |c|
             %h4.not_bold.blue
-              #be_added_to
+              #be_added_to_boot_variable
+    .grid_4.top
+      .panel.padding1.background_gray_clear
+        %h3
+          = PConfig::Input.model_name.human(:count => :other)
+          .float_right
+            %a.action-button{:class => "modal", :rel => "#add_input"}
+              %span.add
+        %table.full.not-style
+          = f.fields_for :standard_inputs, PConfig::StandardInput.new do |d|
+            %h4.not_bold.blue
+              #be_added_to_input
     .grid_4.top
       .panel.padding1.background_gray_clear
         .ar
@@ -54,10 +65,31 @@
           %a.button.background_gray.gray{:onclick => "$().closeModal();"}
             = t :cancel
 
+//Add Inputs
+#add_input.widget.panel.padding1.background_gray_clear{:style => "min-height:100px;"}
+  .content
+    .form
+      .clearfix
+        = label_tag PConfig::Input.model_name.human(:count => :other)
+        = select_tag :input_id, options_for_select(PConfig::Input.is_enabled.sort_by(&:name).map{|input| [input.name, input.id]}), {:multiple => true, :size =>15}
+      %hr/
+      .ar
+        .clearfix.top
+          %a.button.background_orange.white{:id => "addInputs"}
+            = t :add
+          %a.button.background_gray.gray{:onclick => "$().closeModal();"}
+            = t :cancel
+
 :javascript
   $(document).ready(function(){
+    //Add Boot Variables
     $("#addBootVariables").live("click",function(){
-      $(this).addElements({select:$("#boot_variable_id"), be_added_to:$("#be_added_to"), prefix_id:"p_config_standard_standard_boot_variables_attributes", prefix_name:"p_config_standard[standard_boot_variables_attributes]", close_modal:true});
+      $(this).addElements({select:$("#boot_variable_id"), be_added_to:$("#be_added_to_boot_variable"), prefix_id:"p_config_standard_standard_boot_variables_attributes", prefix_name:"p_config_standard[standard_boot_variables_attributes]"});
+    });
+    
+    //Add Input
+    $("#addInputs").live("click",function(){
+      $(this).addElements({select:$("#input_id"), be_added_to:$("#be_added_to_input"), prefix_id:"p_config_standard_standard_inputs_attributes", prefix_name:"p_config_standard[standard_inputs_attributes]"});
     });
   })
 

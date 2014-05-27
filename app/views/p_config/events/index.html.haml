@@ -1,0 +1,10 @@
+.wrapper.top
+  .grid_8
+    .grid_6.first
+      = render :partial => '/partials/datagrid', :locals => {:links => ["edit"],:objects => @events, :fild_names=> [:id, :user_id, :stoppage_by_categories_id, :stoppage_id, :start_date, :end_date]}
+    .grid_2
+      .panel.padding3
+        %a.button.background_orange.white{:href => new_p_config_event_path}
+          = t :new
+        %a.button.background_gray.gray{:href => configurations_path}
+          = t :configuration

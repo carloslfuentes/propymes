@@ -1,60 +1,19 @@
 .wrapper.top
-  = errorFlash(flash)
-  .grid_6.first
-    .grid_3.first
-      = "Grid 1"
-      .panel#panel_pay{:style => "display:#{@working_day.nullo.status.if_nil('No se encontro') == 'waiting_active' ? 'show' : 'none'};"}
-        = link_to "Play", "#", :id=>"start"
-      .panel#panel_control{:style => "display:#{@working_day.nullo.status.if_nil('No se encontro') == 'active' ? 'show' : 'none'};"}
-        %a.button.background_gray.gray{:href => "#",:class =>"modal", :rel => "#pausar-modal"}
-          = t :pausar
-        = link_to "Parar", "#"
-      .panel#panel_control{:style => "display:#{@working_day.nullo.status.if_nil('No se encontro') == 'pausa' ? 'show' : 'none'};"}
-        = link_to "Reanudar", "#"
-        = link_to "Parar", "#"
-    .grid_3
-      = "Grid 2"
-  .grid_2
-    .panel.padding3
-      = "Cronometro de Variables de Arranque"
-#pausar-modal.widget.panel.padding1.background_gray_clear
+  .grid_8
+    = errorFlash(flash)
+
+#validate_status.widget.panel.padding1.background_gray_clear
   .content
-    %h3
-      = "Pausar"
-    .ac
+    .form
       .clearfix
-        = text_field_tag :rason_text
-        %hr/
-        %br/
-        .ar
-          %a.button.background_gray.gray{:href => "#", :onclick => "$().closeModal();", :id=>"pausar_button"}
-            = t :pausar
-          
+        = label_tag :product_id
+        = select_tag :product_id, options_for_select(PConfig::Product.for_station(request.ip).map{|prod| [prod.name, prod.id]})
+        
+
 :javascript
   $(document).ready(function() {
-    $("#pausar_button").click(function() {
-      var reason = $("#rason_text").val();
-      if(reason){
-        changeStatus(reason, 'pausa');
-      }else{
-        alert("Tiene que tener una razon");
-      }
-    });
-    $("#start").click(function() {
-      changeStatus("Se inicio", 'active');
-    });
-    function changeStatus(set_reason, set_status){
-      $.get("/p_config/stations/change_status",{id: "#{@working_day.nullo.id.if_nil(0)}", status: set_status, reason: set_reason}).done(function(data){
-        if(data["status"] == 'active'){
-          $('#panel_pay').hide();
-          $('#panel_control').show();
-        }else if(data["status"] == 'pausa'){
-          $('#panel_control').hide();
-          $('#panel_pay').show();
-        }else{
-          alert(data["status"]);
-        }
-      });
-    }
+    
+    //Validate Status
+    $("#validate_status").validateStatus();
   });
 

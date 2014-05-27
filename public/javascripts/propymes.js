@@ -14,9 +14,9 @@ $(document).ready(function(e) {
     }
   });
   
-  //Only Numbers
+  //Only Numbers FIXME Agregar punto
   $('.only_numbers').keypress(function (e){
-    if( e.which!=8 && e.which!=0 && (e.which<48 || e.which>57)){
+    if( e.which!=8 && e.which!=0 && e.which!=46 && (e.which<48 || e.which>57)){
       return false;
     }
   });
@@ -36,7 +36,7 @@ $(function($){
     var element = $(this).attr("id") ;
     
     var set_date = settings.set_date == undefined ? new Date() : new Date(settings.set_date);
-    var format = settings.format == undefined ? '%Y-%m-%d' : settings.format;
+    var format = settings.format == undefined ? '%l, %d %F %Y [%H:%i]' : settings.format;
     var language = settings.language == undefined ? 'es' : settings.language;
     var hideTime = settings.hideTime == undefined ? 'false' : settings.hideTime;
     
@@ -113,32 +113,35 @@ $(function(){
         text,
         element,
         prefix_name,
-        prefix_id;
+        prefix_id,
+        close_modal;
     
     var settings = $.extend( {
       'select' : undefined,
       'be_added_to' : undefined,
       'prefix_id' : undefined,
-      'prefix_name' : undefined
+      'prefix_name' : undefined,
+      'close_modal' :undefined
     }, options);
     
     var select = settings.select == undefined ? "" : settings.select;
     var be_added_to = settings.be_added_to == undefined ? "" : settings.be_added_to;
     var prefix_id = settings.prefix_id == undefined ? "" : settings.prefix_id;
     var prefix_name = settings.prefix_name == undefined ? "" : settings.prefix_name;
+    var close_modal = settings.close_modal == undefined ? true : settings.close_modal;
     
     if(select){
       $.each(select.find("option:selected"), function(index, value){
         id = value.value;
         text = value.text;
         
-        prefix_id = prefix_id+"_"+index+"_";
-        prefix_name = prefix_name+"["+index+"]";
+        prefixId = prefix_id+"_"+index+"_";
+        prefixName = prefix_name+"["+index+"]";
         
         select.find("option[value=" + id + "]").remove();
         
         element = "<tr><td>";
-        element += "<input id='" + prefix_id + select[0].id + "' name='" + prefix_name + "[" + select[0].id + "]' value='" + id + "' type='hidden'/>";
+        element += "<input id='" + prefixId + select[0].id + "' name='" + prefixName + "[" + select[0].id + "]' value='" + id + "' type='hidden'/>";
         element += "<text_field>" + text + "</text_field>";
         element += "</td></tr>";
         
@@ -146,7 +149,9 @@ $(function(){
       });
     }
     
-    
-    $(this).closeModal();
+    //Close Modal
+    if(close_modal){
+      $(this).closeModal();
+    }
   };
 });

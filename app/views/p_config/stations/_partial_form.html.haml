@@ -1,6 +1,5 @@
 .wrapper.top
   .grid_8
-    = errorFlash(flash)
     .grid_4.first
       .panel.padding1.background_gray_clear
         %h3
@@ -14,7 +13,7 @@
             = f.collection_select :standard_id, PConfig::Standard.all.sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
           .clearfix
             = f.label :ip_station
-            = f.text_field :ip_station, :class => "validate[required,custom[ip]]"
+            = f.text_field :ip_station, :class => "validate[required,custom[ip]]", :required => true
             %a.action-button.top{:id => "ping"}
               %span.connect
           .clearfix
@@ -62,12 +61,13 @@
 
 :javascript
   $(document).ready(function(){
-  
+    
+    //Add Products
     $("#addProducts").live("click",function(){
-      $(this).addElements({select:$("#product_id"), be_added_to:$("#be_added_to"), prefix_id:"p_config_station_product_stations_attributes", prefix_name:"p_config_station[product_stations_attributes]", close_modal:true});
+      $(this).addElements({select:$("#product_id"), be_added_to:$("#be_added_to"), prefix_id:"p_config_station_product_stations_attributes", prefix_name:"p_config_station[product_stations_attributes]"});
     });
     
-    //Test Ping
+    //Test Ping FIXME Falta acomodar funcion
     $("#ping").click(function(){
       var ip_station = $("#p_config_station_ip_station").val(),
           span = $(this);

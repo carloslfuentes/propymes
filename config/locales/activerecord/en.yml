@@ -74,5 +74,15 @@ en:
         name: 'Name'
         description: 'Description'
         is_enabled: 'Enabled'
-
+      p_config/input:
+        name: 'Name'
+        cost_per_unit: 'Cost per Unit'
+        description: 'Description'
+        is_enabled: 'Enabled'
+      p_config/event:
+        station: 'Station'
+        stoppage_by_categories_id: 'Category'
+        stoppage_id: 'Description'
+        start_date: 'Start Date'
+        end_date: 'End Date'
 

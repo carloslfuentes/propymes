@@ -1,0 +1,9 @@
+es:
+  messages:
+    authentification_required: "Autenticacion Requerida"
+    ip_not_found: 'Su IP no fue localizada en su catálogo de Estaciones.'
+    priviledge_error: 'No se tiene Privilegios para esta Aréa'
+  activerecord:
+    errors:
+      messages:
+        ip_station: 'IP esta asignada a otra estación'

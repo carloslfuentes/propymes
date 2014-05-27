@@ -50,6 +50,8 @@ PROPYMES::Application.routes.draw do
     resources :stoppage_by_categories
     resources :work_times
     resources :reasons
+    resources :inputs
+    resources :events
   end
   resources :configurations do
     collection do
