@@ -1,7 +1,7 @@
 .wrapper.top
   .grid_8
     .grid_6.first
-      = render :partial => '/partials/datagrid', :locals => {:links => ["edit"],:objects => @fixed_amounts, :fild_names=> [:id, :name, :amount, :description, :is_enabled ]}
+      = render :partial => '/partials/datagrid', :locals => {:links => ["edit","show"],:objects => @fixed_amounts, :fild_names=> [:id, :name, :amount, :description, :is_enabled ]}
     .grid_2
       .panel.padding3
         %a.button.background_orange.white{:href => new_p_config_fixed_amount_path}
