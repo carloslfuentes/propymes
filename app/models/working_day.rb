@@ -15,4 +15,8 @@ class WorkingDay < ActiveRecord::Base
     end
     return working_day
   end
+  
+  def calculate_item(ip)
+    
+  end
 end

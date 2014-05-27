@@ -29,4 +29,9 @@ class HomeController < ApplicationController
     end
   end
   
+  def calculate_items
+    working_day =  WorkingDay.find_by_ip params[:working_day_id]
+    working_day.calculate_item request.ip
+  end
+  
 end
