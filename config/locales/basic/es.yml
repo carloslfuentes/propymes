@@ -1,5 +1,4 @@
 es:
-  authentification_required: "Autenticacion Requerida"
   piemp: 'PIEMP - Proyecto Integral para Empresas'
   registered_as: 'Registrado como'
   user: 'Usuario'
@@ -8,7 +7,7 @@ es:
   login: 'Iniciar Sesión'
   welcome: 'Bienvenido !'
   forgot_your_password: "¿Olvidaste tu Contraseña?"
-  success_login: '¡ Entrada Exitosa !'
+  success_login: 'Entrada Exitosa Bienvenido !'
   please_login: 'Por Favor Inicia Sesión'
   please_password: 'Por Favor Ingrese Contraseña'
   welcome_message: 'Bienvenido al sistema lksncd lksdm klsmdc klsmcd klmsdc m sdmclsc lksndk lksmcdls lksmdclsdc lksmclksmc lkmsdc.'
@@ -43,3 +42,5 @@ es:
   new_stoppage_by_category: 'Nuevo Paro por Categoria'
   new_work_time: 'Nuevo Tiempo Laboral'
   new_fixed_amount: 'Nuevo Monto Fijo'
+  new_input: 'Nuevo Insumo'
+  new_event: 'Nuevo Evento'

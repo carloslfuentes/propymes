@@ -74,4 +74,15 @@ es:
         name: 'Nombre'
         description: 'Descripción'
         is_enabled: 'Habilitado'
+      p_config/input:
+        name: 'Nombre'
+        cost_per_unit: 'Costo por Unidad'
+        description: 'Descripción'
+        is_enabled: 'Habilitado'
+      p_config/event:
+        station_id: 'Estación'
+        stoppage_by_categories_id: 'Categoria'
+        stoppage_id: 'Descripción'
+        start_date: 'Fecha Inicial'
+        end_date: 'Fecha Final'
 

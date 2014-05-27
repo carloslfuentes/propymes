@@ -1,0 +1,39 @@
+.wrapper.top
+  .grid_8
+    .grid_4.first.panel.padding1.background_gray_clear
+      %h3
+        = t :new_event
+      .form
+        .clearfix
+          = f.label :station_id
+          = f.collection_select :station_id, PConfig::Station.all.sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
+        .clearfix
+          = f.label :stoppage_by_categories_id
+          = f.collection_select :stoppage_by_categories_id, PConfig::StoppageByCategory.all.sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
+        .clearfix
+          = f.label :stoppage_id
+          = f.collection_select :stoppage_id, PConfig::Stoppage.all.sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
+        .clearfix
+          = f.label :start_date
+          = f.text_field :start_date, :value => (l DateTime.now, :format => :format_date_picker), :required => true
+        .clearfix
+          = f.label :end_date
+          = f.text_field :end_date, :value => (l DateTime.now, :format => :format_date_picker), :required => true
+        %hr/
+        .ar
+          .clearfix.top
+            %button.button.background_orange.white{:type => "submit"}
+              = t :save
+            %button.button.background_gray.gray{:type => "reset"}
+              = t :clear
+            %a.button.background_gray.gray{:href => p_config_events_path}
+              = t :cancel
+
+:javascript
+  $(document).ready(function(){
+    
+    //Calendar Date Picker [Start Date && End Date]
+    $("#p_config_event_start_date").calendarDatePicker({language:"#{current_user.language}", hideTime:true})
+    $("#p_config_event_end_date").calendarDatePicker({language:"#{current_user.language}", hideTime:true})
+    
+  })

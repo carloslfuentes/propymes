@@ -40,6 +40,18 @@
     
     .grid_2.top
       %h3.background_gray_clear.gray
+        = PConfig::Input.model_name.human(:count => :other)
+      %table.full.not-style
+        %tr
+          %td
+            %a.not_decoration.blue{:href => p_config_inputs_path}
+              = PConfig::Input.model_name.human(:count => :other)
+          %td.ar
+            = PConfig::Input.count.to_s
+    .clear
+    
+    .grid_2.top.first
+      %h3.background_gray_clear.gray
         = PConfig::Standard.model_name.human(:count => :other)
       %table.full.not-style
         %tr
@@ -48,9 +60,8 @@
               = PConfig::Standard.model_name.human(:count => :other)
           %td.ar
             = PConfig::Standard.count.to_s
-    .clear
     
-    .grid_2.top.first
+    .grid_2.top
       %h3.background_gray_clear.gray
         = PConfig::Station.model_name.human(:count => :other)
       %table.full.not-style
@@ -127,4 +138,15 @@
               = PConfig::Reason.model_name.human(:count => :other)
           %td.ar
             = PConfig::Reason.count.to_s
+    
+    .grid_2.top
+      %h3.background_gray_clear.gray
+        = PConfig::Event.model_name.human(:count => :other)
+      %table.full.not-style
+        %tr
+          %td
+            %a.not_decoration.blue{:href => p_config_events_path}
+              = PConfig::Event.model_name.human(:count => :other)
+          %td.ar
+            = PConfig::Event.count.to_s
 

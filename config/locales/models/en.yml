@@ -37,3 +37,9 @@ en:
       p_config/reason:
         one: 'Reason'
         other: 'Reasons'
+      p_config/input:
+        one: 'Input'
+        other: 'Inputs'
+      p_config/event:
+        one: 'Event'
+        other: 'Events'

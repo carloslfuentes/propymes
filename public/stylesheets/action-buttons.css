@@ -68,3 +68,7 @@
 .action-button span.cross {
   background: transparent url(/images/d02/icons/cross.png) no-repeat center center;
 }
+
+.action-button span.delete {
+  background: transparent url(/images/d02/icons/delete.png) no-repeat center center;
+}

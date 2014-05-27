@@ -14,7 +14,7 @@ module PConfig
               :presence => true, 
               :uniqueness => true,
               :ip => { :format => :v4 } 
-    validates :standard_id, :uniqueness => {:message => :standard_id} #FIXME Validacion lo estoy chekando
+    
     scope :is_enabled, where(:is_enabled=>true)
     def self.rev_ip(host)
       Net::Ping::TCP.new(host, 'http')

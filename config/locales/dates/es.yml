@@ -5,11 +5,10 @@ es:
       
     day_names: [Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado]
     month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
-    order: [ year, month, day ]
+  
   time:
     formats:
       default: "%Y-%m-%d %H %i"
-      #rails_to_dhtmlx: "%Y %m %d %H %M"
-      format_date_picker: "%A, %d %B %Y %H:%M"
+      format_date_picker: "%A, %d %B %Y [%H:%M]"
     am: "am" 
     pm: "pm"

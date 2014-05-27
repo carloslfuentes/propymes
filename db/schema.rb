@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140523173315) do
+ActiveRecord::Schema.define(:version => 20140526011830) do
 
   create_table "boot_variables", :force => true do |t|
     t.string   "name"
@@ -61,6 +61,26 @@ ActiveRecord::Schema.define(:version => 20140523173315) do
     t.datetime "updated_at"
   end
 
+  create_table "events", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "station_id"
+    t.integer  "stoppage_by_categories_id"
+    t.integer  "stoppage_id"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  create_table "inputs", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.float    "cost_per_unit"
+    t.boolean  "is_enabled",    :default => true
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
   create_table "people", :force => true do |t|
     t.string   "name"
     t.string   "last_name"
@@ -75,6 +95,13 @@ ActiveRecord::Schema.define(:version => 20140523173315) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "product_stations", :force => true do |t|
+    t.integer  "product_id"
+    t.integer  "station_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "product_types", :force => true do |t|
@@ -132,19 +159,24 @@ ActiveRecord::Schema.define(:version => 20140523173315) do
     t.datetime "updated_at",       :null => false
   end
 
+  create_table "standard_inputs", :force => true do |t|
+    t.integer  "standard_id"
+    t.integer  "input_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "standards", :force => true do |t|
     t.string   "name"
-    t.integer  "boot_variable_id"
     t.string   "description"
     t.string   "unit_type"
     t.integer  "item_number"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "stations", :force => true do |t|
     t.string   "name"
-    t.integer  "product_id"
     t.integer  "standard_id"
     t.string   "description"
     t.boolean  "is_enabled",  :default => true

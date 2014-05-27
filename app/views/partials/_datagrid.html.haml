@@ -52,11 +52,8 @@
               %span.pencil
         -elsif link == "delete"
           %td
-            =link_to link, "#{table_name}/#{object.id}", :method=> :delete
-        -elsif link == "add_standard"
-          %td
-            %a.action-button{:href => new_p_config_standard_path(:product_id => object.id)}
-              %span.add
+            %a.action-button{:href => "#{table_name}/#{object.id}", :method=> :delete}
+              %span.delete
         -elsif link == "clone"
           %td
             %a.action-button{:href => "#{table_name}/new?object_id=" + object.id.to_s}

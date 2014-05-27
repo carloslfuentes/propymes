@@ -15,6 +15,8 @@ authorization do
     has_permission_on :p_config_stations, :to => :manage
     has_permission_on :p_config_reasons, :to => :manage
     has_permission_on :p_config_work_times, :to => :manage
+    has_permission_on :p_config_inputs, :to => :manage
+    has_permission_on :p_config_events, :to => :manage
     has_permission_on :configurations, :to => :manage
     has_permission_on :p_config_fixed_amounts, :to => :manage
   end
@@ -52,6 +54,8 @@ privileges do
   privilege :manage, :p_config_stations,:includes =>[:index, :new, :edit, :show]
   privilege :manage, :p_config_boot_variables,:includes =>[:index, :new, :edit, :show]
   privilege :manage, :p_config_fixed_amounts,:includes =>[:index, :new, :edit, :show]
+  privilege :manage, :p_config_inputs,:includes =>[:index, :new, :edit, :show]
+  privilege :manage, :p_config_events,:includes =>[:index, :new, :edit, :show]
   
   privilege :manage, :configurations,:includes =>[:index,:home,:add_permissions_user,:create_permission_user]
   privilege :manage, :home,:includes =>[:index, :operator, :manager, :validate_status]

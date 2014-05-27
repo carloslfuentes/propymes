@@ -1,0 +1,9 @@
+en:
+  messages:
+    authentification_required: "Authentification Required"
+    ip_not_found: 'Your IP was not located in its catalog Station.'
+    priviledge_error: 'You do not have privileges for this Aréa'
+  activerecord:
+    errors:
+      messages:
+        ip_station: 'IP is assigned to another station'
