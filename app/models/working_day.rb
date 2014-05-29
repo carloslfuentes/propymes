@@ -1,7 +1,7 @@
 class WorkingDay < ActiveRecord::Base
   belongs_to :station, :class_name=>"PConfig::Station"
   belongs_to :user, :class_name=>"PConfig::User",:foreign_key => "operator_id"
-  belongs_to :standard
+  belongs_to :standard, :class_name=>"PConfig::Standard"
   
   after_save :add_log
   validates_presence_of :reason  
@@ -10,9 +10,9 @@ class WorkingDay < ActiveRecord::Base
     WorkingDayLog.create(:product_id=>self.product_id,:working_day_id=>self.id, :description=>self.reason)
   end
   
-  def self.get_working_day(sation, current_user_id,product_id=nil)
-    if (working_day = WorkingDay.where("status in ('pausa','waiting_active','active') and station_id = ?", sation_id ).first).blank?
-        working_day = WorkingDay.create(:product_id=>product_id,:reason=>'por iniciar',:status=>'waiting_active',:standard_id=>sation.standard.id,:station_id=>sation.id,:operator_id=>current_user_id)
+  def self.get_working_day(staion, current_user_id,product_id=nil)
+    if (working_day = WorkingDay.where("status in ('pausa','waiting_active','active') and station_id = ?", staion.id ).first).blank?
+        working_day = WorkingDay.create(:product_id=>product_id,:reason=>'por iniciar',:status=>'waiting_active',:standard_id=>staion.standard.id,:station_id=>staion.id,:operator_id=>current_user_id)
     end
     return working_day
   end
@@ -28,7 +28,7 @@ class WorkingDay < ActiveRecord::Base
   end
   
   def get_time_available
-    worktime = PConfig::WorkTime.first
-    self.standard.boots_variables.sum(:time)
+    worktime = PConfig::WorkTime.total_hours
+    total = PConfig::BootVariable.get_time_sum self.standard.boot_variables
   end
 end

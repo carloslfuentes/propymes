@@ -6,6 +6,7 @@ module PConfig
     
     has_many :standard_inputs, :dependent => :delete_all
     has_many :inputs, :through => :standard_inputs
+    has_many :workin_days
     accepts_nested_attributes_for :standard_boot_variables, :standard_inputs
     
   end
