@@ -11,7 +11,7 @@ module PConfig
       times.each do |t|
         total_time += t.time.to_f
       end
-      return total_time.utc.strftime "%H:%M:%S"
+      return total_time#.utc.strftime "%H:%M:%S"
     end
   end
 end

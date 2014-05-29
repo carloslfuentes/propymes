@@ -11,7 +11,7 @@ module PConfig
     #Return total hour
     def self.total_hours
       @work_time = PConfig::WorkTime.first
-      return @work_time.last_hour - @work_time.first_hour
+      return (@work_time.last_hour - @work_time.first_hour.to_f)#.utc.strftime "%H:%M:%S"
     end
     
     #Example

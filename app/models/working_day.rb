@@ -10,9 +10,9 @@ class WorkingDay < ActiveRecord::Base
     WorkingDayLog.create(:product_id=>self.product_id,:working_day_id=>self.id, :description=>self.reason)
   end
   
-  def self.get_working_day(staion, current_user_id,product_id=nil)
-    if (working_day = WorkingDay.where("status in ('pausa','waiting_active','active') and station_id = ?", staion.id ).first).blank?
-        working_day = WorkingDay.create(:product_id=>product_id,:reason=>'por iniciar',:status=>'waiting_active',:standard_id=>staion.standard.id,:station_id=>staion.id,:operator_id=>current_user_id)
+  def self.get_working_day(station, current_user_id,product_id=nil)
+    if (working_day = WorkingDay.where("status in ('pausa','waiting_active','active') and station_id = ?", station.id ).first).blank?
+        working_day = WorkingDay.create(:product_id=>product_id,:reason=>'por iniciar',:status=>'waiting_active',:standard_id=>station.standard.id,:station_id=>station.id,:operator_id=>current_user_id)
     end
     return working_day
   end
@@ -29,6 +29,6 @@ class WorkingDay < ActiveRecord::Base
   
   def get_time_available
     worktime = PConfig::WorkTime.total_hours
-    total = PConfig::BootVariable.get_time_sum self.standard.boot_variables
+    total_boot_variables = PConfig::BootVariable.get_time_sum self.standard.boot_variables
   end
 end
