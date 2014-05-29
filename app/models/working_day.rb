@@ -12,7 +12,8 @@ class WorkingDay < ActiveRecord::Base
   
   def self.get_working_day(station, current_user_id,product_id=nil)
     if (working_day = WorkingDay.where("status in ('pausa','waiting_active','active') and station_id = ?", station.id ).first).blank?
-        working_day = WorkingDay.create(:product_id=>product_id,:reason=>'por iniciar',:status=>'waiting_active',:standard_id=>station.standard.id,:station_id=>station.id,:operator_id=>current_user_id)
+        time_disponible = (PConfig::WorkTime.total_hours - PConfig::BootVariable.get_time_sum(station.standard.boot_variables).to_f).utc.strftime("%H:%M:%S")
+        working_day = WorkingDay.create(:disponible_time=>time_disponible,:product_id=>product_id,:reason=>'por iniciar',:status=>'waiting_active',:standard_id=>station.standard.id,:station_id=>station.id,:operator_id=>current_user_id)
     end
     return working_day
   end
