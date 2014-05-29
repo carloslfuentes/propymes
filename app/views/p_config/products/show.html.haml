@@ -1,0 +1,38 @@
+.wrapper.top
+  / Main Section
+  .grid_6.first
+    .grid_3.first
+      %h3
+        = t :product
+      .panel.padding1.background_gray_clear
+        %table.no-style.full
+          .form
+            %tbody
+              %tr
+                %td
+                  = t :name
+                %td.ar
+                  = @product.name
+              %tr
+                %td.al
+                  = t :type 
+                %td.ar
+                  = @product.product_type_id
+              %tr
+                %td.al
+                  = t :description
+                %td.ar
+                  = @product.description
+              %tr
+                %td.al
+                  = t :is_enabled
+                %td.ar
+                  = @product.is_enabled
+  %h3
+    &nbsp;
+  .grid_2
+    .panel.padding3
+      %a.button.background_gray.gray{:href => p_config_products_path(:user_type => params[:user_type])}
+        = t :return
+      %a.button.background_orange.white{:href => edit_resource_path(:user_type => params[:user_type])}
+        = t :edit
