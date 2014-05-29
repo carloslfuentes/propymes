@@ -12,7 +12,7 @@ class HomeController < ApplicationController
   
   def operator
     if (@sation = PConfig::Station.find_by_ip_station(request.ip.to_s)).present?
-      @working_day = WorkingDay.get_working_day(@sation.id,current_user.id, params[:product_id])
+      @working_day = WorkingDay.get_working_day(@sation,current_user.id, params[:product_id])
     else
       flash[:error] = t("messages.ip_not_found")
     end
@@ -31,7 +31,7 @@ class HomeController < ApplicationController
   
   def calculate_items
     working_day =  WorkingDay.find_by_ip params[:working_day_id]
-    working_day.calculate_item request.ip
+    working_day.calculate_item({:ip=>request.ip,:number_piece=>params[:number_piece]})
   end
   
 end
