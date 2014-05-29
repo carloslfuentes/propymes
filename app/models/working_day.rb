@@ -19,7 +19,8 @@ class WorkingDay < ActiveRecord::Base
   end
   
   def calculate_item(hash)
-    self.number_piece = self.number_piece.nullo.if_nil(0) + hash[:number_piece] 
+    self.number_piece = self.number_piece.nullo.if_nil(0) + hash[:number_piece]
+    #self.effective_time = self.effective_time.present? ? (self.effective_time.to_datetime + Time.now.to_f).utc.strftime("%H:%M:%S") : DateTime.now.strftime("%H:%M:%S") if self.status == 'active'
     self.percentage_production = self.calcul_percentage
     self.save
   end
