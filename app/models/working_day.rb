@@ -2,7 +2,7 @@ class WorkingDay < ActiveRecord::Base
   belongs_to :station, :class_name=>"PConfig::Station"
   belongs_to :user, :class_name=>"PConfig::User",:foreign_key => "operator_id"
   belongs_to :standard, :class_name=>"PConfig::Standard"
-  
+  has_many   :working_day_logs
   after_save :add_log
   validates_presence_of :reason  
   
@@ -18,7 +18,7 @@ class WorkingDay < ActiveRecord::Base
     return working_day
   end
   
-  def calculate_item(hash)
+  def calculate_item_piece(hash)
     self.number_piece = self.number_piece.nullo.if_nil(0) + hash[:number_piece]
     #self.effective_time = self.effective_time.present? ? (self.effective_time.to_datetime + Time.now.to_f).utc.strftime("%H:%M:%S") : DateTime.now.strftime("%H:%M:%S") if self.status == 'active'
     self.percentage_production = self.calcul_percentage
