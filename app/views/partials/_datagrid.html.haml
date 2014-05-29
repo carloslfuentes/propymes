@@ -36,7 +36,9 @@
           - elsif object[fild_name.to_sym].to_s['#']
             #div{:style => "background:#{object[fild_name.to_sym]}; color:#{object[fild_name.to_sym]}"}
               = object[fild_name.to_sym]
-          -else
+          - elsif object[fild_name.to_sym].class.to_s == "Time" || object[fild_name.to_sym].class.to_s == "Date"
+            = ( l object[fild_name.to_sym], :format => :default)
+          - else
             = object[fild_name.to_sym]
       - links.each do |link|
         -table_name = request.path

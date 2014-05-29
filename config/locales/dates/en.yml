@@ -8,7 +8,7 @@ en:
   
   time:
     formats:
-      default: "%d, %d %b %Y [%H:%M:%S %z]" 
+      default: "%H:%M" 
       format_date_picker: "%A, %d %B %Y [%H:%M]"
     am: "am" 
     pm: "pm"

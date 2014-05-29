@@ -9,10 +9,10 @@
           = f.text_field :name, :required => true
         .clearfix
           = f.label :first_hour
-          = f.text_field :first_hour, :type => :time, :required => true
+          = f.text_field :first_hour, :value => @work_time.first_hour.present? ? (l @work_time.first_hour, :format => :default) : nil, :class => :time, :required => true
         .clearfix
           = f.label :last_hour
-          = f.text_field :last_hour, :type => :time, :required => true
+          = f.text_field :last_hour, :value => @work_time.last_hour.present? ? (l @work_time.last_hour, :format => :default) : nil, :class => :time, :required => true
         %hr/
         .clearfix
           = f.label :monday

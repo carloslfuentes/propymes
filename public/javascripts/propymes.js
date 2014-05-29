@@ -93,12 +93,12 @@ $(function() {
 
 //Validate Status
 $(function() {
-  $.fn.validateStatus = function(){
+  $.fn.validateStatus = function(working_day_id){
     var date = new Date(),
         time = date.getHours() + ":" + date.getMinutes(),
         id = $(this);
     
-    $.get("/home/validate_status",{}).done(function(data){
+    $.get("/home/validate_status",{working_day_id: working_day_id}).done(function(data){
       if(data){
         $(id).openModal();
       }

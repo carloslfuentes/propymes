@@ -139,11 +139,11 @@ div.dhtmlxcalendar_skin_cont {
 	background-position: 0px -48px;
 }
 .dhtmlxcalendar_container div.dhtmlxcalendar_days_cont ul.dhtmlxcalendar_line li.dhtmlxcalendar_cell.dhtmlxcalendar_day_weekday_cell {
-	color: #4A96C4;
+	color: #CB4153;
 	background-position: -52px -48px;
 }
 .dhtmlxcalendar_container div.dhtmlxcalendar_days_cont ul.dhtmlxcalendar_line li.dhtmlxcalendar_cell.dhtmlxcalendar_day_weekday_cell_first {
-	color: #4A96C4;
+	color: #CB4153;
 	background-position: -26px -105px;
 }
 
@@ -265,7 +265,7 @@ div.dhtmlxcalendar_skin_cont {
 	background-position: -52px 0px;
 }
 .dhtmlxcalendar_container div.dhtmlxcalendar_dates_cont ul.dhtmlxcalendar_line li.dhtmlxcalendar_cell.dhtmlxcalendar_cell_month_weekend {
-	color: #4A96C4;
+	color: #CB4153;
 	background-position: -130px 0px;
 }
 .dhtmlxcalendar_container div.dhtmlxcalendar_dates_cont ul.dhtmlxcalendar_line li.dhtmlxcalendar_cell.dhtmlxcalendar_cell_month_date {
@@ -273,7 +273,7 @@ div.dhtmlxcalendar_skin_cont {
 	background-position: -104px 0px;
 }
 .dhtmlxcalendar_container div.dhtmlxcalendar_dates_cont ul.dhtmlxcalendar_line li.dhtmlxcalendar_cell.dhtmlxcalendar_cell_month_date_weekend {
-	color: #4A96C4;
+	color: #CB4153;
 	background-position: -104px 0px;
 }
 
@@ -337,7 +337,7 @@ div.dhtmlxcalendar_skin_cont {
 	background-position: -78px 0px;
 }
 .dhtmlxcalendar_container div.dhtmlxcalendar_dates_cont ul.dhtmlxcalendar_line li.dhtmlxcalendar_cell.dhtmlxcalendar_cell_month_weekend_hover {
-	color: #4A96C4;
+	color: #CB4153;
 	background-position: -156px 0px;
 }
 .dhtmlxcalendar_container div.dhtmlxcalendar_dates_cont ul.dhtmlxcalendar_line li.dhtmlxcalendar_cell.dhtmlxcalendar_cell_month_date_hover {
@@ -345,7 +345,7 @@ div.dhtmlxcalendar_skin_cont {
 	background-position: -104px 0px;
 }
 .dhtmlxcalendar_container div.dhtmlxcalendar_dates_cont ul.dhtmlxcalendar_line li.dhtmlxcalendar_cell.dhtmlxcalendar_cell_month_date_weekend_hover {
-	color: #4A96C4;
+	color: #CB4153;
 	background-position: -104px 0px;
 }
 
@@ -1084,7 +1084,7 @@ div.dhtmlxcalendar_container span.dhtmlxcalendar_label_minutes span.dhtmlxcalend
   background-image: url("/images/d02/calendar_date_picker/cell_hover.gif");
 }
 .dhtmlxcalendar_container.dhtmlxcalendar_skin_dhx_terrace div.dhtmlxcalendar_dates_cont ul.dhtmlxcalendar_line li.dhtmlxcalendar_cell.dhtmlxcalendar_cell_month_weekend_hover {
-  color: #4A96C4;
+  color: #CB4153;
   font-weight: bold;
   background-image: url("/images/d02/calendar_date_picker/cell_hover.gif");
 }
@@ -1157,7 +1157,7 @@ div.dhtmlxcalendar_container span.dhtmlxcalendar_label_minutes span.dhtmlxcalend
 .dhtmlxcalendar_container.dhtmlxcalendar_skin_dhx_terrace div.dhtmlxcalendar_selector_obj table.dhtmlxcalendar_selector_table td.dhtmlxcalendar_selector_cell_middle ul.dhtmlxcalendar_selector_line li.dhtmlxcalendar_selector_cell.dhtmlxcalendar_selector_cell_active {
   color:#FFFFFF;
   background-image: none;
-  background-color: #246e99;
+  background-color: #83061D;
 }
 .dhtmlxcalendar_container.dhtmlxcalendar_skin_dhx_terrace div.dhtmlxcalendar_selector_obj table.dhtmlxcalendar_selector_table td.dhtmlxcalendar_selector_cell_middle ul.dhtmlxcalendar_selector_line li.dhtmlxcalendar_selector_cell.dhtmlxcalendar_selector_cell_hover {
   background-image: none;
@@ -1210,7 +1210,7 @@ div.dhtmlxcalendar_container span.dhtmlxcalendar_label_minutes span.dhtmlxcalend
   background-position: center right;
   background-repeat: repeat-y;
   font-size: 11px;
-  color: #4A96C4;
+  color: #CB4153;
 }
 .dhtmlxcalendar_container.dhtmlxcalendar_skin_dhx_terrace div.dhtmlxcalendar_wn div.dhtmlxcalendar_days_cont ul.dhtmlxcalendar_line li.dhtmlxcalendar_cell_wn {
   width: 26px;
@@ -1219,7 +1219,7 @@ div.dhtmlxcalendar_container span.dhtmlxcalendar_label_minutes span.dhtmlxcalend
   background-position: top right;
   background-repeat: no-repeat;
   font-size: 13px;
-  color: #4A96C4;
+  color: #CB4153;
 }
 .dhtmlxcalendar_container.dhtmlxcalendar_skin_dhx_terrace div.dhtmlxcalendar_wn div.dhtmlxcalendar_dates_cont ul.dhtmlxcalendar_line li.dhtmlxcalendar_cell,
 .dhtmlxcalendar_container.dhtmlxcalendar_skin_dhx_terrace div.dhtmlxcalendar_wn div.dhtmlxcalendar_days_cont ul.dhtmlxcalendar_line li.dhtmlxcalendar_cell,
