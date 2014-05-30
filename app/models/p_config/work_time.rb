@@ -14,6 +14,24 @@ module PConfig
       return (@work_time.last_hour - @work_time.first_hour.to_f)#.utc.strftime "%H:%M:%S"
     end
     
+    def is_working?
+      work_time = self
+      first_hour = Time.parse(work_time.first_hour.strftime "%H:%M:%S")
+      #FIXME agregar una configuracion para poder iniciar antes
+      last_hour = Time.parse(work_time.last_hour.strftime "%H:%M:%S") - 15.minutes
+      start_time = Time.now
+      is_work_time = last_hour > start_time && first_hour < start_time
+      return is_work_time && work_time.get_days_working 
+    end
+    
+    def get_days_working
+      return self.days[Date.today.wday]
+    end
+    
+    def days
+        [sunday, monday, tuesday, wednesday, thursday, friday, saturday]
+      end
+    
     #Example
     # time = 7683
     # hours = time/3600.to_i
