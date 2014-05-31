@@ -11,7 +11,7 @@ class WorkingDay < ActiveRecord::Base
           :delayed_time=>self.delayed_time,:number_piece=>self.number_piece,:status=>self.status,
           :percentage_production=>self.percentage_production,:effective_time=>self.effective_time,
           :description=>self.description,:start_time=>self.start_time,:end_time=>self.end_time,
-          :standard_id=>self.standard_id,:station_id=>self.station_id}
+          :standard_id=>self.standard_id,:station_id=>self.station_id, :average_piece=>self.average_piece}
     WorkingDayLog.create(hash)
   end
   
