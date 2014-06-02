@@ -58,5 +58,5 @@ privileges do
   privilege :manage, :p_config_events,:includes =>[:index, :new, :edit, :show]
   
   privilege :manage, :configurations,:includes =>[:index,:home,:add_permissions_user,:create_permission_user]
-  privilege :manage, :home,:includes =>[:index, :operator, :manager, :validate_status]
+  privilege :manage, :home,:includes =>[:index, :operator, :manager, :validate_status, :timer_actions]
 end

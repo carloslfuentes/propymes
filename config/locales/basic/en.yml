@@ -28,6 +28,12 @@ en:
   piece: 'Piece'
   only_numbers: 'Only Numbers'
   add: 'Add'
+  effective_time: 'Effective Time'
+  available_time: 'Available Time'
+  start: 'Start'
+  stop: 'Stop'
+  standby: 'Standby'
+  production: 'Production'
   #Config
   operating_parameters: 'Operating Parameters'
   production_parameters: 'Production Parameters'

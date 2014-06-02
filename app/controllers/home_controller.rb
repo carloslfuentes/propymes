@@ -11,8 +11,8 @@ class HomeController < ApplicationController
   end
   
   def operator
-    if (@sation = PConfig::Station.find_by_ip_station(request.ip.to_s)).present?
-      @working_day = WorkingDay.get_working_day(@sation,current_user.id, params[:product_id])
+    if (@station = PConfig::Station.find_by_ip_station(request.ip.to_s)).present?
+      @working_day = WorkingDay.get_working_day(@station,current_user.id, params[:product_id])
     else
       flash[:error] = t("messages.ip_not_found")
     end
@@ -22,16 +22,23 @@ class HomeController < ApplicationController
   end
   
   def validate_status
-    if current_user.working_day.first.status == "waiting_active"
-      hash = {}
-      hash = "Hola"
-      render :json => hash.to_json
+    @working_id = WorkingDay.find(params[:working_day_id])
+    if @working_id.status == "waiting_active" && @working_id.product_id.blank?
+      render :json => true
     end
   end
   
   def calculate_items
     working_day =  WorkingDay.find_by_ip params[:working_day_id]
     working_day.calculate_item({:ip=>request.ip,:number_piece=>params[:number_piece]})
+  end
+  
+  def timer_actions
+    #Funcion para que jales Carlos
+    hash = {}
+    hash[:action] = params[:action]
+    hash[:timer] = params[:timer]
+    render :json => hash.to_json
   end
   
 end

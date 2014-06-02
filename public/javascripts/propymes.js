@@ -67,6 +67,7 @@ $(function() {
 //Open Modal
 $(function() {
   $.fn.openModal = function(){
+    $().overlay();
     $(this).fadeIn(400);
     $(this).fadeTo("slow",1.0);
   };
@@ -76,6 +77,26 @@ $(function() {
 $(function() {
   $.fn.closeModal = function(){
     $('.widget').hide();
+    $().closeOverlay();
+  };
+});
+
+//Create Overlay for Modal
+$(function() {
+  $.fn.overlay = function(){
+    var overlay = document.createElement("div");
+    overlay.setAttribute("id","overlay");
+    overlay.setAttribute("class", "overlay");
+    document.body.appendChild(overlay);
+  };
+});
+
+//Close Overlay for Modal
+$(function() {
+  $.fn.closeOverlay = function(){
+    if(document.getElementById("overlay")){
+      document.body.removeChild(document.getElementById("overlay"));
+    }
   };
 });
 
@@ -155,3 +176,89 @@ $(function(){
     }
   };
 });
+
+//Chronometer
+$(function() {
+  $.fn.chronometer = function(params){
+    
+    var settings = $.extend( {
+      'hours' : undefined,
+      'minutes' : undefined,
+      'seconds' : undefined,
+      'decimal' : undefined,
+      'action' : undefined
+    }, params);
+    
+    var hours = settings.hours == undefined ? 0 : settings.hours;
+    var minutes = settings.minutes == undefined ? 0 : settings.minutes;
+    var seconds = settings.seconds == undefined ? 0 : settings.seconds;
+    var decimal = settings.decimal == undefined ? 0 : settings.decimal;
+    var action = settings.action == undefined ? "" : settings.action;
+    var chronometer = $(this);
+    
+    switch(action){
+      case 'start':
+        watchstopped = false;
+        startTimer();
+        timerActions(action, $(this).text());
+        break;
+      case 'stop':
+        watchstopped = true;
+        timerActions(action, $(this).text());
+        break;
+      case 'standby':
+        watchstopped = true;
+        timerActions(action, $(this).text());
+        break;
+    }
+    
+    function startTimer(){
+      if(watchstopped == false){
+        intChronometer();
+      }
+    }
+    
+    function intChronometer(){
+      if(watchstopped == false) {
+        decimal++;
+        if(decimal > 9) {
+          decimal = 0;
+          seconds++;
+        }
+        if(seconds > 59) {
+          seconds = 0;
+          minutes++;
+        }
+        if(minutes > 59) {
+          minutes = 0;
+          hours++;
+        }
+        showChronometer();
+        setTimeout(intChronometer, 100);
+      }
+    }
+    
+    function showChronometer(){
+      chronometer.html(format());
+    }
+    
+    function format(time){
+      return addCero(hours) +":" + addCero(minutes) + ":" + addCero(seconds);
+    }
+    
+    function addCero(time){
+      if(time <= 9){
+        return "0" + time;
+      }else{
+        return time;
+      }
+    }
+    
+    function timerActions(action, timer){
+      $.post("/home/timer_actions",{action:action, timer:timer}).done(function(data){
+        
+      });
+    }
+  };
+});
+

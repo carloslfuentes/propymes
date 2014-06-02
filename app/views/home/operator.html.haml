@@ -2,40 +2,92 @@
   .grid_8
     .grid_6.first
       .panel.padding1
-        
+        %a.button.background_green.white#startButton{:style => "width:76px; height:40px;"}
+          %h2
+            = t :start
+        %a.button.background_red.white#stopButton{:style => "width:80px; height:40px;"}
+          %h2
+            = t :stop
+        %a.button.background_yellow.white#standbyButton{:style => "width:76px; height:40px;"}
+          %h2
+            = t :standby
+        %h0.top.float_right
+          #chronometer
+        .clear
+    
     .grid_2
-      .panel.padding1.background_gray_clear.gray
+      .panel.padding1.gray
         %h3
           = PConfig::WorkTime.model_name.human(:count => :other)
         %table.full.not-style
           %tr
             %td
-              = "Tiempo Laboral"
+              = PConfig::WorkTime.model_name.human(:count => 1)
             %td.bold.ar
               = PConfig::WorkTime.total_hours.utc.strftime "%H:%M"
           %tr
             %td
-              = "Tiempo Disponible"
+              = t :available_time
             %td.ar
-              = "00:00"
+              = @working_day.effective_time#Cambiar a tiempo disponible (Campo se dara de alta)
           %tr
             %td
-              = "Tiempo Efectivo"
+              = t :effective_time
             %td.ar
-              = "00:00"
+              = @working_day.effective_time
+        %hr/
+        .top
+          %h3
+            = t :production
+          %progress{:value => @working_day.nullo.number_piece.if_nil(4), :max => @station.standard.item_number}
+          .al.float_left
+            = @working_day.nullo.number_piece.if_nil(0)
+          .ar
+            = @station.standard.nullo.item_number.if_nil(0)
+    
+    .grid_4.first
+      %h3.background_orange.white
+        = "Historial"
+      %table.full.style
+        - @working_day.working_day_logs.each do |log|
+          %tbody
+            %tr
+              %td
+                %a.not_decoration.blue{:href => "#"}
+                  = log.reason.to_s + " " + log.description.to_s[0..10]
+              %td.ar
+                = log.delayed_time
 
 //Validate Working Day
-#validate_status.widget.panel.padding1.background_gray_clear
+#validate_status.widget.panel.padding3.background_gray_clear{:style => "height:70px;"}
   .content
     .form
       .clearfix
-        = label_tag :product_id
+        = label_tag PConfig::Product.model_name.human(:count => :other)
         = select_tag :product_id, options_for_select(PConfig::Product.for_station(request.ip).map{|prod| [prod.name, prod.id]})
+      %hr/
+      .ar.top
+        %button.button.background_green.white{:href => "#"}
+          = t :add
+        // FIXME Al tener producto seleccionado si aparecera boton de cancelar
+        %a.button.background_gray.gray{:href => "#", :onclick => "$().closeModal();"}
+          = t :cancel
 
 :javascript
   $(document).ready(function() {
-    
     //Validate Working Day
-    $("#validate_status").validateStatus("#{@working_day.id}");
+    //$("#validate_status").validateStatus("#{@working_day.id}");
+    
+    //Load Buttons
+    resetButtons();
+    
+    function resetButtons(){
+      //StartButton
+      $("#startButton").attr("onclick", "$('#chronometer').chronometer({action:'start', hours:'#{@working_day.effective_time.hour}', minutes:'#{@working_day.effective_time.min}', seconds:'#{@working_day.effective_time.sec}'}); this.setAttribute('class','button background_gray white');")
+      //StopButton
+      $("#stopButton").attr("onclick", "$('#chronometer').chronometer({action:'stop'});")
+      //StandbyButton
+      $("#standbyButton").attr("onclick", "$('#chronometer').chronometer({action:'standby'});")
+    }
+    
   });
-

@@ -28,6 +28,12 @@ es:
   piece: 'Pieza'
   only_numbers: 'Solo Números'
   add: 'Agregar'
+  effective_time: 'Tiempo Efectivo'
+  available_time: 'Tiempo Dispobible'
+  start: 'Iniciar'
+  stop: 'Detener'
+  standby: 'Espera'
+  production: 'Producción'
   #Config FIXME Eliminar o cambiar ya que esto se utiliza en el edit y tmb dice nuevo.
   operating_parameters: 'Parámetros Operativos'
   production_parameters: 'Parámetros de Producción'

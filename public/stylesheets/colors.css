@@ -35,6 +35,18 @@
   color:#ef9c00;
 }
 
+.green{
+  color:#8fc857;
+}
+
+.red{
+  color:#83061D;
+}
+
+.yellow{
+  color:#CAC861;
+}
+
 /* Backgrounds */
 .background_blue{
   background-color: #0066ff;
@@ -70,6 +82,18 @@
 
 .background_orange{
   background:#ef9c00;
+}
+
+.background_green{
+  background:#8fc857;
+}
+
+.background_red{
+  background:#83061D;
+}
+
+.background_yellow{
+  background:#CAC861;
 }
 
 .background_red_gradient{
