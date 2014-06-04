@@ -51,12 +51,12 @@ privileges do
   privilege :manage, :p_config_users,:includes =>[:index, :new, :edit, :show]
   privilege :manage, :p_config_reasons,:includes =>[:index, :new, :edit, :show]
   privilege :manage, :p_config_work_times,:includes =>[:index, :new, :edit, :show]
-  privilege :manage, :p_config_stations,:includes =>[:index, :new, :edit, :show]
+  privilege :manage, :p_config_stations,:includes =>[:index, :new, :edit, :show, :comprovate_ip]
   privilege :manage, :p_config_boot_variables,:includes =>[:index, :new, :edit, :show]
   privilege :manage, :p_config_fixed_amounts,:includes =>[:index, :new, :edit, :show]
   privilege :manage, :p_config_inputs,:includes =>[:index, :new, :edit, :show]
   privilege :manage, :p_config_events,:includes =>[:index, :new, :edit, :show]
   
   privilege :manage, :configurations,:includes =>[:index,:home,:add_permissions_user,:create_permission_user]
-  privilege :manage, :home,:includes =>[:index, :operator, :manager, :validate_status, :timer_actions]
+  privilege :manage, :home,:includes =>[:index, :operator, :manager, :validate_status, :timer_actions, :add_items]
 end

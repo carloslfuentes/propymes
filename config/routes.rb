@@ -13,6 +13,7 @@ PROPYMES::Application.routes.draw do
     collection do
       get :validate_status
       post :timer_actions
+      post :add_items
     end
   end
   

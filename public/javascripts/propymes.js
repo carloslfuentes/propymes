@@ -186,7 +186,8 @@ $(function() {
       'minutes' : undefined,
       'seconds' : undefined,
       'decimal' : undefined,
-      'action' : undefined
+      'action' : undefined,
+      'working_day_id' : undefined
     }, params);
     
     var hours = settings.hours == undefined ? 0 : settings.hours;
@@ -194,6 +195,7 @@ $(function() {
     var seconds = settings.seconds == undefined ? 0 : settings.seconds;
     var decimal = settings.decimal == undefined ? 0 : settings.decimal;
     var action = settings.action == undefined ? "" : settings.action;
+    var working_day_id = settings.working_day_id == undefined ? "" : settings.working_day_id;
     var chronometer = $(this);
     
     switch(action){
@@ -255,7 +257,7 @@ $(function() {
     }
     
     function timerActions(action, timer){
-      $.post("/home/timer_actions",{action:action, timer:timer}).done(function(data){
+      $.post("/home/timer_actions",{selectedAction:action, timer:timer, working_day_id:working_day_id}).done(function(data){
         
       });
     }

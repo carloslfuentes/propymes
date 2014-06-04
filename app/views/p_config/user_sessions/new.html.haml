@@ -4,6 +4,7 @@
     .center_of_the_page.panel
       .padding3.ac
         - PConfig::User.is_operator.each do |user|
+          %br
           %a.action-button{:class =>"modal", :rel => "#login_operator", :param => user.login, :id_row => "#loginOperator"}
             %span.operators{:style => "width: 31px; height: 31px;"}
           .float_left

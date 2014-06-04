@@ -35,9 +35,26 @@ class HomeController < ApplicationController
   
   def timer_actions
     #Funcion para que jales Carlos
+    working_day =  WorkingDay.find_by_id params[:working_day_id]
     hash = {}
-    hash[:action] = params[:action]
+    hash[:selectedAction] = params[:selectedAction]
     hash[:timer] = params[:timer]
+    case params[:selectedAction].to_s
+    when "start"
+      hash[:status] = working_day.start_working_day
+    when "standby"
+    when "stop"
+    else
+      hash[:status] = false
+    end
+    render :json => hash.to_json
+  end
+  
+  def add_items
+    working_day =  WorkingDay.find_by_id params[:working_day_id]
+    hash = {}
+    hash_send={:number_piece=>params[:number_piece],:time=>params[:time]}
+    hash[:status] = working_day.calculate_item_piece(hash_send)
     render :json => hash.to_json
   end
   

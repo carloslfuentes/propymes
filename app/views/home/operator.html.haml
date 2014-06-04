@@ -14,7 +14,9 @@
         %h0.top.float_right
           #chronometer
         .clear
-    
+    .grid_6.first
+      .panel.padding1
+        =link_to "+", "#", :id=>"addItem"
     .grid_2
       .panel.padding1.gray
         %h3
@@ -80,14 +82,19 @@
     
     //Load Buttons
     resetButtons();
+    $('#addItem').click(function() {
+      $.post("/home/add_items",{number_piece:1, time:$('#chronometer').text(),working_day_id:#{@working_day.id}}).done(function(data){
+        
+      });
+    });
     
     function resetButtons(){
       //StartButton
-      $("#startButton").attr("onclick", "$('#chronometer').chronometer({action:'start', hours:'#{@working_day.effective_time.hour}', minutes:'#{@working_day.effective_time.min}', seconds:'#{@working_day.effective_time.sec}'}); this.setAttribute('class','button background_gray white');")
+      $("#startButton").attr("onclick", "$('#chronometer').chronometer({action:'start', hours:'#{@working_day.effective_time.hour}', minutes:'#{@working_day.effective_time.min}', seconds:'#{@working_day.effective_time.sec}', working_day_id:'#{@working_day.id}'}); this.setAttribute('class','button background_gray white');")
       //StopButton
-      $("#stopButton").attr("onclick", "$('#chronometer').chronometer({action:'stop'});")
+      $("#stopButton").attr("onclick", "$('#chronometer').chronometer({action:'stop', working_day_id:'#{@working_day.id}'}});")
       //StandbyButton
-      $("#standbyButton").attr("onclick", "$('#chronometer').chronometer({action:'standby'});")
+      $("#standbyButton").attr("onclick", "$('#chronometer').chronometer({action:'standby', working_day_id:'#{@working_day.id}'}});")
     }
     
   });
