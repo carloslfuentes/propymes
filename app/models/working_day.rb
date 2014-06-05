@@ -19,20 +19,18 @@ class WorkingDay < ActiveRecord::Base
   def self.get_working_day(station, current_user_id,product_id=nil)
     if (working_day = WorkingDay.where("status in ('standby','waiting_active','active') and station_id = ?", station.id ).first).blank?
         avariable=(PConfig::WorkTime.total_hours - PConfig::BootVariable.get_time_sum(station.standard.boot_variables).to_f).utc.strftime("%H:%M:%S")
-        working_day = WorkingDay.create(:effective_time=>"00:00:00",:disponible_time=>avariable,:product_id=>product_id,:reason=>'por iniciar',:status=>'waiting_active',:standard_id=>station.standard.id,:station_id=>station.id,:operator_id=>current_user_id)
-    end
-    if working_day.status == "active"
-      working_day.delayed_time = (Time.parse(working_day.calculate_deleyed_works) + working_day.delayed_time.to_f).strftime("%H:%M:%S")
-      working_day.save
+        working_day = WorkingDay.create(:effective_time=>"00:00:00",:disponible_time=>avariable,
+                                        :product_id=>product_id,:reason=>'por iniciar',:status=>'waiting_active',
+                                        :standard_id=>station.standard.id,:station_id=>station.id,:operator_id=>current_user_id)
     end
     return working_day
   end
   
   def calculate_deleyed_works
     time_now = Time.now
-    times = (self.start_time + self.effective_time.to_f)
-    times = times + self.delayed_time.to_f
-    return (time_now - times.to_f).strftime("%H:%M:%S")
+    times = self.start_time
+    #times = times + self.delayed_time.to_f
+    return OperationTimes::Deduct.basic(time_now,times)
   end
   
   def selected_product(hash={})
@@ -42,16 +40,24 @@ class WorkingDay < ActiveRecord::Base
   
   def start_working_day(hash={})
     #FIXME agergar errores del porque no se puede iniciar
-    return false if self.status == "active"
     start_time = Time.now
     work_time = PConfig::WorkTime.first
     #return false if work_time.is_working?
-    self.delayed_time = (start_time - work_time.first_hour.to_f).strftime("%H:%M:%S")
-    self.start_time    =start_time.strftime("%H:%M:%S")
-    self.status       = "active"
-    self.reason       = "Se inicio"
-    self.description  = "Se inicio"
-    self.effective_time = "00:00:00"
+    if self.status == "waiting_active"
+      self.delayed_time = OperationTimes::Deduct.basic(start_time, work_time.first_hour) 
+      self.start_time    =start_time.strftime("%H:%M:%S")
+    end
+    if self.status == "active" || self.status == "standby"
+      fdt = OperationTimes::Deduct.basic(self.start_time,work_time.first_hour)
+      dl = OperationTimes::Deduct.basic(self.calculate_deleyed_works,self.effective_time)
+      self.delayed_time = OperationTimes::Sum.basic(fdt,dl)
+      self.reason       = "Se Reinicio"
+      self.description  = "Se cerro la ventana"
+    else
+      self.status       = "active"
+      self.reason       = "Se inicio"
+      self.description  = "Se inicio"
+    end
     return self.save
   end
   
@@ -91,11 +97,5 @@ class WorkingDay < ActiveRecord::Base
   
   def get_minutes
     self.effective_time.min + (self.effective_time.hour * 60)
-  end
-  
-  def get_time_available
-    worktime = PConfig::WorkTime.total_hours
-    total_boot_variables = PConfig::BootVariable.get_time_sum self.standard.boot_variables
-    return (worktime - total_boot_variables.to_f).utc.strftime("%H:%M:%S")
   end
 end
