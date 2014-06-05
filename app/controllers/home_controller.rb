@@ -43,7 +43,9 @@ class HomeController < ApplicationController
     when "start"
       hash[:status] = working_day.start_working_day
     when "standby"
+      hash[:status] = working_day.standby_working_day
     when "stop"
+      hash[:status] = working_day.stop_working_day
     else
       hash[:status] = false
     end

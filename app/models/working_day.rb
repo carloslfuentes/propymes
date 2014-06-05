@@ -17,7 +17,7 @@ class WorkingDay < ActiveRecord::Base
   end
   
   def self.get_working_day(station, current_user_id,product_id=nil)
-    if (working_day = WorkingDay.where("status in ('pausa','waiting_active','active') and station_id = ?", station.id ).first).blank?
+    if (working_day = WorkingDay.where("status in ('standby','waiting_active','active') and station_id = ?", station.id ).first).blank?
         avariable=(PConfig::WorkTime.total_hours - PConfig::BootVariable.get_time_sum(station.standard.boot_variables).to_f).utc.strftime("%H:%M:%S")
         working_day = WorkingDay.create(:effective_time=>"00:00:00",:disponible_time=>avariable,:product_id=>product_id,:reason=>'por iniciar',:status=>'waiting_active',:standard_id=>station.standard.id,:station_id=>station.id,:operator_id=>current_user_id)
     end
@@ -55,12 +55,28 @@ class WorkingDay < ActiveRecord::Base
     return self.save
   end
   
+  def standby_working_day(hash={})
+    self.status       = "standby"
+    self.reason       = "standby"
+    self.description  = "Sstandby"
+    return self.save
+  end
+  
+  def stop_working_day(hash={})
+    self.status       = "stop"
+    self.reason       = "stop"
+    self.description  = "stop"
+    return self.save
+  end
+  
   def calculate_item_piece(hash)
+    return false if self.status != 'active'
     self.number_piece = self.number_piece.nullo.if_nil(0) + hash[:number_piece].to_i
-    self.effective_time = hash[:time] if self.status == 'active'
+    self.effective_time = hash[:time] 
     #self.delayed_time = (self.delayed_time.to_time - Time.parse(hash[:cron]).to_f).strftime("%H:%M:%S") if self.status == 'pausa'
     self.percentage_production = self.calcul_percentage
     self.description  = "add item"
+    self.reason       = "add item"
     self.average_piece = self.calcul_averenge
     return self.save
   end
