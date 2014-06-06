@@ -80,6 +80,7 @@ class WorkingDay < ActiveRecord::Base
     self.number_piece = self.number_piece.nullo.if_nil(0) + hash[:number_piece].to_i
     self.effective_time = hash[:time] 
     #self.delayed_time = (self.delayed_time.to_time - Time.parse(hash[:cron]).to_f).strftime("%H:%M:%S") if self.status == 'pausa'
+    self.cost_production = self.get_cost_production
     self.percentage_production = self.calcul_percentage
     self.description  = "add item"
     self.reason       = "add item"
@@ -87,15 +88,24 @@ class WorkingDay < ActiveRecord::Base
     return self.save
   end
   
+  def get_cost_production
+    minutes = self.get_minutes_effective
+    sum_inputs = 0
+    PConfig::Input.all.each do |inp|
+      sum_inputs += (minutes * inp.cost_per_unit)/10 #FIXME agergar configuracion de minutos por unidad
+    end
+    return sum_inputs.round(3)
+  end
+  
   def calcul_averenge
-    return (Time.new(2000) + (self.get_minutes/self.number_piece).minutes).strftime("%H:%M:%S")
+    return (Time.new(2000) + (self.get_minutes_effective/self.number_piece).minutes).strftime("%H:%M:%S")
   end
   
   def calcul_percentage
     return (self.number_piece * 100)/self.standard.item_number
   end
   
-  def get_minutes
+  def get_minutes_effective
     self.effective_time.min + (self.effective_time.hour * 60)
   end
 
