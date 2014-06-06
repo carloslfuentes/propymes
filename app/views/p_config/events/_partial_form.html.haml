@@ -9,7 +9,7 @@
           = f.collection_select :station_id, PConfig::Station.all.sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
         .clearfix
           = f.label :stoppage_by_categories_id
-          = f.collection_select :stoppage_by_categories_id, PConfig::StoppageByCategory.all.sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
+          = f.collection_select :stoppage_by_category_id, PConfig::StoppageByCategory.all.sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
         .clearfix
           = f.label :stoppage_id
           = f.collection_select :stoppage_id, PConfig::Stoppage.all.sort_by(&:name), :id, :name, {:include_blank => true}, :required => true

@@ -5,7 +5,12 @@
     var settings = $.extend( {
         'type': undefined,
         'chart_width' : undefined,
-        'chart_height' : undefined
+        'chart_height' : undefined,
+        'showLegend' : undefined,
+        'tooltips' : undefined,
+        'showLabels' : undefined,
+        'formatY' : undefined,
+        'formatX' : undefined 
       }, options);
       
     var margin = $.extend( {
@@ -23,13 +28,10 @@
     var tooltips = settings.tooltips == undefined ? true : settings.tooltips;
     var showLabels = settings.showLabels == undefined ? true : settings.showLabels;
     var staggerLabels = settings.staggerLabels == undefined ? false : settings.staggerLabels;
-    var formatY = settings.formatY == undefined ? '$' : settings.formatY;
-    var formatDate = settings.formatDate == undefined ? '%b' : settings.formatDate;
+    var formatX = settings.formatX == undefined ? '%b' : settings.formatX;
+    var formatY = settings.formatY == undefined ? ',.02s' : settings.formatY;
     
-    console.log(chart_height);
     data = global_data;
-    
-    //console.log(data);
     
     var chart;
     var element = $(this) ;
@@ -41,21 +43,22 @@
       chart.margin({top: margin.top, right: margin.right, bottom: margin.bottom, left: margin.left});
       chart.tooltips(tooltips);
       chart.staggerLabels(staggerLabels);
-      chart.color(d3.scale.category10().range());
+      chart.color(['#83061D']);
       chart.tooltipContent(function(key, x, y, e, graph) { return '<h3>' + key + '</h3>' + '<p>' +  y + ' - ' + x + '</p>'; });
-      chart.xAxis.tickFormat(function(d) { if(typeof d == 'number'){ return d3.time.format('%b')(new Date(d)); }else{ return d; } });
-      chart.yAxis.tickFormat(function(d) { if(typeof d == 'number'){ return '$' + d3.format(',.02s')(d);}else{ return d; } });
+      chart.xAxis.tickFormat(function(d) { if(typeof d == 'number'){ return d3.time.format(formatX)(new Date(d)); }else{ return d; } });
+      chart.yAxis.tickFormat(function(d) { if(typeof d == 'number'){ return d3.format(formatY)(d);}else{ return d; } });
       //chart.forceY([1,1000000]); Forzar Y a un Rango
       //sellectAll("rect").attr("width", bar_width)
     }else if(type == "LineChart"){
-      
       chart = nv.models.lineChart();
       chart.margin({top: margin.top, right: margin.right, bottom: margin.bottom, left: margin.left});
       chart.tooltips(tooltips);
       chart.showLegend(showLegend);
+      chart.color(['#83061D']);
       chart.tooltipContent(function(key, x, y, e, graph) { return '<h3>' + key + '</h3>' + '<p>' +  y + ' al ' + x + '</p>'; });
-      chart.xAxis.tickFormat(function(d) { if(typeof d == 'number'){ return d3.time.format(formatDate)(new Date(d)); }else{ return d; } });
-      chart.yAxis.tickFormat(function(d) { if(typeof d == 'number'){ return '$' + d3.format(',.02s')(d);}else{ return d; } });
+      chart.xAxis.tickFormat(function(d) { if(typeof d == 'number'){ return d3.time.format(formatX)(new Date(d)); }else{ return d; } });
+      //chart.yAxis.tickFormat(function(d) { if(typeof d == 'number'){ return d3.format(formatY)(d);}else{ return d; } });
+      
     }else if(type == "LineChartZoom"){
       
       chart = nv.models.lineWithFocusChart();
@@ -63,20 +66,19 @@
       chart.tooltips(tooltips);
       chart.showLegend(showLegend);
       chart.tooltipContent(function(key, x, y, e, graph) { return '<h3>' + key + '</h3>' + '<p>' +  y + ' al ' + x + '</p>'; });
-      chart.xAxis.tickFormat(function(d) { if(typeof d == 'number'){ return d3.time.format('%b')(new Date(d)); }else{ return d; } });
-      chart.yAxis.tickFormat(function(d) { if(typeof d == 'number'){ return '$' + d3.format(',.02s')(d);}else{ return d; } });
-      chart.x2Axis.tickFormat(function(d) { if(typeof d == 'number'){ return d3.time.format('%b')(new Date(d)); }else{ return d; } });
-      chart.y2Axis.tickFormat(function(d) { if(typeof d == 'number'){ return '$' + d3.format(',.02s')(d);}else{ return d; } });
+      chart.xAxis.tickFormat(function(d) { if(typeof d == 'number'){ return d3.time.format(formatX)(new Date(d)); }else{ return d; } });
+      chart.yAxis.tickFormat(function(d) { if(typeof d == 'number'){ return d3.format(formatY)(d);}else{ return d; } });
+      chart.x2Axis.tickFormat(function(d) { if(typeof d == 'number'){ return d3.time.format(formatX)(new Date(d)); }else{ return d; } });
+      chart.y2Axis.tickFormat(function(d) { if(typeof d == 'number'){ return d3.format(formatY)(d);}else{ return d; } });
     }else if(type == "LineAreaChart"){
       
       chart = nv.models.stackedAreaChart();
       chart.margin({top: margin.top, right: margin.right, bottom: margin.bottom, left: margin.left});
       chart.tooltips(tooltips);
       chart.showLegend(showLegend);
-      //chart.xAxis.tickFormat(function(d) { return d3.time.format('%x')(new Date(d)) });
       chart.tooltipContent(function(key, x, y, e, graph) { return '<h3>' + key + '</h3>' + '<p>' +  y + ' al ' + x + '</p>'; });
-      chart.xAxis.tickFormat(function(d) { if(typeof d == 'number'){ return d3.time.format('%b')(new Date(d)); }else{ return d; } });
-      chart.yAxis.tickFormat(function(d) { if(formatY == '$'){ return '$' + d3.format(',.02s')(d);}else{ return d3.format(',.1%')(d); } });
+      chart.xAxis.tickFormat(function(d) { if(typeof d == 'number'){ return d3.time.format(formatX)(new Date(d)); }else{ return d; } });
+      chart.yAxis.tickFormat(function(d) { if(formatY == '$'){ return d3.format(formatY)(d);}else{ return d3.format(',.1%')(d); } });
       
     }else if(type == "MultiBar"){
       
@@ -85,14 +87,13 @@
       chart.reduceXTicks(true);
       chart.rotateLabels(0);
       chart.showControls(false);
-      chart.color(d3.scale.category10().range());
+      chart.color(['#83061D']);
       chart.tooltips(tooltips);
       chart.tooltipContent(function(key, x, y, e, graph) { return '<h3>' + key + '</h3>' + '<p>' +  y + ' al ' + x + '</p>'; });
       chart.x(function(d) { return d.label; });
       chart.y(function(d) { return d.value; });
       
     }else if(type == "DountChart"){
-      //Falta Arreglar los tips no se encontraron en los css. y el tickFormat
       chart = nv.models.pieChart();
       chart.margin({top: margin.top, right: margin.right, bottom: margin.bottom, left: margin.left});
       chart.showLabels(showLabels);

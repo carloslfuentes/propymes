@@ -203,14 +203,17 @@ $(function() {
         watchstopped = false;
         startTimer();
         timerActions(action, $(this).text());
+        showAddItems(true);
         break;
       case 'stop':
         watchstopped = true;
         timerActions(action, $(this).text());
+        showAddItems(false);
         break;
       case 'standby':
         watchstopped = true;
         timerActions(action, $(this).text());
+        showAddItems(false);
         break;
     }
     
@@ -260,6 +263,15 @@ $(function() {
       $.post("/home/timer_actions",{selectedAction:action, timer:timer, working_day_id:working_day_id}).done(function(data){
         
       });
+    }
+    
+    function showAddItems(showButtons){
+      if(showButtons){
+        $("#add_items").show();
+      }else{
+        $("#add_items").hide();
+      }
+      
     }
   };
 });

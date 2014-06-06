@@ -98,4 +98,23 @@ class WorkingDay < ActiveRecord::Base
   def get_minutes
     self.effective_time.min + (self.effective_time.hour * 60)
   end
+
+  def get_time_available
+    worktime = PConfig::WorkTime.total_hours
+    total_boot_variables = PConfig::BootVariable.get_time_sum self.standard.boot_variables
+    return (worktime - total_boot_variables.to_f).utc.strftime("%H:%M:%S")
+  end
+  
+  def rate_graph
+    #FIXME Se agregan 6 hr al tiempo efectivo para que el calculo sea correcto Checar si hay una mejor manera !! SF
+    data = []
+    hash = {}
+    hash[:key] = "Producto"
+    hash[:values] = []
+    self.working_day_logs.add_item.each do |log|
+      hash[:values] << {:date => (log.effective_time.utc + 6.hour).to_i * 1000, :value => log.number_piece.to_i }
+    end
+    data << hash
+    return data
+  end
 end

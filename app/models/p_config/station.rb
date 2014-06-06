@@ -6,9 +6,11 @@ module PConfig
     
     accepts_nested_attributes_for :product_stations
     
-    belongs_to  :standard
+    
     has_many    :users
     has_many    :working_day
+    has_many    :events
+    belongs_to  :standard
     
     validates :ip_station, 
               :presence => true, 

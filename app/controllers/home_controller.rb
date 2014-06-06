@@ -13,6 +13,7 @@ class HomeController < ApplicationController
   def operator
     if (@station = PConfig::Station.find_by_ip_station(request.ip.to_s)).present?
       @working_day = WorkingDay.get_working_day(@station,current_user.id, params[:product_id])
+      @rate_graph = @working_day.rate_graph
     else
       flash[:error] = t("messages.ip_not_found")
     end

@@ -72,3 +72,7 @@
 .action-button span.delete {
   background: transparent url(/images/d02/icons/delete.png) no-repeat center center;
 }
+
+.action-button span.add_item {
+  background: transparent url(/images/d02/icons/addItem.png) no-repeat center center;
+}
