@@ -21,7 +21,7 @@
               = link_to image_tag("/images/d02/icons/addItem.png", :width => "64px", :style => "opacity:0.2; margin:0 0 0 66px;"), "#", :id=>"addItem", :disabled => true
               = link_to image_tag("/images/d02/icons/removeItem.png", :width => "64px", :style => "opacity:0.2; margin:0 0 0 57px;"), "#", :id=>"removeItem", :disabled => true
               %h0.gray.top.float_right
-                .top
+                .numberPiece.top
                   = @working_day.number_piece.to_i.to_s
           .clear
     //Chart 
@@ -54,8 +54,8 @@
       .top
         %h3
           = t :production
-        %progress{:value => @working_day.nullo.number_piece.if_nil(1), :max => @station.standard.item_number}
-        .al.float_left
+        %progress{:value => @working_day.nullo.number_piece.if_nil(1), :max => @station.standard.item_number, :id => "progress_graph"}
+        .numberPiece.al.float_left
           = @working_day.nullo.number_piece.to_i.if_nil(0)
         .ar
           = @station.standard.nullo.item_number.if_nil(0)
@@ -125,15 +125,22 @@
       $("#addItem, #removeItem").find("img").css("opacity", 0.2);
     });
     
-    //Load Buttons
-    $('#addItem').click(function() {
-      $.post("/home/add_items",{number_piece:1, time:$('#chronometer').text(),working_day_id:#{@working_day.id}}).done(function(data){
-        
-      });
-    });
-    
-    
     //Chart Rate Graph
     $("#rate_graph").Chart(#{@rate_graph.to_json}, {type:"LineChart", tooltips:false, showLegend:false, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
+    
+    //Add Items
+    $('#addItem').click(function() {
+      $.post("/home/add_items",{number_piece:1, time:$('#chronometer').text(),working_day_id:#{@working_day.id}}).done(function(data){
+        //Number Piece
+        $(".numberPiece").html(data["number_piece"]);
+        
+        //Progress Graph
+        $("#progress_graph").val(data["number_piece"]);
+        
+        //Rate Graph
+        graph = $("#rate_graph").html("");
+        graph.Chart(eval(data["rate_graph"]), {type:"LineChart", tooltips:false, showLegend:false, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
+      });
+    });
     
   });

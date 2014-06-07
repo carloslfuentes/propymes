@@ -58,6 +58,8 @@ class HomeController < ApplicationController
     hash = {}
     hash_send={:number_piece=>params[:number_piece],:time=>params[:time]}
     hash[:status] = working_day.calculate_item_piece(hash_send)
+    hash[:number_piece] = working_day.number_piece
+    hash[:rate_graph] = working_day.rate_graph.to_json
     render :json => hash.to_json
   end
   
