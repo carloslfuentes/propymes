@@ -50,6 +50,7 @@ class WorkingDay < ActiveRecord::Base
     if self.status == "active" || self.status == "standby"
       fdt = OperationTimes::Deduct.basic(self.start_time,work_time.first_hour)
       dl = OperationTimes::Deduct.basic(self.calculate_deleyed_works,self.effective_time)
+      self.status       = "active"
       self.delayed_time = OperationTimes::Sum.basic(fdt,dl)
       self.reason       = "Se Reinicio"
       self.description  = "Se cerro la ventana"
