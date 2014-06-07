@@ -12,7 +12,7 @@ class WorkingDay < ActiveRecord::Base
           :percentage_production=>self.percentage_production,:effective_time=>self.effective_time,
           :description=>self.description,:start_time=>self.start_time,:end_time=>self.end_time,
           :standard_id=>self.standard_id,:station_id=>self.station_id, :average_piece=>self.average_piece,
-          :effective_time=>self.effective_time}
+          :effective_time=>self.effective_time,:cost_production=>self.cost_production}
     WorkingDayLog.create(hash)
   end
   
@@ -53,19 +53,19 @@ class WorkingDay < ActiveRecord::Base
       self.status       = "active"
       self.delayed_time = OperationTimes::Sum.basic(fdt,dl)
       self.reason       = "Se Reinicio"
-      self.description  = "Se cerro la ventana"
+      self.description  = self.status == "standby" ? "Se reinicio" : "Se cerro la ventana"
     else
-      self.status       = "active"
       self.reason       = "Se inicio"
       self.description  = "Se inicio"
     end
+    self.status       = "active"
     return self.save
   end
   
   def standby_working_day(hash={})
     self.status       = "standby"
     self.reason       = "standby"
-    self.description  = "Sstandby"
+    self.description  = "standby"
     return self.save
   end
   
@@ -73,18 +73,20 @@ class WorkingDay < ActiveRecord::Base
     self.status       = "stop"
     self.reason       = "stop"
     self.description  = "stop"
+    self.end_time    =Time.now.strftime("%H:%M:%S")
     return self.save
   end
   
   def calculate_item_piece(hash)
     return false if self.status != 'active'
+    rason_description = 0 < a[:number_piece].to_i ? "add item" : "remove item"
     self.number_piece = self.number_piece.nullo.if_nil(0) + hash[:number_piece].to_i
-    self.effective_time = hash[:time] 
+    self.effective_time = hash[:time]
     #self.delayed_time = (self.delayed_time.to_time - Time.parse(hash[:cron]).to_f).strftime("%H:%M:%S") if self.status == 'pausa'
     self.cost_production = self.get_cost_production
     self.percentage_production = self.calcul_percentage
-    self.description  = "add item"
-    self.reason       = "add item"
+    self.description  = rason_description
+    self.reason       = rason_description
     self.average_piece = self.calcul_averenge
     return self.save
   end
@@ -92,7 +94,7 @@ class WorkingDay < ActiveRecord::Base
   def get_cost_production
     minutes = self.get_minutes_effective
     sum_inputs = 0
-    PConfig::Input.all.each do |inp|
+    self.standard.inputs.each do |inp|
       sum_inputs += (minutes * inp.cost_per_unit)/10 #FIXME agergar configuracion de minutos por unidad
     end
     return sum_inputs.round(3)
