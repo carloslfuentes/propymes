@@ -120,7 +120,7 @@ $(function() {
         id = $(this);
     
     $.get("/home/validate_status",{working_day_id: working_day_id}).done(function(data){
-      if(data){
+      if(data["status"] == true){
         $(id).openModal();
       }
     });

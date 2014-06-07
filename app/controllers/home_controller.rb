@@ -23,10 +23,16 @@ class HomeController < ApplicationController
   end
   
   def validate_status
+    hash = {}
     @working_id = WorkingDay.find(params[:working_day_id])
     if @working_id.status == "waiting_active" && @working_id.product_id.blank?
-      render :json => true
+      hash[:status] = true
+      hash[:flash] = "Esta Iniciado"
+    else
+      hash[:status] = false
+      hash[:flash] = "Pendiente"
     end
+    render :json => hash.to_json
   end
   
   def calculate_items
@@ -60,6 +66,15 @@ class HomeController < ApplicationController
     hash[:status] = working_day.calculate_item_piece(hash_send)
     hash[:number_piece] = working_day.number_piece
     hash[:rate_graph] = working_day.rate_graph.to_json
+    render :json => hash.to_json
+  end
+  
+  def change_product
+    hash = {}
+    working_day =  WorkingDay.find_by_id params[:working_day_id]
+    working_day.product_id = params[:product_id]
+    working_day.save
+    hash[:flash] = "Mensaje"
     render :json => hash.to_json
   end
   
