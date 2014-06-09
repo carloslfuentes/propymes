@@ -36,3 +36,7 @@
         = t :return
       %a.button.background_orange.white{:href => edit_resource_path(:user_type => params[:user_type])}
         = t :edit
+  .grid_6.top.first
+    %a.button.background_orange.white{:href => new_p_config_product_standard_path(@product.id)}
+      = t :new
+    = render :partial => '/partials/datagrid', :locals => {:links => ["edit", "show"],:objects => @product.standards, :fild_names=> [:id, :name]}

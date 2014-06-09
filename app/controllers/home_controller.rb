@@ -14,6 +14,8 @@ class HomeController < ApplicationController
     if (@station = PConfig::Station.find_by_ip_station(request.ip.to_s)).present?
       @working_day = WorkingDay.get_working_day(@station,current_user.id, params[:product_id])
       @rate_graph = @working_day.rate_graph
+      @working_days = @station.working_days
+      @working_day = @working_days.find_by_status("active").nullo.if_nil(@working_day)
     else
       flash[:error] = t("messages.ip_not_found")
     end
@@ -72,8 +74,7 @@ class HomeController < ApplicationController
   def change_product
     hash = {}
     working_day =  WorkingDay.find_by_id params[:working_day_id]
-    working_day.product_id = params[:product_id]
-    working_day.save
+    working_day.selected_product({:product_id=>params[:product_id]})
     hash[:flash] = "Mensaje"
     render :json => hash.to_json
   end

@@ -16,6 +16,9 @@ en:
       p_config/product_type:
         one: 'Product Type'
         other: 'Product Types'
+      p_config/standard_type:
+        one: 'Process Type'
+        other: 'Processes Types'
       p_config/standard:
         one: 'Process'
         other: 'Processes'

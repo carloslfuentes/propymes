@@ -5,9 +5,13 @@
         %h3
           = t :new_standard
         .form
+          =f.hidden_field :product_id, :value=>params[:product_id]
           .clearfix
             = f.label :name
             = f.text_field :name, :required => true
+          .clearfix
+            = f.label :standard_type_id
+            = f.collection_select :standard_type_id, PConfig::StandardType.all.sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
           .clearfix
             = f.label :unit_type
             = f.select :unit_type, options_for_select([[t(:piece), "piece"]]),{:include_blank => true}, :required => true #FIXME Agregar mas tipos de medida
@@ -47,7 +51,7 @@
               = t :save
             %button.button.background_gray.gray{:type => "reset"}
               = t :clear
-            %a.button.background_gray.gray{:href => p_config_standards_path}
+            %a.button.background_gray.gray{:href => p_config_product_path(params[:product_id])}
               = t :cancel
 
 //Add Boot Variables

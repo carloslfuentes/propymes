@@ -19,6 +19,7 @@ authorization do
     has_permission_on :p_config_events, :to => :manage
     has_permission_on :configurations, :to => :manage
     has_permission_on :p_config_fixed_amounts, :to => :manage
+    has_permission_on :p_config_standard_types, :to => :manage
   end
   
   role :system do
@@ -56,6 +57,7 @@ privileges do
   privilege :manage, :p_config_fixed_amounts,:includes =>[:index, :new, :edit, :show]
   privilege :manage, :p_config_inputs,:includes =>[:index, :new, :edit, :show]
   privilege :manage, :p_config_events,:includes =>[:index, :new, :edit, :show]
+  privilege :manage, :p_config_standard_types,:includes =>[:index, :new, :edit, :show]
   
   privilege :manage, :configurations,:includes =>[:index,:home,:add_permissions_user,:create_permission_user]
   privilege :manage, :home,:includes =>[:index, :operator, :manager, :validate_status, :timer_actions, :add_items, :change_product]

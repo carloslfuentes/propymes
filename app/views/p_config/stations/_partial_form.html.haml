@@ -9,8 +9,8 @@
             = f.label :name
             = f.text_field :name, :required => true
           .clearfix
-            = f.label :standard_id
-            = f.collection_select :standard_id, PConfig::Standard.all.sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
+            = f.label :standard_type_id
+            = f.collection_select :standard_type_id, PConfig::StandardType.all.sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
           .clearfix
             = f.label :ip_station
             = f.text_field :ip_station, :class => "validate[required,custom[ip]]", :required => true

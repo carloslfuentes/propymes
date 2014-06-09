@@ -30,8 +30,11 @@ es:
         type_of_production: 'Tipo de Producción'
         description: 'Descripción'
         is_enabled: 'Habilitado'
+      p_config/standard_type:
+        name: 'Nombre'
       p_config/standard:
         name: 'Nombre'
+        standard_type_id: 'Tipo de Proceso'
         boot_variable_id: 'Variable de Arranque'
         description: 'Descripción'
         unit_type: 'Tipo de Unidad'
@@ -42,6 +45,7 @@ es:
         description: 'Descripción'
         product_id: 'Producto'
         standard_id: 'Proceso'
+        standard_type_id: 'Tipo de Proceso'
         ip_station: 'IP de la estación'
       p_config/boot_variable:
         name: 'Nombre'

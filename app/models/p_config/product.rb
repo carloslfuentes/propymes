@@ -2,6 +2,7 @@ module PConfig
   class Product < ActiveRecord::Base
     has_many    :product_stations, :dependent => :delete_all
     has_many    :stations, :through => :product_stations
+    has_many    :standards
     
     belongs_to :product_type
     default_value_for :is_enabled, true

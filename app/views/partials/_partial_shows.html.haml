@@ -1,5 +1,6 @@
 .wrapper.top
   / Main Section
+  -links = {} if links.blank? 
   .grid_6.first
     .grid_3.first
       %h3
@@ -18,7 +19,8 @@
     &nbsp;
   .grid_2
     .panel.padding3
-      %a.button.background_gray.gray{:href => request.path.sub(/\/[0-9]+/,"")}
+      -return_p = links.present? ? links[:return] : request.path.sub(/\/[0-9]+/,"")
+      %a.button.background_gray.gray{:href => return_p}
         = t :return
-      %a.button.background_orange.white{:href => edit_resource_path}
+      %a.button.background_orange.white{:href => request.path+"/edit"}
         = t :edit

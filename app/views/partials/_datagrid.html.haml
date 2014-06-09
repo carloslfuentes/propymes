@@ -25,6 +25,8 @@
               =object.products.nullo.first.name.if_nil("-")
             -when :standard_id
               =object.standard.nullo.name.if_nil("-")
+            -when :standard_type_id
+              =object.standard_type.nullo.name.if_nil("-")
             -when :product_type_id
               =object.product_type.nullo.name.if_nil("-")
             -when :work_time_id
@@ -41,20 +43,20 @@
           - else
             = object[fild_name.to_sym]
       - links.each do |link|
-        -table_name = request.path
+        -table_name = object.class.name.sub('PConfig::','').downcase.pluralize
+        -params = request.path.to_s
+        -params = params["#{table_name}"] || params.split("/").last["_"] ? params : params+"/#{table_name}"
         -if link == "show"
           %td
-            -params = request.fullpath.split("?")[1]
-            %a.action-button{:href => "#{table_name}/#{object.id}"+(params.present? ? "?#{params}" : "")}
+            %a.action-button{:href => params+"/#{object.id}"}
               %span.magnifier
         -elsif link == "edit"
           %td
-            -params = request.fullpath.split("?")[1]
-            %a.action-button{:href => "#{table_name}/#{object.id}/edit"+(params.present? ? "?#{params}" : "")}
+            %a.action-button{:href => params+"/#{object.id}/edit"}
               %span.pencil
         -elsif link == "delete"
           %td
-            %a.action-button{:href => "#{table_name}/#{object.id}", :method=> :delete}
+            %a.action-button{:href => "#{params}/#{object.id}", :method=> :delete}
               %span.delete
         -elsif link == "clone"
           %td

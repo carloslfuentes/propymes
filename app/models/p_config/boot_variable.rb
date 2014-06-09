@@ -5,6 +5,8 @@ module PConfig
     has_many :standards, :through => :standard_boot_variables
     
     scope :is_enabled, where(:is_enabled=>true)
+    scope :only_start_variable, where(:is_change=>false)
+    scope :only_change, where(:is_change=>true)
     
     def self.get_time_sum(times)
       total_time = Time.utc(2000) 

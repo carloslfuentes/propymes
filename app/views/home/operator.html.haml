@@ -50,15 +50,16 @@
           %td.ar
             = @working_day.effective_time.present? ? (@working_day.effective_time.utc.strftime "%H:%M") : "00:00"
       //Progress Production
-      %hr/
-      .top
-        %h3
-          = t :production
-        %progress{:value => @working_day.nullo.number_piece.if_nil(1), :max => @station.standard.item_number, :id => "progress_graph"}
-        .numberPiece.al.float_left
-          = @working_day.nullo.number_piece.to_i.if_nil(0)
-        .ar
-          = @station.standard.nullo.item_number.if_nil(0)
+      -@working_days.each do |working_day|
+        %hr/
+        .top
+          %h3
+            = t :production
+          %progress{:value => working_day.nullo.number_piece.if_nil(0), :max => working_day.standard.nullo.item_number.if_nil(1), :id => "progress_graph"}
+          .numberPiece.al.float_left
+            = working_day.nullo.number_piece.to_i.if_nil(0)
+          .ar
+            = working_day.standard.nullo.item_number.if_nil(0)
       //Events
       %hr/
       .top
@@ -78,7 +79,6 @@
         %a.button.background_red.white#stopButton{:style => "width:120px; height:40px;", :onclick => "$('#chronometer').chronometer({action:'stop', working_day_id:'#{@working_day.id}'});"}
           %h2
             = t :stop
-
 //Validate Working Day
 #validate_status.widget.panel.padding3.background_gray_clear{:style => "height:70px;"}
   .content

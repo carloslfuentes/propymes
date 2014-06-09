@@ -3,6 +3,7 @@ module PConfig
   class Station < ActiveRecord::Base
     has_many    :product_stations, :dependent => :delete_all
     has_many    :products, :through => :product_stations
+    has_many    :working_days
     
     accepts_nested_attributes_for :product_stations
     
@@ -11,6 +12,7 @@ module PConfig
     has_many    :working_day
     has_many    :events
     belongs_to  :standard
+    belongs_to  :standard_type
     
     validates :ip_station, 
               :presence => true, 

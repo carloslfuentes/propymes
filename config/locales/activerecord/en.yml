@@ -30,14 +30,18 @@ en:
         type_of_production: 'Type of Production'
         description: 'Description'
         is_enabled: 'Enabled'
+      p_config/standard_type:
+        name: 'Name'
       p_config/standard:
         name: 'Name'
+        standard_type_id: 'Process Type'
         boot_variable_id: 'Boot Variable'
         description: 'Description'
         unit_type: 'Unit Type'
         item_number: 'Number of Pieces per Day'
       p_config/station:
         name: "Name"
+        standard_type_id: 'Process Type'
         is_enabled: "Enabled"
         description: "Description"
         product_id: 'Product'

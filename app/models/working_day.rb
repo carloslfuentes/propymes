@@ -12,16 +12,17 @@ class WorkingDay < ActiveRecord::Base
           :percentage_production=>self.percentage_production,:effective_time=>self.effective_time,
           :description=>self.description,:start_time=>self.start_time,:end_time=>self.end_time,
           :standard_id=>self.standard_id,:station_id=>self.station_id, :average_piece=>self.average_piece,
-          :effective_time=>self.effective_time,:cost_production=>self.cost_production}
+          :effective_time=>self.effective_time,:cost_production=>self.cost_production,:standard_type_id=>self.standard_type_id,
+          :disponible_time=>self.disponible_time}
     WorkingDayLog.create(hash)
   end
   
   def self.get_working_day(station, current_user_id,product_id=nil)
     if (working_day = WorkingDay.where("status in ('standby','waiting_active','active') and station_id = ?", station.id ).first).blank?
-        avariable=(PConfig::WorkTime.total_hours - PConfig::BootVariable.get_time_sum(station.standard.boot_variables).to_f).utc.strftime("%H:%M:%S")
-        working_day = WorkingDay.create(:effective_time=>"00:00:00",:disponible_time=>avariable,
+        #avariable=(PConfig::WorkTime.total_hours - PConfig::BootVariable.get_time_sum(station.standard.boot_variables).to_f).utc.strftime("%H:%M:%S")
+        working_day = WorkingDay.create(:effective_time=>"00:00:00",:disponible_time=>nil,#avariable,
                                         :product_id=>product_id,:reason=>'por iniciar',:status=>'waiting_active',
-                                        :standard_id=>station.standard.id,:station_id=>station.id,:operator_id=>current_user_id)
+                                        :standard_type_id=>station.standard_type_id,:standard_id=>nil,:station_id=>station.id,:operator_id=>current_user_id)
     end
     return working_day
   end
@@ -34,8 +35,53 @@ class WorkingDay < ActiveRecord::Base
   end
   
   def selected_product(hash={})
-    self.product_id = hash[:product_id]
+    product = PConfig::Product.find_by_id hash[:product_id]
+    if self.status == "standby"
+      if (wd =WorkingDay.find_by_station_id_and_product_id(self.station_id, hash[:product_id])).present?
+        wd.reason   = "change producto"
+        wd.description  = "Cambio de producto"
+        wd.delayed_time=self.delayed_time
+        #wd.effective_time = self.effective_time
+        wd.disponible_time = self.disponible_time
+        wd.product_id = product.id
+        wd.standard_id = product.standards.find_by_standard_type_id(wd.standard_type_id).id
+        wd.disponible_time = wd.get_calcule_change_time
+        wd.status = "active"
+        self.status = "pending change"
+        self.reason   = "change producto"
+        self.description  = "Cambio de producto"
+        self.save
+        return wd.save
+      else
+        wd = WorkingDay.new
+        wd.station_id = self.station_id
+        #wd.effective_time = self.effective_time
+        wd.standard_type_id = self.standard_type_id
+        wd.operator_id = self.operator_id
+        wd.delayed_time=self.delayed_time
+        wd.start_time=self.start_time
+        wd.disponible_time = self.disponible_time
+        wd.product_id = product.id
+        wd.standard_id = product.standards.find_by_standard_type_id(wd.standard_type_id).id
+        wd.disponible_time = wd.get_calcule_change_time
+        wd.status = "active"
+        wd.reason = "change product"
+        self.status = "pending change"
+        self.reason   = "change producto"
+        self.status = "pending change"
+        self.save
+        return wd.save
+     end
+    end
+    self.product_id = product.id
+    self.standard_id = product.standards.find_by_standard_type_id(self.standard_type_id).id
     self.save
+  end
+  
+  def get_calcule_change_time
+     avariable=self.disponible_time.utc.strftime("%H:%M:%S")
+     boots_variables=PConfig::BootVariable.get_time_sum(self.standard.boot_variables.only_change).utc.strftime("%H:%M:%S")
+     return OperationTimes::Deduct.basic(avariable,boots_variables)
   end
   
   def start_working_day(hash={})
@@ -46,6 +92,8 @@ class WorkingDay < ActiveRecord::Base
     if self.status == "waiting_active"
       self.delayed_time = OperationTimes::Deduct.basic(start_time, work_time.first_hour) 
       self.start_time    =start_time.strftime("%H:%M:%S")
+      avariable=(PConfig::WorkTime.total_hours - PConfig::BootVariable.get_time_sum(self.standard.boot_variables.only_start_variable).to_f).utc.strftime("%H:%M:%S")
+      self.disponible_time=avariable
     end
     if self.status == "active" || self.status == "standby"
       fdt = OperationTimes::Deduct.basic(self.start_time,work_time.first_hour)
@@ -79,7 +127,7 @@ class WorkingDay < ActiveRecord::Base
   
   def calculate_item_piece(hash)
     return false if self.status != 'active'
-    rason_description = 0 < a[:number_piece].to_i ? "add item" : "remove item"
+    rason_description = 0 < hash[:number_piece].to_i ? "add item" : "remove item"
     self.number_piece = self.number_piece.nullo.if_nil(0) + hash[:number_piece].to_i
     self.effective_time = hash[:time]
     #self.delayed_time = (self.delayed_time.to_time - Time.parse(hash[:cron]).to_f).strftime("%H:%M:%S") if self.status == 'pausa'
@@ -114,7 +162,7 @@ class WorkingDay < ActiveRecord::Base
 
   def get_time_available
     worktime = PConfig::WorkTime.total_hours
-    total_boot_variables = PConfig::BootVariable.get_time_sum self.standard.boot_variables
+    total_boot_variables = PConfig::BootVariable.get_time_sum self.standard.boot_variables.only_start_variable
     return (worktime - total_boot_variables.to_f).utc.strftime("%H:%M:%S")
   end
   
