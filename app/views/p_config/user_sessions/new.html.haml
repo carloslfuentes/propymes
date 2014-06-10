@@ -2,14 +2,16 @@
   .grid_8
     = errorFlash(flash)
     .center_of_the_page.panel
-      .padding3.ac
-        - PConfig::User.is_operator.each do |user|
-          %br
-          %a.action-button{:class =>"modal", :rel => "#login_operator", :param => user.login, :id_row => "#loginOperator"}
-            %span.operators{:style => "width: 31px; height: 31px;"}
-          .float_left
-            %h2.gray
-              = user.name
+      .padding3
+        %table.full.not-style
+          - PConfig::User.is_operator.each do |user|
+            %tr
+              %td
+                %h2.gray
+                  = user.name
+              %td
+                %a.action-button{:class =>"modal", :rel => "#login_operator", :param => user.login, :id_row => "#loginOperator"}
+                  %span.operators{:style => "width: 31px; height: 31px;"}
 
 //Login Manager
 #login_manager.widget.panel.padding1.background_gray_clear

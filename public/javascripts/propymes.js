@@ -264,3 +264,8 @@ $(function() {
   };
 });
 
+$(function() {
+  $.fn.errors = function(message){
+    
+  };
+});

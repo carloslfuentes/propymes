@@ -2,11 +2,14 @@ class WorkingDay < ActiveRecord::Base
   belongs_to :station, :class_name=>"PConfig::Station"
   belongs_to :user, :class_name=>"PConfig::User",:foreign_key => "operator_id"
   belongs_to :standard, :class_name=>"PConfig::Standard"
+  belongs_to :product, :class_name=>"PConfig::Product"
   has_many   :working_day_logs
   after_save :add_log
-  validates_presence_of :reason  
+  validates_presence_of :reason
   
+  scope :created_today, proc{|date| where(:created_at => date.to_s + " 00:00:00" .. date.to_s + " 23:59:59" ) }
   scope :actives, where("status in ('standby','waiting_active','active')")
+  scope :pending_change, where("status in ('standby','pending change','active')")
   
   def add_log
     hash={:product_id=>self.product_id,:working_day_id=>self.id, :reason=>self.reason,

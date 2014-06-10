@@ -2,7 +2,7 @@
   .grid_8
     .grid_4.first.panel.padding1.background_gray_clear
       %h3
-        = t :new_reasons
+        = PConfig::StandardType.model_name.human
       .form
         .clearfix
           = f.label :name

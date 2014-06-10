@@ -457,8 +457,12 @@ progress::-webkit-progress-value {
   background: -webkit-gradient(linear, left top, right top, color-stop(0, #CB4153), color-stop(0.9, #83061D));*/
 }
 
-
-
+/* Class Scroll for progress*/
+.scroll{
+  height:170px;
+  overflow-y: auto; /* has to be scroll, not auto */
+  -webkit-overflow-scrolling: touch;
+}
 
 /* Style Scroll 
 ::-webkit-scrollbar {

@@ -14,8 +14,7 @@ class HomeController < ApplicationController
     if (@station = PConfig::Station.find_by_ip_station(request.ip.to_s)).present?
       @working_day = WorkingDay.get_working_day(@station,current_user.id, params[:product_id])
       @rate_graph = @working_day.rate_graph
-      @working_days = @station.working_days
-      @working_day = @working_days.find_by_status("active").nullo.if_nil(@working_day)
+      @working_days = @station.working_days.pending_change.created_today(Date.today)
     else
       flash[:error] = t("messages.ip_not_found")
     end
@@ -43,7 +42,6 @@ class HomeController < ApplicationController
   end
   
   def timer_actions
-    #Funcion para que jales Carlos
     working_day =  WorkingDay.find_by_id params[:working_day_id]
     hash = {}
     hash[:selectedAction] = params[:selectedAction]
@@ -66,8 +64,10 @@ class HomeController < ApplicationController
     hash = {}
     hash_send={:number_piece=>params[:number_piece],:time=>params[:time]}
     hash[:status] = working_day.calculate_item_piece(hash_send)
+    hash[:working_days] = working_day.station.working_days.pending_change.created_today(Date.today).map{|working| [{:product => working.product.name, :max => working.standard.item_number, :value => working.number_piece}]}
     hash[:number_piece] = working_day.number_piece
     hash[:rate_graph] = working_day.rate_graph.to_json
+    hash[:effective_time] = working_day.station.get_sum_effective_time
     render :json => hash.to_json
   end
   
