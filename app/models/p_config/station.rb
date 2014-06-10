@@ -9,7 +9,7 @@ module PConfig
     
     
     has_many    :users
-    has_many    :working_day
+    has_many    :working_days
     has_many    :events
     belongs_to  :standard
     belongs_to  :standard_type
@@ -22,6 +22,14 @@ module PConfig
     scope :is_enabled, where(:is_enabled=>true)
     def self.rev_ip(host)
       Net::Ping::TCP.new(host, 'http')
+    end
+    
+    def get_sum_effective_time
+      sum_effective="00:00:00"
+      self.working_days.each do |working_day|
+        sum_effective = OperationTimes::Sum.basic(sum_effective,working_day.effective_time)
+      end
+      return sum_effective
     end
   end
 end

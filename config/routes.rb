@@ -26,9 +26,10 @@ PROPYMES::Application.routes.draw do
   namespace :p_config do
     resources :standard_types
     resources :fixed_amounts
-    resources :products do
+    resources :products do 
       resources :standards
     end
+    resources :standards
     resources :stations do
       collection do
         get :comprovate_ip

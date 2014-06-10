@@ -39,6 +39,7 @@ en:
         description: 'Description'
         unit_type: 'Unit Type'
         item_number: 'Number of Pieces per Day'
+        product_id: 'Product'
       p_config/station:
         name: "Name"
         standard_type_id: 'Process Type'
@@ -54,6 +55,7 @@ en:
         description: 'Description'
         time: 'Time'
         is_enabled: 'Enabled'
+        is_change: 'Is Change'
       p_config/stoppage:
         name: 'Name'
         category_id: 'Category'

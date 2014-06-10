@@ -5,16 +5,19 @@
         %h3
           = t :new_standard
         .form
-          =f.hidden_field :product_id, :value=>params[:product_id]
+          =#f.hidden_field :product_id, :value=>params[:product_id]
           .clearfix
             = f.label :name
             = f.text_field :name, :required => true
+          .clearfix
+            = f.label :product_id
+            = f.collection_select :product_id, PConfig::Product.all.sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
           .clearfix
             = f.label :standard_type_id
             = f.collection_select :standard_type_id, PConfig::StandardType.all.sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
           .clearfix
             = f.label :unit_type
-            = f.select :unit_type, options_for_select([[t(:piece), "piece"]]),{:include_blank => true}, :required => true #FIXME Agregar mas tipos de medida
+            = f.select :unit_type, options_for_select([[t(:piece), "piece"]],@standard.unit_type),{:include_blank => true}, :required => true #FIXME Agregar mas tipos de medida
           .clearfix
             = f.label :item_number
             = f.text_field :item_number, :type => :number, :class => :only_numbers, :required => true, :style => "width:120px;"
@@ -51,7 +54,7 @@
               = t :save
             %button.button.background_gray.gray{:type => "reset"}
               = t :clear
-            %a.button.background_gray.gray{:href => p_config_product_path(params[:product_id])}
+            %a.button.background_gray.gray{:href => p_config_standards_path}
               = t :cancel
 
 //Add Boot Variables

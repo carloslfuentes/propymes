@@ -39,6 +39,7 @@ es:
         description: 'Descripción'
         unit_type: 'Tipo de Unidad'
         item_number: 'Número de Piezas por Jornada'
+        product_id: 'Producto'
       p_config/station:
         name: 'Nombre'
         is_enabled: 'Habilitado'
@@ -54,6 +55,7 @@ es:
         description: 'Descripción'
         time: 'Tiempo'
         is_enabled: 'Habilitado'
+        is_change: 'Es de Cambio'
       p_config/stoppage:
         name: 'Nombre'
         category_id: 'Categoria'

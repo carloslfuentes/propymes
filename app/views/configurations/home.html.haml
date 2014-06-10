@@ -10,12 +10,6 @@
       %table.full.not-style
         %tr
           %td
-            %a.not_decoration.blue{:href => p_config_standard_types_path}
-              = PConfig::StandardType.model_name.human(:count => :other)
-          %td.ar
-            = PConfig::StandardType.count.to_s
-        %tr
-          %td
             %a.not_decoration.blue{:href => p_config_product_types_path}
               = PConfig::ProductType.model_name.human(:count => :other)
           %td.ar
@@ -56,16 +50,22 @@
             = PConfig::Input.count.to_s
     .clear
     
-    //.grid_2.top.first
-    //  %h3.background_gray_clear.gray
-    //    = PConfig::Standard.model_name.human(:count => :other)
-    //  %table.full.not-style
-    //    %tr
-    //      %td
-    //        %a.not_decoration.blue{:href => p_config_standards_path}
-    //          = PConfig::Standard.model_name.human(:count => :other)
-    //      %td.ar
-    //       = PConfig::Standard.count.to_s
+    .grid_2.top.first
+      %h3.background_gray_clear.gray
+        = PConfig::Standard.model_name.human(:count => :other)
+      %table.full.not-style
+        %tr
+          %td
+            %a.not_decoration.blue{:href => p_config_standard_types_path}
+              = PConfig::StandardType.model_name.human(:count => :other)
+          %td.ar
+            = PConfig::StandardType.count.to_s
+        %tr
+          %td
+            %a.not_decoration.blue{:href => p_config_standards_path}
+              = PConfig::Standard.model_name.human(:count => :other)
+          %td.ar
+            = PConfig::Standard.count.to_s
     
     .grid_2.top
       %h3.background_gray_clear.gray

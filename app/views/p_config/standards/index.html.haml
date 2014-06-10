@@ -1,7 +1,7 @@
 .wrapper.top
   .grid_8
     .grid_6.first
-      = render :partial => '/partials/datagrid', :locals => {:links => ["edit", "show"],:objects => @standards, :fild_names=> [:id, :name, :boot_variable_id, :unit_type, :item_number, :description]}
+      = render :partial => '/partials/datagrid', :locals => {:links => ["edit", "show"],:objects => @standards, :fild_names=> [:id, :name, :product_id, :standard_type_id,:unit_type, :item_number, :description]}
     .grid_2
       .panel.padding3
         %a.button.background_orange.white{:href => new_p_config_standard_path}
