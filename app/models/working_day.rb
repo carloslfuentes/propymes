@@ -6,6 +6,8 @@ class WorkingDay < ActiveRecord::Base
   after_save :add_log
   validates_presence_of :reason  
   
+  scope :actives, where("status in ('standby','waiting_active','active')")
+  
   def add_log
     hash={:product_id=>self.product_id,:working_day_id=>self.id, :reason=>self.reason,
           :delayed_time=>self.delayed_time,:number_piece=>self.number_piece,:status=>self.status,
@@ -18,7 +20,7 @@ class WorkingDay < ActiveRecord::Base
   end
   
   def self.get_working_day(station, current_user_id,product_id=nil)
-    if (working_day = WorkingDay.where("status in ('standby','waiting_active','active') and station_id = ?", station.id ).first).blank?
+    if (working_day = WorkingDay.actives.where("station_id = ?", station.id ).first).blank?
         #avariable=(PConfig::WorkTime.total_hours - PConfig::BootVariable.get_time_sum(station.standard.boot_variables).to_f).utc.strftime("%H:%M:%S")
         working_day = WorkingDay.create(:effective_time=>"00:00:00",:disponible_time=>nil,#avariable,
                                         :product_id=>product_id,:reason=>'por iniciar',:status=>'waiting_active',
