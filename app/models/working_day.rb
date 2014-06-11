@@ -19,7 +19,7 @@ class WorkingDay < ActiveRecord::Base
           :description=>self.description,:start_time=>self.start_time,:end_time=>self.end_time,
           :standard_id=>self.standard_id,:station_id=>self.station_id, :average_piece=>self.average_piece,
           :effective_time=>self.effective_time,:cost_production=>self.cost_production,:standard_type_id=>self.standard_type_id,
-          :disponible_time=>self.disponible_time}
+          :disponible_time=>self.disponible_time,:target_pieces=>self.target_pieces}
     WorkingDayLog.create(hash)
   end
   
@@ -40,6 +40,16 @@ class WorkingDay < ActiveRecord::Base
     return OperationTimes::Deduct.basic(time_now,times)
   end
   
+  def operation_target_piece
+    min_dispobible = get_minutes_time(self.disponible_time)
+    min_effective = get_minutes_time(Time.parse(self.station.get_sum_effective_time))
+    n_pieces = self.number_piece.nullo.if_nil(0)
+    i_numbers = self.standard.item_number
+    pieces = i_numbers - n_pieces
+    
+    return (((min_dispobible - min_effective) * pieces)/min_dispobible).round(0) + n_pieces
+  end
+  
   def selected_product(hash={})
     product = PConfig::Product.find_by_id hash[:product_id]
     if self.status == "standby"
@@ -53,6 +63,7 @@ class WorkingDay < ActiveRecord::Base
         wd.standard_id = product.standards.find_by_standard_type_id(wd.standard_type_id).id
         wd.disponible_time = wd.get_calcule_change_time
         wd.status = "active"
+        wd.target_pieces = wd.operation_target_piece
         self.status = "pending change"
         self.reason   = "change producto"
         self.description  = "Cambio de producto"
@@ -72,6 +83,7 @@ class WorkingDay < ActiveRecord::Base
         wd.disponible_time = wd.get_calcule_change_time
         wd.status = "active"
         wd.reason = "change product"
+        wd.target_pieces = wd.operation_target_piece
         self.status = "pending change"
         self.reason   = "change producto"
         self.status = "pending change"
@@ -99,6 +111,7 @@ class WorkingDay < ActiveRecord::Base
       self.delayed_time = OperationTimes::Deduct.basic(start_time, work_time.first_hour) 
       self.start_time    =start_time.strftime("%H:%M:%S")
       avariable=(PConfig::WorkTime.total_hours - PConfig::BootVariable.get_time_sum(self.standard.boot_variables.only_start_variable).to_f).utc.strftime("%H:%M:%S")
+      self.target_pieces = self.standard.item_number
       self.disponible_time=avariable
     end
     if self.status == "active" || self.status == "standby"
@@ -146,7 +159,7 @@ class WorkingDay < ActiveRecord::Base
   end
   
   def get_cost_production
-    minutes = self.get_minutes_effective
+    minutes = get_minutes_time(self.effective_time)
     sum_inputs = 0
     self.standard.inputs.each do |inp|
       sum_inputs += (minutes * inp.cost_per_unit)/10 #FIXME agergar configuracion de minutos por unidad
@@ -155,15 +168,15 @@ class WorkingDay < ActiveRecord::Base
   end
   
   def calcul_averenge
-    return (Time.new(2000) + (self.get_minutes_effective/self.number_piece).minutes).strftime("%H:%M:%S")
+    return (Time.new(2000) + (get_minutes_time(self.effective_time)/self.number_piece).minutes).strftime("%H:%M:%S")
   end
   
   def calcul_percentage
     return (self.number_piece * 100)/self.standard.item_number
   end
   
-  def get_minutes_effective
-    self.effective_time.min + (self.effective_time.hour * 60)
+  def get_minutes_time(times)
+    times.min + (times.hour * 60)
   end
 
   def get_time_available
