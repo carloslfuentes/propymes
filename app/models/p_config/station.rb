@@ -26,8 +26,8 @@ module PConfig
     
     def get_sum_effective_time
       sum_effective="00:00:00"
-      self.working_days.actives.each do |working_day|
-        sum_effective = OperationTimes::Sum.basic(sum_effective,working_day.effective_time)
+      self.working_days.pending_change.each do |working_day|
+        sum_effective = OperationTimes::Sum.basic(sum_effective,working_day.effective_time.nullo.if_nil("00:00:00"))
       end
       return sum_effective
     end

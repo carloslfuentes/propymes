@@ -6,6 +6,7 @@ class WorkingDay < ActiveRecord::Base
   has_many   :working_day_logs
   after_save :add_log
   validates_presence_of :reason
+  default_value_for :effective_time, "00:00:00"
   
   scope :created_today, proc{|date| where(:created_at => date.to_s + " 00:00:00" .. date.to_s + " 23:59:59" ) }
   scope :actives, where("status in ('standby','waiting_active','active')")
