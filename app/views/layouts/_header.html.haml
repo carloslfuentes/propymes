@@ -16,8 +16,9 @@
               %a{:href => configurations_path, :style => "margin-right:15px;"}
                 %img{:src => "/images/d02/icons/engine.png"}
             - elsif current_user.is_operator?
-              %a{:href => "#", :class => "modal", :rel => "#change_product", :style => "margin-right:15px;"}
-                %img{:src => "/images/d02/icons/change_product.png"}
+              #btn_change_product
+                %a{:href => "#", :class => "modal", :rel => "#change_product", :style => "margin-right:15px;"}
+                  %img{:src => "/images/d02/icons/change_product.png"}
         - else
           %a.action-button{:class => "modal", :rel => "#login_manager"}
             %span.key

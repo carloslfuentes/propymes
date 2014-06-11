@@ -5,7 +5,7 @@
         %button.button.background_green.white#startButton{:style => "width:195px; height:55px;"}
           %h2
             = t :start
-        %button.button.background_gray.white#standbyButton{:style => "width:195px; height:55px;", :disabled => true}
+        %button.button.background_gray.white#standbyButton{:class => "modal", :rel => "#stoppage", :style => "width:195px; height:55px;", :disabled => true}
           %h2
             = t :standby
           //Chronometer
@@ -93,21 +93,27 @@
         %a.button.background_red.white#stopButton{:style => "width:120px; height:40px;", :onclick => "$('#chronometer').chronometer({action:'stop', working_day_id:'#{@working_day.id}'});"}
           %h2
             = t :stop
+
 //Validate Working Day
 #change_product.widget.panel.padding3.background_gray_clear{:style => "height:70px;"}
   .content
-    = errorFlash(flash)
     .form
       .clearfix
         = label_tag PConfig::Product.model_name.human(:count => :other)
         = select_tag :product_id, options_for_select(PConfig::Product.for_station(request.ip).map{|prod| [prod.name, prod.id]})
       %hr/
       .ar.top
-        %button.button.background_green.white{:href => "#", :id => "changeProduct"}
+        %button.button.background_green.white{:href => "#", :id => "submitChangeProduct"}
           = t :add
         - if @working_day.product_id.present?
           %a.button.background_gray.gray{:href => "#", :onclick => "$().closeModal();"}
             = t :cancel
+
+//StopPage
+#stoppage.widget.panel.padding3.background_gray_clear
+  .content
+    = "Stoppage"
+
 
 :javascript
   $(document).ready(function() {
@@ -115,12 +121,11 @@
     $("#change_product").validateStatus("#{@working_day.id}");
     
     //Change Product
-    $("#changeProduct").live("click", function(){
+    $("#submitChangeProduct").live("click", function(){
       $.get("/home/change_product",{ product_id:$("#product_id").val(), working_day_id:#{@working_day.id} }).done(function(data){
         if(data){
           //Mandar Mensaje de Producto Cambiado
           $(this).closeModal();
-          location.reload();
         }
       });
     });
@@ -136,6 +141,8 @@
       standbyButton.removeAttr('disabled');
       //We Enable Buttons
       $("#addItem, #removeItem").find("img").css("opacity", 1);
+      //Hidden Btn Change Product
+      $("#btn_change_product").fadeOut(300);
     });
     
     //StandBy Chronometer
@@ -149,6 +156,8 @@
       startButton.removeAttr('disabled');
       //We Enable Buttons
       $("#addItem, #removeItem").find("img").css("opacity", 0.2);
+      //Show Btn Change Product
+      $("#btn_change_product").fadeIn(300);
     });
     
     //Chart Rate Graph
