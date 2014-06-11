@@ -49,7 +49,7 @@
         %tr
           %td
             = t :available_time
-          %td.ar
+          %td.ar#disponible_time
             = @working_day.disponible_time.present? ? (@working_day.disponible_time.utc.strftime "%H:%M:%S") : "00:00:00" 
         %tr
           %td
@@ -63,11 +63,11 @@
           .top
             %h3
               = working_day.product.nullo.name.if_nil("N/P")
-            %progress{:value => working_day.nullo.number_piece.if_nil(0), :max => working_day.standard.nullo.item_number.if_nil(1)}
+            %progress{:value => working_day.nullo.number_piece.if_nil(0), :max => working_day.nullo.target_pieces.if_nil(1)}
             .al.float_left
               = working_day.nullo.number_piece.to_i.if_nil(0)
             .ar
-              = working_day.standard.nullo.item_number.if_nil(0)
+              = working_day.nullo.target_pieces.if_nil(1)
       //Notes
       %hr/
       .top
@@ -126,6 +126,7 @@
         if(data){
           //Mandar Mensaje de Producto Cambiado
           $(this).closeModal();
+          location.reload();
         }
       });
     });
@@ -168,6 +169,8 @@
       action = $(this).attr("action");
       number_piece = action == "addItem" ? 1 : -1
       $.post("/home/add_items",{number_piece:number_piece, time:$('#chronometer').text(),working_day_id:#{@working_day.id}}).done(function(data){
+        //Disponible Time
+        $("#disponible_time").html(data["disponible_time"]);
         
         // Effective Time
         $("#effective_time").html(data["effective_time"]);
