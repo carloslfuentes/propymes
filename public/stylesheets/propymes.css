@@ -17,8 +17,8 @@ body {
   bottom: 0;
 }
 
-#push {
-  text-align:center;
+footer, #push {
+  height: 50px; /* #push must be the same height as footer */
 }
 
 .wrapper {
