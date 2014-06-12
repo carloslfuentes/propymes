@@ -45,9 +45,9 @@ class WorkingDay < ActiveRecord::Base
     min_effective = get_minutes_time(Time.parse(self.station.get_sum_effective_time))
     n_pieces = self.number_piece.nullo.if_nil(0)
     i_numbers = self.standard.item_number
-    pieces = i_numbers - n_pieces
+    #pieces = i_numbers - n_pieces
     
-    return (((min_dispobible - min_effective) * pieces)/min_dispobible).round(0) + n_pieces
+    return (((min_dispobible - min_effective) * i_numbers)/min_dispobible).round(0) + n_pieces
   end
   
   def selected_product(hash={})
@@ -169,6 +169,13 @@ class WorkingDay < ActiveRecord::Base
   
   def calcul_averenge
     return (Time.new(2000) + (get_minutes_time(self.effective_time)/self.number_piece).minutes).strftime("%H:%M:%S")
+  end
+  
+  def get_averenge_time_second
+    minutes_dispobible = get_minutes_time(self.disponible_time)
+    minutes_effective = get_minutes_time(Time.parse(self.station.get_sum_effective_time))
+    avarange = (Time.new(2000) + ((minutes_dispobible - minutes_effective)/(self.target_pieces - self.number_piece)).minutes)#.strftime("%H:%M:%S")
+    return (((avarange.hour*60)+avarange.min)*60+avarange.sec)*1000
   end
   
   def calcul_percentage

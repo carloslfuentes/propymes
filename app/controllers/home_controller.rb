@@ -15,6 +15,7 @@ class HomeController < ApplicationController
       @working_day = WorkingDay.get_working_day(@station,current_user.id, params[:product_id])
       @rate_graph = @working_day.rate_graph
       @working_days = @station.working_days.pending_change
+      @avarange_time_second = @working_day.get_averenge_time_second
     else
       flash[:error] = t("messages.ip_not_found")
     end
