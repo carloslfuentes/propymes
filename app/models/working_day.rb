@@ -54,7 +54,7 @@ class WorkingDay < ActiveRecord::Base
     product = PConfig::Product.find_by_id hash[:product_id]
     if self.status == "standby"
       if (wd =WorkingDay.find_by_station_id_and_product_id(self.station_id, hash[:product_id])).present?
-        wd.reason   = "change producto"
+        wd.reason   = "change product"
         wd.description  = "Cambio de producto"
         wd.delayed_time=self.delayed_time
         #wd.effective_time = self.effective_time
@@ -65,7 +65,7 @@ class WorkingDay < ActiveRecord::Base
         wd.status = "active"
         wd.target_pieces = wd.operation_target_piece
         self.status = "pending change"
-        self.reason   = "change producto"
+        self.reason   = "change product"
         self.description  = "Cambio de producto"
         self.save
         return wd.save
@@ -85,7 +85,7 @@ class WorkingDay < ActiveRecord::Base
         wd.reason = "change product"
         wd.target_pieces = wd.operation_target_piece
         self.status = "pending change"
-        self.reason   = "change producto"
+        self.reason   = "change product"
         self.status = "pending change"
         self.save
         return wd.save
@@ -192,16 +192,4 @@ class WorkingDay < ActiveRecord::Base
     return (worktime - total_boot_variables.to_f).utc.strftime("%H:%M:%S")
   end
   
-  def rate_graph
-    #FIXME Se agregan 6 hr al tiempo efectivo para que el calculo sea correcto Checar si hay una mejor manera !! SF
-    data = []
-    hash = {}
-    hash[:key] = "Producto"
-    hash[:values] = []
-    self.working_day_logs.add_item.each do |log|
-      hash[:values] << {:date => (log.effective_time.utc + 6.hour).to_i * 1000, :value => log.number_piece.to_i }
-    end
-    data << hash
-    return data
-  end
 end

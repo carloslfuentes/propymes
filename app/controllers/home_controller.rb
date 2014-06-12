@@ -13,7 +13,7 @@ class HomeController < ApplicationController
   def operator
     if (@station = PConfig::Station.find_by_ip_station(request.ip.to_s)).present?
       @working_day = WorkingDay.get_working_day(@station,current_user.id, params[:product_id])
-      @rate_graph = @working_day.rate_graph
+      @rate_graph = @station.rate_graph
       @working_days = @station.working_days.pending_change
       @avarange_time_second = @working_day.get_averenge_time_second
     else
@@ -67,7 +67,7 @@ class HomeController < ApplicationController
     hash[:status] = working_day.calculate_item_piece(hash_send)
     hash[:working_days] = working_day.station.working_days.pending_change.map{|working| [{:product => working.product.name, :max => working.target_pieces, :value => working.number_piece}]}
     hash[:number_piece] = working_day.number_piece
-    hash[:rate_graph] = working_day.rate_graph.to_json
+    hash[:rate_graph] = working_day.station.rate_graph.to_json
     hash[:effective_time] = working_day.station.get_sum_effective_time
     hash[:disponible_time] = working_day.disponible_time.strftime("%H:%M:%S")
     render :json => hash.to_json

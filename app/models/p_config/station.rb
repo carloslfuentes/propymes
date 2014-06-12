@@ -31,6 +31,20 @@ module PConfig
       end
       return sum_effective
     end
+    
+    def rate_graph
+      data = []
+      self.working_days.pending_change.each do |working_day|
+        hash = {}
+        hash[:key] = working_day.product.name.to_s
+        hash[:values] =[]
+        working_day.working_day_logs.each do |log|
+          hash[:values] << {:date => (log.effective_time.utc + 6.hour).to_i * 1000, :value => log.number_piece.to_i }
+        end
+        data << hash
+      end
+      return data
+    end
   end
 end
 
