@@ -31,7 +31,7 @@
   .grid_2
     .panel.padding1.gray
       %h3
-        = "Producto Seleccionado"
+        = t :selected_product
       .ac
         .padding2
           %h3.background_gray_clear
@@ -55,7 +55,12 @@
           %td
             = t :effective_time
           %td.ar#effective_time
-            = @working_day.station.get_sum_effective_time.present? ? @working_day.station.get_sum_effective_time : "00:00"
+            = @working_day.station.get_sum_effective_time.present? ? @working_day.station.get_sum_effective_time : "00:00:00"
+        %tr
+          %td
+            = t :delayed_time
+          %td.ar#delayed_time
+            = @working_day.delayed_time.present? ? (@working_day.delayed_time.utc.strftime "%H:%M:%S") : "00:00:00"
       //Progress Production
       .scroll#progress
         - @working_days.each do |working_day|
@@ -94,9 +99,6 @@
           %h2
             = t :stop
 
-  .clear
-#push
-
 //Validate Working Day
 #change_product.widget.panel.padding3.background_gray_clear{:style => "height:70px;"}
   .content
@@ -113,10 +115,20 @@
             = t :cancel
 
 //StopPage
-#stoppage.widget.panel.padding3.background_gray_clear
-  .content
-    = "Stoppage"
+#stoppage.widget.panel.padding3.background_gray_clear{:style => "width:606px;"}
+  .content{:style => "width:606px;"}
+    - PConfig::Stoppage.all.each do |stoppage|
+      .clearfix
+        %button.button.white.float_left{:style => "width:195px; height:65px; margin: 0 5px 0 0; background:" + stoppage.color.to_s, :id => "startStoppage", :stoppage_id => stoppage.id, :description => stoppage.name}
+          %h2
+            = stoppage.name
+    %hr/
+    .ar.top
+      %a.button.background_gray.gray{:href => "#", :onclick => "$().closeModal();"}
+        = t :cancel
 
+.clear
+#push
 
 :javascript
   $(document).ready(function() {
@@ -164,7 +176,7 @@
       $("#btn_change_product").fadeIn(300);
     });
     
-    //Chart Rate Graph
+    //Chart Rate Graph Init 
     $("#rate_graph").Chart(#{@rate_graph.to_json}, {type:"LineChart", tooltips:false, showLegend:true, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
     
     //Add Items
@@ -204,8 +216,18 @@
       });
     });
     
-    setTimeout(function() { 
-        alert("aqui se tiene que detener el cronometro y ponerse en stanby");
-        }, parseInt("#{@avarange_time_second}"));
+    //Stoppage
+    $("#startStoppage").live("click", function(){
+      $.post("/p_config/stoppages/start_stoppages",{id: $(this).attr("stoppage_id"), description: $(this).attr("description"), working_day_id:'#{@working_day.id}' }).done(function(data){
+        if(data){
+          //Resgresar valores y
+          //Actualizar
+        }
+      });
+    });
+    
+    //setTimeout(function() { 
+    //alert("aqui se tiene que detener el cronometro y ponerse en stanby");
+    //}, parseInt("#{@avarange_time_second}"));
     
   });

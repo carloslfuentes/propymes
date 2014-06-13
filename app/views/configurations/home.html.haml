@@ -115,12 +115,6 @@
               = PConfig::Stoppage.model_name.human(:count => :other)
           %td.ar
             = PConfig::Stoppage.count.to_s
-        %tr
-          %td
-            %a.not_decoration.blue{:href => p_config_stoppage_by_categories_path}
-              = PConfig::StoppageByCategory.model_name.human(:count => :other)
-          %td.ar
-            = PConfig::StoppageByCategory.count.to_s
     
     .grid_2.top
       %h3.background_gray_clear.gray
@@ -135,17 +129,6 @@
     .clear
     
     .grid_2.top.first
-      %h3.background_gray_clear.gray
-        = PConfig::Reason.model_name.human(:count => :other)
-      %table.full.not-style
-        %tr
-          %td
-            %a.not_decoration.blue{:href => p_config_reasons_path}
-              = PConfig::Reason.model_name.human(:count => :other)
-          %td.ar
-            = PConfig::Reason.count.to_s
-    
-    .grid_2.top
       %h3.background_gray_clear.gray
         = PConfig::Event.model_name.human(:count => :other)
       %table.full.not-style

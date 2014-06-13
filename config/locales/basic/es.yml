@@ -34,6 +34,7 @@ es:
   stop: 'Detener'
   standby: 'Espera'
   production: 'Producción'
+  selected_product: 'Producto Seleccionado'
   not_product_selected: 'Sin Producto Seleccionado'
   #Config FIXME Eliminar o cambiar ya que esto se utiliza en el edit y tmb dice nuevo.
   operating_parameters: 'Parámetros Operativos'

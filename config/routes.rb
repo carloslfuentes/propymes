@@ -52,7 +52,11 @@ PROPYMES::Application.routes.draw do
     end
     resources :boot_variables
     resources :product_types
-    resources :stoppages
+    resources :stoppages do
+      collection do
+        post :start_stoppages
+      end
+    end
     resources :stoppage_by_categories
     resources :work_times
     resources :reasons

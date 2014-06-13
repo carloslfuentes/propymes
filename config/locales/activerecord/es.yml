@@ -61,9 +61,6 @@ es:
         category_id: 'Categoria'
         time: 'Tiempo'
         solve: 'Solución'
-      p_config/stoppage_by_category:
-        name: 'Nombre'
-        description: 'Descripción'
         is_enabled: 'Habilitado'
       p_config/work_time:
         name: 'Nombre'

@@ -34,7 +34,8 @@ en:
   stop: 'Stop'
   standby: 'Standby'
   production: 'Production'
-  not_product_selected: 'Not Product Selected'
+  selected_product: 'Selected Product'
+  not_product_selected: 'Not Selected Product'
   #Config
   operating_parameters: 'Operating Parameters'
   production_parameters: 'Production Parameters'

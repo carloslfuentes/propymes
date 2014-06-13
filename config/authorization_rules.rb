@@ -8,7 +8,6 @@ authorization do
     has_permission_on :p_config_products, :to => :manage
     has_permission_on :p_config_product_types, :to => :manage
     has_permission_on :p_config_standards, :to => :manage
-    has_permission_on :p_config_stoppage_by_categories, :to => :manage
     has_permission_on :p_config_stoppages, :to => :manage
     has_permission_on :p_config_users, :to => :manage
     has_permission_on :p_config_boot_variables, :to => :manage
@@ -47,8 +46,7 @@ privileges do
   privilege :manage, :p_config_products,:includes =>[:index, :new, :edit, :show]
   privilege :manage, :p_config_product_types,:includes =>[:index, :new, :edit, :show]
   privilege :manage, :p_config_standards,:includes =>[:index, :new, :edit, :show]
-  privilege :manage, :p_config_stoppage_by_categories,:includes =>[:index, :new, :edit, :show]
-  privilege :manage, :p_config_stoppages,:includes =>[:index, :new, :edit, :show]
+  privilege :manage, :p_config_stoppages,:includes =>[:index, :new, :edit, :show, :start_stoppages]
   privilege :manage, :p_config_users,:includes =>[:index, :new, :edit, :show]
   privilege :manage, :p_config_reasons,:includes =>[:index, :new, :edit, :show]
   privilege :manage, :p_config_work_times,:includes =>[:index, :new, :edit, :show]

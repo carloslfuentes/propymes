@@ -1,7 +1,7 @@
 .wrapper.top
   .grid_8
     .grid_6.first
-      = render :partial => '/partials/datagrid', :locals => {:links => ["edit", "show"],:objects => @stoppages, :fild_names=> [:id, :name, :category_id, :time ]}
+      = render :partial => '/partials/datagrid', :locals => {:links => ["edit", "show"],:objects => @stoppages, :fild_names=> [:id, :name, :color, :time, :is_enabled]}
     .grid_2
       .panel.padding3
         %a.button.background_orange.white{:href => new_p_config_stoppage_path}
