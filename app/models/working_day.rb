@@ -175,7 +175,7 @@ class WorkingDay < ActiveRecord::Base
     return 10 * 60 * 1000 if self.disponible_time.blank?
     minutes_disponible = get_minutes_time(self.disponible_time)
     minutes_effective = get_minutes_time(Time.parse(self.station.get_sum_effective_time))
-    avarange = (Time.new(2000) + ((minutes_disponible - minutes_effective)/(self.target_pieces - self.number_piece)).minutes)#.strftime("%H:%M:%S")
+    avarange = (Time.new(2000) + ((minutes_disponible - minutes_effective)/(self.target_pieces - self.number_piece.nullo.if_nil(0))).minutes)#.strftime("%H:%M:%S")
     return (((avarange.hour*60)+avarange.min)*60+avarange.sec)*1000
   end
   
