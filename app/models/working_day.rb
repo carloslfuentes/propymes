@@ -64,6 +64,7 @@ class WorkingDay < ActiveRecord::Base
         wd.disponible_time = wd.get_calcule_change_time
         wd.status = "active"
         wd.target_pieces = wd.operation_target_piece
+        wd.effective_time = self.effective_time
         self.status = "pending change"
         self.reason   = "change product"
         self.description  = "Cambio de producto"
@@ -84,6 +85,7 @@ class WorkingDay < ActiveRecord::Base
         wd.status = "active"
         wd.reason = "change product"
         wd.target_pieces = wd.operation_target_piece
+        wd.effective_time = self.effective_time
         self.status = "pending change"
         self.reason   = "change product"
         self.status = "pending change"

@@ -71,7 +71,7 @@ class HomeController < ApplicationController
     hash[:working_days] = working_day.station.working_days.pending_change.map{|working| [{:product => working.product.name, :max => working.target_pieces, :value => working.number_piece}]}
     hash[:number_piece] = working_day.number_piece
     hash[:rate_graph] = working_day.station.rate_graph.to_json
-    hash[:effective_time] = working_day.station.get_sum_effective_time
+    hash[:effective_time] = working_day.station.effective_time#get_sum_effective_time
     hash[:disponible_time] = working_day.disponible_time.strftime("%H:%M:%S")
     render :json => hash.to_json
   end
