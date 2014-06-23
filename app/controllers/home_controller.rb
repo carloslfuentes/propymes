@@ -6,7 +6,6 @@ class HomeController < ApplicationController
       render :action => 'manager'
     else
       operator
-      render :action => 'operator'
     end
   end
   
@@ -16,9 +15,15 @@ class HomeController < ApplicationController
       @rate_graph = @station.rate_graph
       @working_days = @station.working_days.pending_change
       @avarange_time_second = @working_day.get_averenge_time_second
+      render :action => 'operator'
     else
-      #Redirigir a Pantalla de errores
       flash[:error] = t("messages.ip_not_found")
+      #Aun lo voy a modificar !! SF
+      respond_to do |format|
+        format.html { render :file => "#{Rails.root}/public/101", :layout => false, :status => :not_found }
+        format.xml  { head :not_found }
+        format.any  { head :not_found }
+      end
     end
   end
   
