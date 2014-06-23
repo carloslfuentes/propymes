@@ -17,6 +17,7 @@ class HomeController < ApplicationController
       @working_days = @station.working_days.pending_change
       @avarange_time_second = @working_day.get_averenge_time_second
     else
+      #Redirigir a Pantalla de errores
       flash[:error] = t("messages.ip_not_found")
     end
   end
@@ -68,11 +69,12 @@ class HomeController < ApplicationController
     hash = {}
     hash_send={:number_piece=>params[:number_piece],:time=>params[:time]}
     hash[:status] = working_day.calculate_item_piece(hash_send)
-    hash[:working_days] = working_day.station.working_days.pending_change.map{|working| [{:product => working.product.name, :max => working.target_pieces, :value => working.number_piece}]}
+    hash[:working_days] = working_day.station.working_days.pending_change.map{|working| [{:product => working.product.name, :max => working.target_pieces, :value => working.nullo.number_piece.if_nil(0)}]}
     hash[:number_piece] = working_day.number_piece
     hash[:rate_graph] = working_day.station.rate_graph.to_json
-    hash[:effective_time] = working_day.station.effective_time#get_sum_effective_time
+    hash[:effective_time] = working_day.effective_time.strftime("%H:%M:%S")#get_sum_effective_time
     hash[:disponible_time] = working_day.disponible_time.strftime("%H:%M:%S")
+    hash[:delayed_time] = working_day.delayed_time.strftime("%H:%M:%S")
     render :json => hash.to_json
   end
   

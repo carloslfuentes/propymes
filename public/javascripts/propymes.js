@@ -250,7 +250,7 @@ $(function() {
     
     function addCero(time){
       if(time <= 9){
-        return "0" + time;
+        return "0" + parseInt(time);
       }else{
         return time;
       }

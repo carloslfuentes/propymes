@@ -1,5 +1,5 @@
 es:
-  piemp: 'PIEMP - Proyecto Integral para Empresas'
+  propymes: 'PROPYMES - Proyecto PYMES'
   registered_as: 'Registrado como'
   user: 'Usuario'
   password: 'Contraseña'
@@ -36,6 +36,7 @@ es:
   production: 'Producción'
   selected_product: 'Producto Seleccionado'
   not_product_selected: 'Sin Producto Seleccionado'
+  delayed_time: 'Tiempo Inactivo'
   #Config FIXME Eliminar o cambiar ya que esto se utiliza en el edit y tmb dice nuevo.
   operating_parameters: 'Parámetros Operativos'
   production_parameters: 'Parámetros de Producción'

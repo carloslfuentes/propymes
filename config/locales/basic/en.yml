@@ -1,5 +1,5 @@
 en:
-  piemp: 'PIEMP - Integral Enterprise Project'
+  propymes: 'PROPYMES - Project PYMES'
   registered_as: 'Registered As'
   user: 'User'
   password: 'Password'
@@ -36,6 +36,7 @@ en:
   production: 'Production'
   selected_product: 'Selected Product'
   not_product_selected: 'Not Selected Product'
+  delayed_time: 'Inactive Time'
   #Config
   operating_parameters: 'Operating Parameters'
   production_parameters: 'Production Parameters'

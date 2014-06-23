@@ -36,68 +36,68 @@
         .padding2
           %h3.background_gray_clear
             = @working_day.product.nullo.name.if_nil(t(:not_product_selected))
-      //Work Times
-      %hr/
+    
+    //Work Times
+    .panel.padding1.gray.top
       %h3
         = PConfig::WorkTime.model_name.human(:count => :other)
       %table.full.not-style
         %tr
           %td
             = PConfig::WorkTime.model_name.human(:count => 1)
-          %td.bold.ar
+          %td.bold.ar{:style => "font-size:15px"}
             = PConfig::WorkTime.total_hours.utc.strftime "%H:%M:%S"
         %tr
           %td
             = t :available_time
-          %td.ar#disponible_time
+          %td.bold.ar#disponible_time{:style => "font-size:15px"}
             = @working_day.disponible_time.present? ? (@working_day.disponible_time.utc.strftime "%H:%M:%S") : "00:00:00" 
         %tr
           %td
             = t :effective_time
-          %td.ar#effective_time
+          %td.bold.ar#effective_time{:style => "font-size:15px"}
             = @working_day.station.get_sum_effective_time.present? ? @working_day.station.get_sum_effective_time : "00:00:00"
         %tr
           %td
             = t :delayed_time
-          %td.ar#delayed_time
+          %td.red.bold.ar#delayed_time{:style => "font-size:15px"}
             = @working_day.delayed_time.present? ? (@working_day.delayed_time.utc.strftime "%H:%M:%S") : "00:00:00"
-      //Progress Production
+    
+    //Progress Production
+    .panel.padding1.gray.top
+      %h3
+        = t :baseline
       .scroll#progress
-        - @working_days.each do |working_day|
-          %hr/
+        - @working_days.each_with_index do |working_day, index|
+          - if index > 0
+            %hr/
           .top
-            %h3
+            %h5
               = working_day.product.nullo.name.if_nil("N/P")
             %progress{:value => working_day.nullo.number_piece.if_nil(0), :max => working_day.nullo.target_pieces.if_nil(1)}
             .al.float_left
               = working_day.nullo.number_piece.to_i.if_nil(0)
             .ar
               = working_day.nullo.target_pieces.if_nil(1)
-      //Notes
-      %hr/
-      .top
-        %h3
-          = "Notes"
       
-      //Events
-      %hr/
-      .top
-        %h3
-          = PConfig::Event.model_name.human(:count => :other)
-        %table.full.not-style
-          - @station.events.each do |event|
-            %tr.background_gray_clear
-              %td.ac
-                %h6
-                  = event.stoppage.name
-                .ac.not_bold
-                  = event.stoppage.name
+    //Events
+    .panel.padding1.gray.top
+      %h3
+        = PConfig::Event.model_name.human(:count => :other)
+      %table.full.not-style
+        - @station.events.each do |event|
+          %tr.background_gray_clear
+            %td.ac
+              %h6
+                = event.stoppage_by_category.name
+              .ac.not_bold
+                = event.stoppage.name
       //Stop
-      %hr/
-      .padding3.top.ac
-        %a.button.background_red.white#stopButton{:style => "width:120px; height:40px;", :onclick => "$('#chronometer').chronometer({action:'stop', working_day_id:'#{@working_day.id}'});"}
-          %h2
-            = t :stop
+      //%hr/
+      //.padding3.top.ac
+      //  %a.button.background_red.white#stopButton{:style => "width:120px; height:40px;", :onclick => "$('#chronometer').chronometer({action:'stop', working_day_id:'#{@working_day.id}'});"}
+      //    %h2
+      //      = t :stop
 
 //Validate Working Day
 #change_product.widget.panel.padding3.background_gray_clear{:style => "height:70px;"}
@@ -148,7 +148,13 @@
     
     //Start Chronometer
     $("#startButton").live("click", function(){
-      $('#chronometer').chronometer({action:'start', hours:'#{@working_day.effective_time.hour}', minutes:'#{@working_day.effective_time.min}', seconds:'#{@working_day.effective_time.sec}', working_day_id:'#{@working_day.id}'});
+      var chrono = $('#chronometer'),
+          chrono_text = $('#chronometer').text();
+      if(chrono_text){
+        chrono.chronometer({action:'start', hours:chrono_text.split(":")[0], minutes:chrono_text.split(":")[1], seconds:chrono_text.split(":")[2], working_day_id:'#{@working_day.id}'});
+      }else{
+        chrono.chronometer({action:'start', hours:'#{@working_day.effective_time.hour}', minutes:'#{@working_day.effective_time.min}', seconds:'#{@working_day.effective_time.sec}', working_day_id:'#{@working_day.id}'});
+      }
       this.setAttribute('class','button background_gray white');  
       this.setAttribute('disabled',true);
       //StandBy Button
@@ -161,21 +167,6 @@
       $("#btn_change_product").fadeOut(300);
     });
     
-    //StandBy Chronometer
-    $("#standbyButton").live("click", function(){
-      $('#chronometer').chronometer({action:'standby', working_day_id:'#{@working_day.id}'});
-      this.setAttribute('class','button background_gray white');
-      this.setAttribute('disabled',true);
-      //Start Button
-      startButton = $("#startButton");
-      startButton.attr('class','button background_green white');
-      startButton.removeAttr('disabled');
-      //We Enable Buttons
-      $("#addItem, #removeItem").find("img").css("opacity", 0.2);
-      //Show Btn Change Product
-      $("#btn_change_product").fadeIn(300);
-    });
-    
     //Chart Rate Graph Init 
     $("#rate_graph").Chart(#{@rate_graph.to_json}, {type:"LineChart", tooltips:false, showLegend:true, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
     
@@ -183,12 +174,16 @@
     $('#addItem, #removeItem').live("click", function() {
       action = $(this).attr("action");
       number_piece = action == "addItem" ? 1 : -1
+      console.log($('#chronometer').text());
       $.post("/home/add_items",{number_piece:number_piece, time:$('#chronometer').text(),working_day_id:#{@working_day.id}}).done(function(data){
         //Disponible Time
         $("#disponible_time").html(data["disponible_time"]);
         
         // Effective Time
         $("#effective_time").html(data["effective_time"]);
+        
+        // Delayed Time
+        $("#delayed_time").html(data["delayed_time"]);
         
         //Progress
         var working_days = "",
@@ -220,6 +215,20 @@
     $("#startStoppage").live("click", function(){
       $.post("/p_config/stoppages/start_stoppages",{id: $(this).attr("stoppage_id"), description: $(this).attr("description"), working_day_id:'#{@working_day.id}' }).done(function(data){
         if(data){
+          //Stop Chronometer
+          $('#chronometer').chronometer({action:'standby', working_day_id:'#{@working_day.id}'});
+          //Standby Button
+          standbyButton = $("#standbyButton");
+          standbyButton.attr('class','button background_gray white');
+          standbyButton.attr('disabled',true);
+          //Start Button
+          startButton = $("#startButton");
+          startButton.attr('class','button background_green white');
+          startButton.removeAttr('disabled');
+          //We Enable Buttons
+          $("#addItem, #removeItem").find("img").css("opacity", 0.2);
+          //Show Btn Change Product
+          $("#btn_change_product").fadeIn(300);
           //Resgresar valores y
           //Actualizar
         }
@@ -227,7 +236,7 @@
     });
     
     //setTimeout(function() { 
-    //alert("aqui se tiene que detener el cronometro y ponerse en stanby");
-    //}, parseInt("#{@avarange_time_second}"));
+      //alert("aqui se tiene que detener el cronometro y ponerse en stanby");
+    //}, parseInt(6000));
     
   });
