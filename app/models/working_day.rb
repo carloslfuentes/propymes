@@ -114,7 +114,7 @@ class WorkingDay < ActiveRecord::Base
       self.start_time    =start_time.strftime("%H:%M:%S")
       avariable= OperationTimes::Deduct.basic(PConfig::WorkTime.total_hours, hash[:timer]) #(PConfig::WorkTime.total_hours - PConfig::BootVariable.get_time_sum(self.standard.boot_variables.only_start_variable).to_f).utc.strftime("%H:%M:%S")
       self.target_pieces = self.standard.item_number
-      self.disponible_time=avariable
+      self.disponible_time=OperationTimes::Deduct.basic(avariable,self.delayed_time)
     end
     if self.status == "active" || self.status == "standby"
       fdt = OperationTimes::Deduct.basic(self.start_time,work_time.first_hour)
@@ -123,6 +123,7 @@ class WorkingDay < ActiveRecord::Base
       self.delayed_time = OperationTimes::Sum.basic(fdt,dl)
       self.reason       = "Se Reinicio"
       self.description  = self.status == "standby" ? "Se reinicio" : "Se cerro la ventana"
+      self.disponible_time=OperationTimes::Deduct.basic(self.disponible_time,dl)
     else
       self.reason       = "Se inicio"
       self.description  = "Se inicio"
