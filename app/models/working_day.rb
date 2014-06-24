@@ -112,7 +112,7 @@ class WorkingDay < ActiveRecord::Base
     if self.status == "waiting_active"
       self.delayed_time = OperationTimes::Deduct.basic(start_time, work_time.first_hour) 
       self.start_time    =start_time.strftime("%H:%M:%S")
-      avariable=(PConfig::WorkTime.total_hours - PConfig::BootVariable.get_time_sum(self.standard.boot_variables.only_start_variable).to_f).utc.strftime("%H:%M:%S")
+      avariable= OperationTimes::Deduct.basic(PConfig::WorkTime.total_hours, hash[:timer]) #(PConfig::WorkTime.total_hours - PConfig::BootVariable.get_time_sum(self.standard.boot_variables.only_start_variable).to_f).utc.strftime("%H:%M:%S")
       self.target_pieces = self.standard.item_number
       self.disponible_time=avariable
     end

@@ -55,7 +55,7 @@ class HomeController < ApplicationController
     hash[:timer] = params[:timer]
     case params[:selectedAction].to_s
     when "start"
-      hash[:status] = working_day.start_working_day
+      hash[:status] = working_day.start_working_day({:timer=>params[:timer].nullo.if_nil("00:00:00")})
     when "standby"
       hash[:status] = working_day.standby_working_day
     when "stop"
@@ -78,7 +78,7 @@ class HomeController < ApplicationController
     hash[:number_piece] = working_day.number_piece
     hash[:rate_graph] = working_day.station.rate_graph.to_json
     hash[:effective_time] = working_day.effective_time.strftime("%H:%M:%S")#get_sum_effective_time
-    hash[:disponible_time] = working_day.disponible_time.strftime("%H:%M:%S")
+    hash[:disponible_time] = OperationTimes::Deduct.basic(working_day.disponible_time.strftime("%H:%M:%S"),hash[:effective_time])
     hash[:delayed_time] = working_day.delayed_time.strftime("%H:%M:%S")
     render :json => hash.to_json
   end

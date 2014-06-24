@@ -51,7 +51,7 @@
           %td
             = t :available_time
           %td.bold.ar#disponible_time{:style => "font-size:15px"}
-            = @working_day.disponible_time.present? ? (@working_day.disponible_time.utc.strftime "%H:%M:%S") : "00:00:00" 
+            = @working_day.disponible_time.present? ? (OperationTimes::Deduct.basic(@working_day.disponible_time,@working_day.station.get_sum_effective_time)) : "00:00:00" 
         %tr
           %td
             = t :effective_time
@@ -89,7 +89,7 @@
           %tr.background_gray_clear
             %td.ac
               %h6
-                = event.stoppage_by_category.name
+                = event.stoppage.name
               .ac.not_bold
                 = event.stoppage.name
       //Stop
