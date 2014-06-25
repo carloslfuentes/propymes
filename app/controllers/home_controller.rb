@@ -3,7 +3,6 @@ class HomeController < ApplicationController
   def index
     if current_user.is_manager?
       manager
-      render :action => 'manager'
     else
       operator
     end
@@ -28,6 +27,7 @@ class HomeController < ApplicationController
   end
   
   def manager
+    render :action => 'manager'
   end
   
   def validate_status
@@ -87,7 +87,7 @@ class HomeController < ApplicationController
     hash = {}
     working_day =  WorkingDay.find_by_id params[:working_day_id]
     working_day.selected_product({:product_id=>params[:product_id]})
-    hash[:flash] = "Mensaje"
+    hash[:select_product] = working_day.product.name
     render :json => hash.to_json
   end
   

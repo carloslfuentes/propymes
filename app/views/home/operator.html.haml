@@ -2,7 +2,7 @@
   .grid_6.first
     .grid_6.first
       .panel.padding1
-        %button.button.background_green.white#startButton{:style => "width:195px; height:55px;"}
+        %button.button.background_orange.white#startButton{:style => "width:195px; height:55px;"}
           %h2
             = t :start
         %button.button.background_gray.white#standbyButton{:class => "modal", :rel => "#stoppage", :style => "width:195px; height:55px;", :disabled => true}
@@ -10,7 +10,7 @@
             = t :standby
           //Chronometer
         %h0.top.float_right
-          #chronometer.gray
+          #chronometer
         .clear
         //Add Items
         %hr.top
@@ -34,7 +34,7 @@
         = t :selected_product
       .ac
         .padding2
-          %h3.background_gray_clear
+          %h3.background_gray_clear#selectProduct
             = @working_day.product.nullo.name.if_nil(t(:not_product_selected))
     
     //Work Times
@@ -47,6 +47,11 @@
             = PConfig::WorkTime.model_name.human(:count => 1)
           %td.bold.ar{:style => "font-size:15px"}
             = PConfig::WorkTime.total_hours.utc.strftime "%H:%M:%S"
+        %tr
+          %td
+            = t :boot_variable
+          %td.bold.ar{:style => "font-size:15px"}
+            = "00:00:00"
         %tr
           %td
             = t :available_time
@@ -139,9 +144,9 @@
     $("#submitChangeProduct").live("click", function(){
       $.get("/home/change_product",{ product_id:$("#product_id").val(), working_day_id:#{@working_day.id} }).done(function(data){
         if(data){
-          //Mandar Mensaje de Producto Cambiado
           $(this).closeModal();
-          location.reload();
+          $("#selectProduct").html(data["select_product"]);
+          $('#chronometer').chronometer({action:'boot_variable'});
         }
       });
     });
@@ -155,7 +160,7 @@
       }else{
         chrono.chronometer({action:'start', hours:'#{@working_day.effective_time.hour}', minutes:'#{@working_day.effective_time.min}', seconds:'#{@working_day.effective_time.sec}', working_day_id:'#{@working_day.id}'});
       }
-      this.setAttribute('class','button background_gray white');  
+      this.setAttribute('class','button background_gray white');
       this.setAttribute('disabled',true);
       //StandBy Button
       standbyButton = $("#standbyButton");
