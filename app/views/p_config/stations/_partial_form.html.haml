@@ -12,6 +12,9 @@
             = f.label :standard_type_id
             = f.collection_select :standard_type_id, PConfig::StandardType.all.sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
           .clearfix
+            = f.label :station_dependent_id
+            = f.collection_select :station_dependent_id, PConfig::Station.where("id <> ?",params[:id]).sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
+          .clearfix
             = f.label :ip_station
             = f.text_field :ip_station, :class => "validate[required,custom[ip]]", :required => true
             %a.action-button.top{:id => "ping"}

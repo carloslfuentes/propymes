@@ -48,6 +48,7 @@ en:
         product_id: 'Product'
         standard_id: 'Standard'
         ip_station: 'IP station'
+        station_dependent_id: 'Station Dependent'
       p_config/boot_variable:
         name: 'Name'
         product_id: 'Product'
