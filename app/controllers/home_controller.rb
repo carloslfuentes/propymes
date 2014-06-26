@@ -77,6 +77,7 @@ class HomeController < ApplicationController
     hash[:working_days] = working_day.station.working_days.pending_change.map{|working| [{:product => working.product.name, :max => working.target_pieces, :value => working.nullo.number_piece.if_nil(0)}]}
     hash[:number_piece] = working_day.number_piece
     hash[:rate_graph] = working_day.station.rate_graph.to_json
+    hash[:boot_variable] = PConfig::BootVariable.get_time_sum(working_day.standard.nullo.boot_variables.only_start_variable.if_nil([])).strftime("%H:%M:%S")
     hash[:effective_time] = working_day.effective_time.strftime("%H:%M:%S")#get_sum_effective_time
     hash[:disponible_time] = OperationTimes::Deduct.basic(working_day.disponible_time.strftime("%H:%M:%S"),hash[:effective_time])
     hash[:delayed_time] = working_day.delayed_time.strftime("%H:%M:%S")

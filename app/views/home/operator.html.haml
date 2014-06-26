@@ -50,7 +50,7 @@
         %tr
           %td
             = PConfig::BootVariable.model_name.human(:count => 2)
-          %td.bold.ar{:style => "font-size:15px"}
+          %td.bold.ar#boot_variable{:style => "font-size:15px"}
             = PConfig::BootVariable.get_time_sum(@working_day.standard.nullo.boot_variables.only_start_variable.if_nil([])).strftime("%H:%M:%S")
         %tr
           %td
@@ -177,6 +177,9 @@
       number_piece = action == "addItem" ? 1 : -1
       console.log($('#chronometer').text());
       $.post("/home/add_items",{number_piece:number_piece, time:$('#chronometer').text(),working_day_id:#{@working_day.id}}).done(function(data){
+        //Boot Variable
+        $("#boot_variable").html(data["boot_variable"]);
+        
         //Disponible Time
         $("#disponible_time").html(data["disponible_time"]);
         
