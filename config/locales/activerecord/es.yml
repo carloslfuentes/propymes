@@ -48,6 +48,7 @@ es:
         standard_id: 'Proceso'
         standard_type_id: 'Tipo de Proceso'
         ip_station: 'IP de la estación'
+        station_dependent_id: 'Estación Dependiente'
       p_config/boot_variable:
         name: 'Nombre'
         product_id: 'Producto'
