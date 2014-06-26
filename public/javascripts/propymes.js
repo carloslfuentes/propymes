@@ -202,10 +202,7 @@ $(function() {
       case 'start':
         watchstopped = false;
         color = "gray";
-        //Aqui me quede chekar pq al detener y empezar de nuevo no jala
-        if (typeof(is_boot) == "undefined"){
-          startTimer();
-        }
+        startTimer();
         timerActions(action, $(this).text());
         break;
       case 'stop':
@@ -218,15 +215,18 @@ $(function() {
         break;
       case 'boot_variable':
         watchstopped = false;
-        is_boot = true;
         color = "orange";
-        startTimer();
+        startTimer(true);
         break;
     }
     
-    function startTimer(){
+    function startTimer(is_boot){
       if(watchstopped == false){
-        intChronometer();
+        if(is_boot){
+          intChronometerBootVariable();
+        }else{
+          intChronometer();
+        }
       }
     }
     
@@ -250,8 +250,8 @@ $(function() {
       }
     }
     
+    
     function showChronometer(){
-      console.log(color);
       chronometer.html(format()).attr("class", color);
     }
     
