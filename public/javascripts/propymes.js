@@ -202,7 +202,11 @@ $(function() {
       case 'start':
         watchstopped = false;
         color = "gray";
-        startTimer();
+        if(typeof(is_boot) == "undefined" || !is_boot){
+          startTimer();
+        }else{
+          is_boot = false;
+        }
         timerActions(action, $(this).text());
         break;
       case 'stop':
@@ -216,17 +220,14 @@ $(function() {
       case 'boot_variable':
         watchstopped = false;
         color = "orange";
-        startTimer(true);
+        is_boot = true;
+        startTimer();	
         break;
     }
     
-    function startTimer(is_boot){
+    function startTimer(){
       if(watchstopped == false){
-        if(is_boot){
-          intChronometerBootVariable();
-        }else{
-          intChronometer();
-        }
+    	intChronometer();
       }
     }
     
@@ -249,7 +250,6 @@ $(function() {
         setTimeout(intChronometer, 100);
       }
     }
-    
     
     function showChronometer(){
       chronometer.html(format()).attr("class", color);

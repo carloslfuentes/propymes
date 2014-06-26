@@ -49,9 +49,9 @@
             = PConfig::WorkTime.total_hours.utc.strftime "%H:%M:%S"
         %tr
           %td
-            = t :boot_variable
+            = PConfig::BootVariable.model_name.human(:count => 2)
           %td.bold.ar{:style => "font-size:15px"}
-            = "00:00:00"
+            = PConfig::BootVariable.get_time_sum(@working_day.standard.nullo.boot_variables.only_start_variable.if_nil([])).strftime("%H:%M:%S")
         %tr
           %td
             = t :available_time
@@ -127,10 +127,6 @@
         %button.button.white.float_left{:style => "width:195px; height:65px; margin: 0 5px 0 0; background:" + stoppage.color.to_s, :id => "startStoppage", :stoppage_id => stoppage.id, :description => stoppage.name}
           %h2
             = stoppage.name
-    %hr/
-    .ar.top
-      %a.button.background_gray.gray{:href => "#", :onclick => "$().closeModal();"}
-        = t :cancel
 
 .clear
 #push
@@ -220,6 +216,7 @@
     $("#startStoppage").live("click", function(){
       $.post("/p_config/stoppages/start_stoppages",{id: $(this).attr("stoppage_id"), description: $(this).attr("description"), working_day_id:'#{@working_day.id}' }).done(function(data){
         if(data){
+          $(this).closeModal();
           //Stop Chronometer
           $('#chronometer').chronometer({action:'standby', working_day_id:'#{@working_day.id}'});
           //Standby Button
