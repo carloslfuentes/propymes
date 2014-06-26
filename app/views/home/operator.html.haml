@@ -156,7 +156,7 @@
       }else{
         chrono.chronometer({action:'start', hours:'#{@working_day.effective_time.hour}', minutes:'#{@working_day.effective_time.min}', seconds:'#{@working_day.effective_time.sec}', working_day_id:'#{@working_day.id}'});
       }
-      this.setAttribute('class','button background_gray white');
+      this.setAttribute('class','button background_orange white');
       this.setAttribute('disabled',true);
       //StandBy Button
       standbyButton = $("#standbyButton");
@@ -225,7 +225,7 @@
           standbyButton.attr('disabled',true);
           //Start Button
           startButton = $("#startButton");
-          startButton.attr('class','button background_green white');
+          startButton.attr('class','button background_orange white');
           startButton.removeAttr('disabled');
           //We Enable Buttons
           $("#addItem, #removeItem").find("img").css("opacity", 0.2);
