@@ -156,6 +156,11 @@
       }else{
         chrono.chronometer({action:'start', hours:'#{@working_day.effective_time.hour}', minutes:'#{@working_day.effective_time.min}', seconds:'#{@working_day.effective_time.sec}', working_day_id:'#{@working_day.id}'});
       }
+      //Refresh Timers
+      $.post("/home/timers",{working_day_id:#{@working_day.id}}).done(function(data){
+       console.log("Pasa");
+      });
+      
       this.setAttribute('class','button background_orange white');
       this.setAttribute('disabled',true);
       //StandBy Button

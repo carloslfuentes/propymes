@@ -14,6 +14,7 @@ PROPYMES::Application.routes.draw do
       get :validate_status
       post :timer_actions
       post :add_items
+      post :timers
       get :change_product
     end
   end
