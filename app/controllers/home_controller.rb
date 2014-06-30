@@ -54,10 +54,22 @@ class HomeController < ApplicationController
     hash[:selectedAction] = params[:selectedAction]
     hash[:timer] = params[:timer]
     case params[:selectedAction].to_s
+    when "change_product"
+      working_day.selected_product({:product_id=>params[:product_id]})
+      hash[:select_product] = working_day.product.name
     when "start"
       hash[:status] = working_day.start_working_day({:timer=>params[:timer].nullo.if_nil("00:00:00")})
+    
+    when "add_item"
+      hash_send={:number_piece=>params[:number_piece],:time=>params[:time]}
+      hash[:status] = working_day.calculate_item_piece(hash_send)
+      hash[:working_days] = working_day.station.working_days.pending_change.map{|working| [{:product => working.product.name, :max => working.target_pieces, :value => working.nullo.number_piece.if_nil(0)}]}
+      hash[:number_piece] = working_day.number_piece
+      hash[:rate_graph] = working_day.station.rate_graph.to_json
+    
     when "standby"
       hash[:status] = working_day.standby_working_day
+    
     when "stop"
       working_day.station.working_days.pending_change.each do |row|
         row.stop_working_day
@@ -66,33 +78,14 @@ class HomeController < ApplicationController
     else
       hash[:status] = false
     end
-    render :json => hash.to_json
-  end
-  
-  def add_items
-    timers
-    hash = {}
-    hash_send={:number_piece=>params[:number_piece],:time=>params[:time]}
-    hash[:status] = working_day.calculate_item_piece(hash_send)
-    hash[:working_days] = working_day.station.working_days.pending_change.map{|working| [{:product => working.product.name, :max => working.target_pieces, :value => working.nullo.number_piece.if_nil(0)}]}
-    hash[:number_piece] = working_day.number_piece
-    hash[:rate_graph] = working_day.station.rate_graph.to_json
-  end
-  
-  def timers
-    working_day =  WorkingDay.find_by_id params[:working_day_id]
+    #Working Day
+    hash[:working_day] = working_day.id
+    #Timers
     hash[:boot_variable] = PConfig::BootVariable.get_time_sum(working_day.standard.nullo.boot_variables.only_start_variable.if_nil([])).strftime("%H:%M:%S")
-    hash[:effective_time] = working_day.effective_time.strftime("%H:%M:%S")#get_sum_effective_time
-    hash[:disponible_time] = OperationTimes::Deduct.basic(working_day.disponible_time.strftime("%H:%M:%S"),hash[:effective_time])
-    hash[:delayed_time] = working_day.delayed_time.strftime("%H:%M:%S")
-    render :json => hash.to_json
-  end
-  
-  def change_product
-    hash = {}
-    working_day =  WorkingDay.find_by_id params[:working_day_id]
-    working_day.selected_product({:product_id=>params[:product_id]})
-    hash[:select_product] = working_day.product.name
+    hash[:effective_time] = working_day.effective_time.strftime("%H:%M:%S") if working_day.effective_time.present?
+    hash[:disponible_time] = OperationTimes::Deduct.basic(working_day.disponible_time.strftime("%H:%M:%S"),hash[:effective_time]) if working_day.disponible_time.present?
+    hash[:delayed_time] = working_day.delayed_time.strftime("%H:%M:%S") if working_day.delayed_time.present?
+    
     render :json => hash.to_json
   end
   

@@ -269,9 +269,25 @@ $(function() {
     
     function timerActions(action, timer){
       $.post("/home/timer_actions",{selectedAction:action, timer:timer, working_day_id:working_day_id}).done(function(data){
-        
+        $(this).reloadTimers(data);
       });
     }
+  };
+});
+
+$(function() {
+  $.fn.reloadTimers = function(data){
+    //Boot Variable
+    $("#boot_variable").html(data["boot_variable"]);
+    
+    //Disponible Time
+    $("#disponible_time").html(data["disponible_time"]);
+    
+    // Effective Time
+    $("#effective_time").html(data["effective_time"]);
+    
+    // Delayed Time
+    $("#delayed_time").html(data["delayed_time"]);
   };
 });
 
