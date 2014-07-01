@@ -135,19 +135,21 @@
   $(document).ready(function() {
     
     //Define Working Day
+    localStorage.removeItem('working_day');
+    
     if(typeof(localStorage["working_day"]) == "undefined"){
-      working_day = "#{@working_day.id}";
+      localStorage.working_day = "#{@working_day.id}";
     }
     
     //Validate Working Day
-    $("#change_product").validateStatus(working_day);
+    $("#change_product").validateStatus(localStorage.working_day);
     
     //Chart Rate Graph Init 
     $("#rate_graph").Chart(#{@rate_graph.to_json}, {type:"LineChart", tooltips:false, showLegend:true, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
     
     //Change Product
     $("#submitChangeProduct").live("click", function(){
-      $.post("/home/timer_actions",{selectedAction:"change_product", product_id:$("#product_id").val(), working_day_id:#{@working_day.id} }).done(function(data){
+      $.post("/home/timer_actions",{selectedAction:"change_product", product_id:$("#product_id").val(), working_day_id:localStorage.working_day }).done(function(data){
         if(data){
           //Reload Timer Boot Variable
           $(this).reloadTimers(data);
@@ -162,7 +164,7 @@
           $('#chronometer').chronometer({action:'boot_variable'});
           
           //Working Day
-          localStorage.setItem("working_day", data["working_day"]);
+          localStorage.working_day = data["working_day"];
         }
       });
     });

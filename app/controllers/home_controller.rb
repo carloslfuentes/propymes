@@ -79,7 +79,7 @@ class HomeController < ApplicationController
       hash[:status] = false
     end
     #Working Day
-    hash[:working_day] = working_day.id
+    hash[:working_day] = working_day.station.working_days.last.id
     #Timers
     hash[:boot_variable] = PConfig::BootVariable.get_time_sum(working_day.standard.nullo.boot_variables.only_start_variable.if_nil([])).strftime("%H:%M:%S")
     hash[:effective_time] = working_day.effective_time.strftime("%H:%M:%S") if working_day.effective_time.present?
