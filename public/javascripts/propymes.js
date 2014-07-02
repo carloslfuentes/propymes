@@ -221,7 +221,8 @@ $(function() {
         watchstopped = false;
         color = "orange";
         is_boot = true;
-        startTimer();	
+        startTimer();
+        timerActions(action, $(this).text());
         break;
     }
     
@@ -270,6 +271,7 @@ $(function() {
     function timerActions(action, timer){
       $.post("/home/timer_actions",{selectedAction:action, timer:timer, working_day_id:working_day_id}).done(function(data){
         $(this).reloadTimers(data);
+        
       });
     }
   };

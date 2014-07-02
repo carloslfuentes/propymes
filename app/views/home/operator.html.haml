@@ -135,36 +135,33 @@
   $(document).ready(function() {
     
     //Define Working Day
-    localStorage.removeItem('working_day');
+    //localStorage.removeItem('working_day_id');
     
-    if(typeof(localStorage["working_day"]) == "undefined"){
-      localStorage.working_day = "#{@working_day.id}";
+    if(typeof(localStorage["working_day_id"]) == "undefined"){
+      localStorage.working_day_id = "#{@working_day.id}";
     }
     
     //Validate Working Day
-    $("#change_product").validateStatus(localStorage.working_day);
+    $("#change_product").validateStatus(localStorage.working_day_id);
     
     //Chart Rate Graph Init 
     $("#rate_graph").Chart(#{@rate_graph.to_json}, {type:"LineChart", tooltips:false, showLegend:true, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
     
     //Change Product
     $("#submitChangeProduct").live("click", function(){
-      $.post("/home/timer_actions",{selectedAction:"change_product", product_id:$("#product_id").val(), working_day_id:localStorage.working_day }).done(function(data){
+      $.post("/home/timer_actions",{selectedAction:"change_product", product_id:$("#product_id").val(), working_day_id:localStorage.working_day_id }).done(function(data){
         if(data){
-          //Reload Timer Boot Variable
-          $(this).reloadTimers(data);
-          
           //Select Product
           $("#selectProduct").html(data["select_product"]);
           
           //Close Modal
           $(this).closeModal();
           
-          //Load Chronometer Boot Variable
-          $('#chronometer').chronometer({action:'boot_variable'});
-          
           //Working Day
-          localStorage.working_day = data["working_day"];
+          localStorage.working_day_id = data["working_day_id"];
+          
+          //Load Chronometer Boot Variable
+          $('#chronometer').chronometer({action:'boot_variable', working_day_id:localStorage.working_day_id});
         }
       });
     });
@@ -178,9 +175,9 @@
       var chrono = $('#chronometer'),
           chrono_text = $('#chronometer').text();
       if(chrono_text){
-        chrono.chronometer({action:'start', hours:chrono_text.split(":")[0], minutes:chrono_text.split(":")[1], seconds:chrono_text.split(":")[2], working_day_id:'#{@working_day.id}'});
+        chrono.chronometer({action:'start', hours:chrono_text.split(":")[0], minutes:chrono_text.split(":")[1], seconds:chrono_text.split(":")[2], working_day_id:localStorage.working_day_id });
       }else{
-        chrono.chronometer({action:'start', hours:'#{@working_day.effective_time.hour}', minutes:'#{@working_day.effective_time.min}', seconds:'#{@working_day.effective_time.sec}', working_day_id:'#{@working_day.id}'});
+        chrono.chronometer({action:'start', hours:'#{@working_day.effective_time.hour}', minutes:'#{@working_day.effective_time.min}', seconds:'#{@working_day.effective_time.sec}', working_day_id:localStorage.working_day_id });
       }
       this.setAttribute('class','button background_orange white');
       this.setAttribute('disabled',true);
@@ -198,9 +195,7 @@
     $('#addItem, #removeItem').live("click", function() {
       action = $(this).attr("action");
       number_piece = action == "addItem" ? 1 : -1
-      $.post("/home/timer_actions",{selectedAction:"add_item", number_piece:number_piece, time:$('#chronometer').text(), working_day_id:#{@working_day.id}}).done(function(data){
-        //Timers
-        $(this).reloadTimers(data);
+      $.post("/home/timer_actions",{selectedAction:"add_item", number_piece:number_piece, time:$('#chronometer').text(), working_day_id:localStorage.working_day_id }).done(function(data){
         
         //Progress
         var working_days = "",
@@ -230,11 +225,11 @@
     
     //Stoppage
     $("#startStoppage").live("click", function(){
-      $.post("/p_config/stoppages/start_stoppages",{id: $(this).attr("stoppage_id"), description: $(this).attr("description"), working_day_id:'#{@working_day.id}' }).done(function(data){
+      $.post("/p_config/stoppages/start_stoppages",{id: $(this).attr("stoppage_id"), description: $(this).attr("description"), working_day_id:localStorage.working_day_id }).done(function(data){
         if(data){
           $(this).closeModal();
           //Stop Chronometer
-          $('#chronometer').chronometer({action:'standby', working_day_id:'#{@working_day.id}'});
+          $('#chronometer').chronometer({action:'standby', working_day_id:localStorage.working_day_id});
           //Standby Button
           standbyButton = $("#standbyButton");
           standbyButton.attr('class','button background_gray white');

@@ -49,14 +49,21 @@ class HomeController < ApplicationController
   end
   
   def timer_actions
-    working_day =  WorkingDay.find_by_id params[:working_day_id]
+    @station = PConfig::Station.find_by_ip_station(request.ip.to_s)
+    working_day = WorkingDay.get_working_day(@station,current_user.id, params[:product_id])
+    
+    logger.info ">>>>>>>>>>>>>>>>>"
+    logger.info working_day.inspect
+    logger.info ">>>>>>>>>>>>>>>>>"
+      
     hash = {}
     hash[:selectedAction] = params[:selectedAction]
     hash[:timer] = params[:timer]
     case params[:selectedAction].to_s
     when "change_product"
       working_day.selected_product({:product_id=>params[:product_id]})
-      hash[:select_product] = working_day.product.name
+      hash[:select_product] = working_day.station.working_days.last.product.name
+    
     when "start"
       hash[:status] = working_day.start_working_day({:timer=>params[:timer].nullo.if_nil("00:00:00")})
     
@@ -68,7 +75,7 @@ class HomeController < ApplicationController
       hash[:rate_graph] = working_day.station.rate_graph.to_json
     
     when "standby"
-      hash[:status] = working_day.standby_working_day
+      hash[:status] = WorkingDay.last.id
     
     when "stop"
       working_day.station.working_days.pending_change.each do |row|
@@ -79,8 +86,9 @@ class HomeController < ApplicationController
       hash[:status] = false
     end
     #Working Day
-    hash[:working_day] = working_day.station.working_days.last.id
+    hash[:working_day_id] = working_day.id
     #Timers
+    
     hash[:boot_variable] = PConfig::BootVariable.get_time_sum(working_day.standard.nullo.boot_variables.only_start_variable.if_nil([])).strftime("%H:%M:%S")
     hash[:effective_time] = working_day.effective_time.strftime("%H:%M:%S") if working_day.effective_time.present?
     hash[:disponible_time] = OperationTimes::Deduct.basic(working_day.disponible_time.strftime("%H:%M:%S"),hash[:effective_time]) if working_day.disponible_time.present?
