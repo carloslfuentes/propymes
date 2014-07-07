@@ -69,7 +69,8 @@ class WorkingDay < ActiveRecord::Base
         self.reason   = "change product"
         self.description  = "Cambio de producto"
         self.save
-        return wd.save
+        wd.save
+        return wd
       else
         wd = WorkingDay.new
         wd.station_id = self.station_id
@@ -90,12 +91,14 @@ class WorkingDay < ActiveRecord::Base
         self.reason   = "change product"
         self.status = "pending change"
         self.save
-        return wd.save
+        wd.save
+        return wd
      end
     end
     self.product_id = product.id
     self.standard_id = product.standards.find_by_standard_type_id(self.standard_type_id).id
     self.save
+    return self
   end
   
   def get_calcule_change_time

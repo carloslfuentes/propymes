@@ -14,7 +14,7 @@ $(document).ready(function(e) {
     }
   });
   
-  //Only Numbers FIXME Agregar punto
+  //Only Numbers
   $('.only_numbers').keypress(function (e){
     if( e.which!=8 && e.which!=0 && e.which!=46 && (e.which<48 || e.which>57)){
       return false;
@@ -190,10 +190,10 @@ $(function() {
       'working_day_id' : undefined
     }, params);
     
-    var hours = settings.hours == undefined ? 0 : settings.hours;
-    var minutes = settings.minutes == undefined ? 0 : settings.minutes;
-    var seconds = settings.seconds == undefined ? 0 : settings.seconds;
-    var decimal = settings.decimal == undefined ? 0 : settings.decimal;
+    hours = settings.hours == undefined ? 0 : settings.hours;
+    minutes = settings.minutes == undefined ? 0 : settings.minutes;
+    seconds = settings.seconds == undefined ? 0 : settings.seconds;
+    decimal = settings.decimal == undefined ? 0 : settings.decimal;
     var action = settings.action == undefined ? "" : settings.action;
     var working_day_id = settings.working_day_id == undefined ? "" : settings.working_day_id;
     var chronometer = $(this);
@@ -202,33 +202,48 @@ $(function() {
       case 'start':
         watchstopped = false;
         color = "gray";
-        if(typeof(is_boot) == "undefined" || !is_boot){
-          startTimer();
-        }else{
-          is_boot = false;
+        switch(localStorage.before_action){
+          case 'boot_variable':
+            reloadChronometer(hours, minutes, seconds);
+            break;
+          case 'standby':
+            reloadChronometer(chronometer.text().split(":")[0], chronometer.text().split(":")[1], chronometer.text().split(":")[2]);
+            startTimer();
+            break;
+          case 'stop':
+            break;
         }
         timerActions(action, $(this).text());
         break;
       case 'stop':
         watchstopped = true;
+        localStorage.before_action = action;
         timerActions(action, $(this).text());
         break;
       case 'standby':
         watchstopped = true;
+        color = "green";
+        localStorage.before_action = action;
         timerActions(action, $(this).text());
         break;
       case 'boot_variable':
         watchstopped = false;
         color = "orange";
-        is_boot = true;
+        localStorage.before_action = action;
         startTimer();
         timerActions(action, $(this).text());
         break;
     }
     
+    function reloadChronometer(hrs,mins,secs){
+      hours = hrs;
+      minutes = mins;
+      seconds = secs;
+    }
+    
     function startTimer(){
       if(watchstopped == false){
-    	intChronometer();
+        intChronometer();
       }
     }
     

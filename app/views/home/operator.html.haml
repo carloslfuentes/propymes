@@ -39,6 +39,7 @@
     
     //Work Times
     .panel.padding1.gray.top
+      //= " [" + PConfig::WorkTime.first.first_hour.utc.strftime("%H:%M") + " - " + PConfig::WorkTime.first.last_hour.utc.strftime("%H:%M") + "]"
       %h3
         = PConfig::WorkTime.model_name.human(:count => :other)
       %table.full.not-style
@@ -134,11 +135,13 @@
 :javascript
   $(document).ready(function() {
     
-    //Define Working Day
-    //localStorage.removeItem('working_day_id');
-    
+    //Global Vars ** Working Day And Times
+    destroy_localStorage();
     if(typeof(localStorage["working_day_id"]) == "undefined"){
       localStorage.working_day_id = "#{@working_day.id}";
+      localStorage.effectiveTime_hours = "#{@working_day.effective_time.hour}";
+      localStorage.effectiveTime_minutes = "#{@working_day.effective_time.min}";
+      localStorage.effectiveTime_seconds = "#{@working_day.effective_time.sec}";
     }
     
     //Validate Working Day
@@ -159,6 +162,9 @@
           
           //Working Day
           localStorage.working_day_id = data["working_day_id"];
+          localStorage.effectiveTime_hours = data["effectiveTime_hours"];
+          localStorage.effectiveTime_minutes = data["effectiveTime_minutes"];
+          localStorage.effectiveTime_seconds = data["effectiveTime_seconds"];
           
           //Load Chronometer Boot Variable
           $('#chronometer').chronometer({action:'boot_variable', working_day_id:localStorage.working_day_id});
@@ -172,14 +178,18 @@
     
     //Start Chronometer
     $("#startButton").live("click", function(){
-      var chrono = $('#chronometer'),
-          chrono_text = $('#chronometer').text();
-      if(chrono_text){
-        chrono.chronometer({action:'start', hours:chrono_text.split(":")[0], minutes:chrono_text.split(":")[1], seconds:chrono_text.split(":")[2], working_day_id:localStorage.working_day_id });
-      }else{
-        chrono.chronometer({action:'start', hours:'#{@working_day.effective_time.hour}', minutes:'#{@working_day.effective_time.min}', seconds:'#{@working_day.effective_time.sec}', working_day_id:localStorage.working_day_id });
-      }
-      this.setAttribute('class','button background_orange white');
+      $('#chronometer').chronometer({action:'start', hours:localStorage.effectiveTime_hours , minutes:localStorage.effectiveTime_minutes , seconds:localStorage.effectiveTime_seconds , working_day_id:localStorage.working_day_id });
+      
+      
+      //Cambiar funcion que este sea dentro de la funcion de sigpro.
+      //var chrono = $('#chronometer'),
+      //    chrono_text = $('#chronometer').text();
+      //if(chrono_text){
+      //  chrono.chronometer({action:'start', hours:chrono_text.split(":")[0], minutes:chrono_text.split(":")[1], seconds:chrono_text.split(":")[2], working_day_id:localStorage.working_day_id });
+      //}else{
+      //  
+      //}
+      this.setAttribute('class','button background_gray white');
       this.setAttribute('disabled',true);
       //StandBy Button
       standbyButton = $("#standbyButton");
@@ -196,6 +206,8 @@
       action = $(this).attr("action");
       number_piece = action == "addItem" ? 1 : -1
       $.post("/home/timer_actions",{selectedAction:"add_item", number_piece:number_piece, time:$('#chronometer').text(), working_day_id:localStorage.working_day_id }).done(function(data){
+        //Reload Timers
+        $(this).reloadTimers(data);
         
         //Progress
         var working_days = "",
@@ -248,8 +260,19 @@
       });
     });
     
+    function destroy_localStorage(){
+      localStorage.removeItem('working_day_id');
+      localStorage.removeItem('effectiveTime_hours');
+      localStorage.removeItem('effectiveTime_minutes');
+      localStorage.removeItem('effectiveTime_seconds');
+      localStorage.removeItem('before_action');
+    }
+    
     //setTimeout(function() { 
       //alert("aqui se tiene que detener el cronometro y ponerse en stanby");
     //}, parseInt(6000));
+    
+    //Reiniciar cada accion a 0
+    //get_averenge_time_second
     
   });
