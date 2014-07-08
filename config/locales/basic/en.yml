@@ -37,6 +37,8 @@ en:
   selected_product: 'Selected Product'
   not_product_selected: 'Not Selected Product'
   delayed_time: 'Inactive Time'
+  finish_work: 'Finish Work'
+  change_product: 'Change Product'
   #Config
   operating_parameters: 'Operating Parameters'
   production_parameters: 'Production Parameters'

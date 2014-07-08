@@ -212,6 +212,8 @@ $(function() {
             break;
           case 'stop':
             break;
+          default:
+            startTimer();
         }
         timerActions(action, $(this).text());
         break;
@@ -222,7 +224,6 @@ $(function() {
         break;
       case 'standby':
         watchstopped = true;
-        color = "green";
         localStorage.before_action = action;
         timerActions(action, $(this).text());
         break;
@@ -232,6 +233,12 @@ $(function() {
         localStorage.before_action = action;
         startTimer();
         timerActions(action, $(this).text());
+        break;
+      case 'change_product':
+        watchstopped = true;
+        localStorage.before_action = action;
+        timerActions(action, $(this).text());
+        $("#change_product").openModal();
         break;
     }
     
@@ -285,8 +292,13 @@ $(function() {
     
     function timerActions(action, timer){
       $.post("/home/timer_actions",{selectedAction:action, timer:timer, working_day_id:working_day_id}).done(function(data){
+        if(action == "standby"){
+          //Aqui se abre nueva modal y se creara un nuevo contador para el tiempo de paro  "falta hacer relacion"
+          stoppage = $("#stoppage_event");
+          stoppage.openModal();
+          stoppage.find("stoppage_time").html("01:01:01");
+        }
         $(this).reloadTimers(data);
-        
       });
     }
   };
@@ -309,7 +321,7 @@ $(function() {
 });
 
 $(function() {
-  $.fn.errors = function(message){
+  $.fn.alerts = function(message){
     
   };
 });

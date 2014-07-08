@@ -12,9 +12,8 @@
         %h0.top.float_right
           #chronometer
         .clear
-        //Add Items
         %hr.top
-        .padding2
+        //Add Items
         #add_items.padding3
           .background_gray_clear
             .padding2
@@ -39,7 +38,10 @@
     
     //Work Times
     .panel.padding1.gray.top
-      //= " [" + PConfig::WorkTime.first.first_hour.utc.strftime("%H:%M") + " - " + PConfig::WorkTime.first.last_hour.utc.strftime("%H:%M") + "]"
+      .ac.bold{:style => "font-size:13px;"}
+        = "[ " + PConfig::WorkTime.first.first_hour.utc.strftime("%H:%M") + " - " + PConfig::WorkTime.first.last_hour.utc.strftime("%H:%M") + " ]"
+    
+    .panel.padding1.gray.top
       %h3
         = PConfig::WorkTime.model_name.human(:count => :other)
       %table.full.not-style
@@ -98,14 +100,8 @@
                 = event.stoppage.name
               .ac.not_bold
                 = event.stoppage.name
-      //Stop
-      //%hr/
-      //.padding3.top.ac
-      //  %a.button.background_red.white#stopButton{:style => "width:120px; height:40px;", :onclick => "$('#chronometer').chronometer({action:'stop', working_day_id:'#{@working_day.id}'});"}
-      //    %h2
-      //      = t :stop
 
-//Validate Working Day
+//Change Product
 #change_product.widget.panel.padding3.background_gray_clear{:style => "height:70px;"}
   .content
     .form
@@ -123,11 +119,28 @@
 //StopPage
 #stoppage.widget.panel.padding3.background_gray_clear{:style => "width:606px;"}
   .content{:style => "width:606px;"}
+    .clearfix
+      %button.button.background_red.white.float_left{:style => "width:194px; height:65px; margin: 0 5px 0 0;", :id => "startStoppage", :action => "change_product"}
+        %h2
+          = t :change_product
+    .clearfix
+      %button.button.background_red.white.float_left{:style => "width:194px; height:65px; margin: 0 5px 0 0;", :id => "startStoppage", :action => "stop"}
+        %h2
+          = t :finish_work
     - PConfig::Stoppage.all.each do |stoppage|
       .clearfix
-        %button.button.white.float_left{:style => "width:195px; height:65px; margin: 0 5px 0 0; background:" + stoppage.color.to_s, :id => "startStoppage", :stoppage_id => stoppage.id, :description => stoppage.name}
+        %button.button.white.float_left{:style => "width:194px; height:65px; margin: 0 5px 0 0; background:" + stoppage.color.to_s, :id => "startStoppage", :stoppage_id => stoppage.id, :action => "standby"}
           %h2
-            = stoppage.name
+            = stoppage.name.to_s + " [" + (stoppage.time.utc.strftime "%H:%M") + "]"
+
+//StopPageEvent
+#stoppage_event.widget.panel.padding3.background_gray_clear{:style => "height:120px;"}
+  .content
+    .stoppage_time
+    %hr/
+    .ar.top
+      %a.button.background_gray.gray{:href => "#", :onclick => "$().closeModal();"}
+        = t :finish
 
 .clear
 #push
@@ -150,7 +163,7 @@
     //Chart Rate Graph Init 
     $("#rate_graph").Chart(#{@rate_graph.to_json}, {type:"LineChart", tooltips:false, showLegend:true, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
     
-    //Change Product
+    //Change Product FIXME Quitar El Primer POST y Manejarlo desde el chrono.
     $("#submitChangeProduct").live("click", function(){
       $.post("/home/timer_actions",{selectedAction:"change_product", product_id:$("#product_id").val(), working_day_id:localStorage.working_day_id }).done(function(data){
         if(data){
@@ -178,17 +191,9 @@
     
     //Start Chronometer
     $("#startButton").live("click", function(){
+      //Start Chronometer
       $('#chronometer').chronometer({action:'start', hours:localStorage.effectiveTime_hours , minutes:localStorage.effectiveTime_minutes , seconds:localStorage.effectiveTime_seconds , working_day_id:localStorage.working_day_id });
       
-      
-      //Cambiar funcion que este sea dentro de la funcion de sigpro.
-      //var chrono = $('#chronometer'),
-      //    chrono_text = $('#chronometer').text();
-      //if(chrono_text){
-      //  chrono.chronometer({action:'start', hours:chrono_text.split(":")[0], minutes:chrono_text.split(":")[1], seconds:chrono_text.split(":")[2], working_day_id:localStorage.working_day_id });
-      //}else{
-      //  
-      //}
       this.setAttribute('class','button background_gray white');
       this.setAttribute('disabled',true);
       //StandBy Button
@@ -237,29 +242,31 @@
     
     //Stoppage
     $("#startStoppage").live("click", function(){
-      $.post("/p_config/stoppages/start_stoppages",{id: $(this).attr("stoppage_id"), description: $(this).attr("description"), working_day_id:localStorage.working_day_id }).done(function(data){
-        if(data){
-          $(this).closeModal();
-          //Stop Chronometer
-          $('#chronometer').chronometer({action:'standby', working_day_id:localStorage.working_day_id});
-          //Standby Button
-          standbyButton = $("#standbyButton");
-          standbyButton.attr('class','button background_gray white');
-          standbyButton.attr('disabled',true);
-          //Start Button
-          startButton = $("#startButton");
-          startButton.attr('class','button background_orange white');
-          startButton.removeAttr('disabled');
-          //We Enable Buttons
-          $("#addItem, #removeItem").find("img").css("opacity", 0.2);
-          //Show Btn Change Product
-          $("#btn_change_product").fadeIn(300);
-          //Resgresar valores y
-          //Actualizar
-        }
-      });
+      //Close Modal
+      $(this).closeModal();
+      
+      //Action
+      action = $(this).attr("action");
+      $('#chronometer').chronometer({action: action, working_day_id:localStorage.working_day_id});
+      
+      //Standby Button
+      standbyButton = $("#standbyButton");
+      standbyButton.attr('class','button background_gray white');
+      standbyButton.attr('disabled',true);
+      
+      //Start Button
+      startButton = $("#startButton");
+      startButton.attr('class','button background_orange white');
+      startButton.removeAttr('disabled');
+      
+      //We Enable Buttons
+      $("#addItem, #removeItem").find("img").css("opacity", 0.2);
+      
+      //Show Btn Change Product
+      $("#btn_change_product").fadeIn(300);
     });
     
+    //Destroy LocalStorage
     function destroy_localStorage(){
       localStorage.removeItem('working_day_id');
       localStorage.removeItem('effectiveTime_hours');

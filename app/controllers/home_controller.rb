@@ -76,6 +76,7 @@ class HomeController < ApplicationController
     
     when "standby"
       hash[:status] = working_day.standby_working_day
+      #hash[:stoppage_time] = 
     
     when "stop"
       working_day.station.working_days.pending_change.each do |row|
