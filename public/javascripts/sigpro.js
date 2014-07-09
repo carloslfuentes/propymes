@@ -294,9 +294,9 @@ $(function() {
       $.post("/home/timer_actions",{selectedAction:action, timer:timer, working_day_id:working_day_id}).done(function(data){
         if(action == "standby"){
           //Aqui se abre nueva modal y se creara un nuevo contador para el tiempo de paro  "falta hacer relacion"
-          stoppage = $("#stoppage_event");
-          stoppage.openModal();
-          stoppage.find("stoppage_time").html("01:01:01");
+          stoppage_events = $("#stoppage_events");
+          stoppage_events.show();
+          stoppage_events.html("01:01:01");
         }
         $(this).reloadTimers(data);
       });

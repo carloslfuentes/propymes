@@ -8,7 +8,7 @@
         %button.button.background_gray.white#standbyButton{:class => "modal", :rel => "#stoppage", :style => "width:195px; height:55px;", :disabled => true}
           %h2
             = t :standby
-          //Chronometer
+        //Chronometer
         %h0.top.float_right
           #chronometer
         .clear
@@ -23,6 +23,9 @@
                 .top#number_piece
                   = @working_day.nullo.number_piece.if_nil("--").to_i.to_s
           .clear
+        //StopPage Events
+        #stoppage_events.flash.error{:style => "display:none;"}
+        
     //Chart 
     .grid_6.panel.first.top.background_gray_clear
       .chart#rate_graph
