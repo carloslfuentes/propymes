@@ -75,8 +75,8 @@ class HomeController < ApplicationController
       hash[:rate_graph] = working_day.station.rate_graph.to_json
     
     when "standby"
-      hash[:status] = working_day.standby_working_day
-      #hash[:stoppage_time] = 
+      hash[:status] = working_day.standby_working_day(:stoppage_id => params[:stoppage_id])
+      hash[:stoppage_time] = working_day.stoppage.time.strftime("%H:%M:%S")
     
     when "stop"
       working_day.station.working_days.pending_change.each do |row|

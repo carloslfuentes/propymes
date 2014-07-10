@@ -187,6 +187,7 @@ $(function() {
       'seconds' : undefined,
       'decimal' : undefined,
       'action' : undefined,
+      'stoppage_id' : undefined,
       'working_day_id' : undefined
     }, params);
     
@@ -195,6 +196,7 @@ $(function() {
     seconds = settings.seconds == undefined ? 0 : settings.seconds;
     decimal = settings.decimal == undefined ? 0 : settings.decimal;
     var action = settings.action == undefined ? "" : settings.action;
+    var stoppage_id = settings.stoppage_id == undefined ? "" : settings.stoppage_id;
     var working_day_id = settings.working_day_id == undefined ? "" : settings.working_day_id;
     var chronometer = $(this);
     
@@ -291,12 +293,12 @@ $(function() {
     }
     
     function timerActions(action, timer){
-      $.post("/home/timer_actions",{selectedAction:action, timer:timer, working_day_id:working_day_id}).done(function(data){
+      $.post("/home/timer_actions",{selectedAction:action, timer:timer, working_day_id:working_day_id, stoppage_id: stoppage_id}).done(function(data){
         if(action == "standby"){
           //Aqui se abre nueva modal y se creara un nuevo contador para el tiempo de paro  "falta hacer relacion"
           stoppage_events = $("#stoppage_events");
           stoppage_events.show();
-          stoppage_events.html("01:01:01");
+          stoppage_events.html(data["stoppage_time"]);
         }
         $(this).reloadTimers(data);
       });

@@ -29,7 +29,7 @@ es:
   only_numbers: 'Solo Números'
   add: 'Agregar'
   effective_time: 'Tiempo Efectivo'
-  available_time: 'Tiempo Dispobible'
+  available_time: 'Tiempo Disponible'
   start: 'Iniciar'
   stop: 'Detener '
   standby: 'Espera'

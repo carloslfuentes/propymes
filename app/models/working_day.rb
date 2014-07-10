@@ -3,6 +3,7 @@ class WorkingDay < ActiveRecord::Base
   belongs_to :user, :class_name=>"PConfig::User",:foreign_key => "operator_id"
   belongs_to :standard, :class_name=>"PConfig::Standard"
   belongs_to :product, :class_name=>"PConfig::Product"
+  belongs_to :stoppage, :class_name=>"PConfig::Stoppage"
   has_many   :working_day_logs
   after_save :add_log
   validates_presence_of :reason
@@ -19,7 +20,7 @@ class WorkingDay < ActiveRecord::Base
           :description=>self.description,:start_time=>self.start_time,:end_time=>self.end_time,
           :standard_id=>self.standard_id,:station_id=>self.station_id, :average_piece=>self.average_piece,
           :effective_time=>self.effective_time,:cost_production=>self.cost_production,:standard_type_id=>self.standard_type_id,
-          :disponible_time=>self.disponible_time,:target_pieces=>self.target_pieces}
+          :disponible_time=>self.disponible_time,:target_pieces=>self.target_pieces, :stoppage_id => self.stoppage_id}
     WorkingDayLog.create(hash)
   end
   
@@ -139,6 +140,7 @@ class WorkingDay < ActiveRecord::Base
     self.status       = "standby"
     self.reason       = "standby"
     self.description  = "standby"
+    self.stoppage_id = hash[:stoppage_id]
     return self.save
   end
   

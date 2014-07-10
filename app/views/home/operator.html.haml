@@ -250,7 +250,7 @@
       
       //Action
       action = $(this).attr("action");
-      $('#chronometer').chronometer({action: action, working_day_id:localStorage.working_day_id});
+      $('#chronometer').chronometer({action: action, working_day_id:localStorage.working_day_id, stoppage_id: $(this).attr("stoppage_id") });
       
       //Standby Button
       standbyButton = $("#standbyButton");
