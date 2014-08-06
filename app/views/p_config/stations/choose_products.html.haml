@@ -1,0 +1,80 @@
+= form_for @station, :url=>{:controller=>"p_config/stations",:action=> "update"} do |f|
+  .wrapper.top
+    .grid_8
+      .grid_4
+        .panel.padding1.background_gray_clear
+          %h3
+            = PConfig::Product.model_name.human(:count => :other)
+            .float_right
+              %a.action-button{:class => "modal", :rel => "#add_products"}
+                %span.add
+          %table.full.not-style
+            = f.fields_for :product_stations, @station.product_stations do |c|
+              =c.text_field :product_id
+              %h4.not_bold.blue
+                #be_added_to
+      .grid_4.top
+        .panel.padding1.background_gray_clear
+          %h3
+            = "Users"
+          - @station.users.each do |u|
+            =u.name
+      .grid_4.top
+        .panel.padding1.background_gray_clear
+          .ar
+            .clearfix.top
+              %button.button.background_orange.white{:type => "submit"}
+                = t :save
+              %button.button.background_gray.gray{:type => "reset"}
+                = t :clear
+              %a.button.background_gray.gray{:href => p_config_stations_path}
+                = t :cancel
+
+//Add Products
+#add_products.widget.panel.padding1.background_gray_clear{:style => "min-height:100px;"}
+  .content
+    .form
+      .clearfix
+        = label_tag PConfig::Product.model_name.human(:count => :other)
+        = select_tag :product_id, options_for_select(PConfig::Product.for_lineal(@station.type_of_production).map{|prod| [prod.name, prod.id]}), {:multiple => true, :size =>15}
+      %hr/
+      .ar
+        .clearfix.top
+          %a.button.background_orange.white{:id => "addProducts"}
+            = t :add
+          %a.button.background_gray.gray{:onclick => "$().closeModal();"}
+            = t :cancel
+:javascript
+  $(document).ready(function(){
+    
+    //Add Products
+    $("#addProducts").live("click",function(){
+      $(this).addElements({select:$("#product_id"), be_added_to:$("#be_added_to"), prefix_id:"p_config_station_product_stations_attributes", prefix_name:"p_config_station[product_stations_attributes]"});
+    });
+    
+    $("#p_config_station_type_of_production").live("change",function(){
+      if($(this).val() == "lineal"){
+        $("#dependent").show();
+      }else{
+        $("#dependent").hide();
+      }
+    });
+    
+    //Test Ping FIXME Falta acomodar funcion
+    $("#ping").click(function(){
+      var ip_station = $("#p_config_station_ip_station").val(),
+          span = $(this);
+      if(ip_station){
+        span.find("span").removeAttr('class').attr('class', 'help');
+        $.get("/p_config/stations/comprovate_ip",{ip_station: ip_station}).done(function(data){
+          if(data["ping"]){
+            span.find("span").removeAttr('class').attr('class', 'accept');
+          }else{
+            span.find("span").removeAttr('class').attr('class', 'exclamation-red');
+          }
+        });
+      }else{
+        span.find("span").removeAttr('class').attr('class', 'cross');
+      }
+    });
+  });

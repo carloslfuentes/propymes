@@ -4,11 +4,10 @@ module PConfig
     has_many    :product_stations, :dependent => :delete_all
     has_many    :products, :through => :product_stations
     has_many    :working_days
+    has_many    :users
     
     accepts_nested_attributes_for :product_stations
     
-    
-    has_many    :users
     has_many    :working_days
     has_many    :events
     belongs_to  :standard
@@ -20,6 +19,9 @@ module PConfig
               :ip => { :format => :v4 } 
     
     scope :is_enabled, where(:is_enabled=>true)
+    scope :only_lineal, where(:type_of_production=>'lineal')
+    scope :only_base, where(:type_of_production=>'base') 
+    
     def self.rev_ip(host)
       Net::Ping::TCP.new(host, 'http')
     end

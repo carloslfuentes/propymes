@@ -12,8 +12,11 @@
             = f.label :standard_type_id
             = f.collection_select :standard_type_id, PConfig::StandardType.all.sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
           .clearfix
+          = f.label :type_of_production
+          = f.select :type_of_production, options_for_select([["Batch", "batch"],["Lineal", "lineal"]], @station.type_of_production), {:required => true} #:type_of_production
+          .clearfix#dependent{:style=>"#{@station.type_of_production == 'lineal' ? nil : 'display:none'}"}
             = f.label :station_dependent_id
-            = f.collection_select :station_dependent_id, PConfig::Station.where("id <> ?",params[:id]).sort_by(&:name), :id, :name, {:include_blank => true}, :required => true
+            = f.collection_select :station_dependent_id, PConfig::Station.only_lineal.where("id <> ?",@station.id.nullo.if_nil(0)).sort_by(&:name), :id, :name, {:include_blank => true}
           .clearfix
             = f.label :ip_station
             = f.text_field :ip_station, :class => "validate[required,custom[ip]]", :required => true
@@ -53,7 +56,7 @@
     .form
       .clearfix
         = label_tag PConfig::Product.model_name.human(:count => :other)
-        = select_tag :product_id, options_for_select(PConfig::Product.all.map{|prod| [prod.name, prod.id]}), {:multiple => true, :size =>15}
+        = select_tag :product_id, options_for_select(PConfig::Product.only_lineal.map{|prod| [prod.name, prod.id]}), {:multiple => true, :size =>15}
       %hr/
       .ar
         .clearfix.top
@@ -68,6 +71,14 @@
     //Add Products
     $("#addProducts").live("click",function(){
       $(this).addElements({select:$("#product_id"), be_added_to:$("#be_added_to"), prefix_id:"p_config_station_product_stations_attributes", prefix_name:"p_config_station[product_stations_attributes]"});
+    });
+    
+    $("#p_config_station_type_of_production").live("change",function(){
+      if($(this).val() == "lineal"){
+        $("#dependent").show();
+      }else{
+        $("#dependent").hide();
+      }
     });
     
     //Test Ping FIXME Falta acomodar funcion
