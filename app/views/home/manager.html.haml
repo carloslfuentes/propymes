@@ -1,20 +1,61 @@
+//Esta web debde de cargar con java para estar actualizando en automatico
+//Por demo solo se crea el html
 .wrapper.top
+  //Line
   .grid_8.padding1
-    .grid_2.first
-      .panel{:style => "height:180px;"}
-    .grid_2
-      .panel{:style => "height:180px;"}
-    .grid_2
-      .panel{:style => "height:180px;"}
-    .grid_2
-      .panel{:style => "height:180px;"}
+    %h1.background_gray_clear
+      = "Lineal"
+    %br/
+    .left_graph.float_left
+    - @type_line.each do |working_day|
+      .grid_2
+        .panel.padding1{:style => "height:170px;"}
+          .ac.bold
+            %h2
+              = working_day.station.name
+          %hr/
+          %table.top.full
+            %tbody.bold
+              %tr
+                %td.al
+                  = "Producto"
+                %td.ar
+                  = working_day.product.nullo.name.if_nil("N/A")
+              %tr
+                %td.al
+                  = "Operador"
+                %td.ar
+                  = working_day.user.name
+              %tr
+                %td.al
+                  = "No. Piezas"
+                %td.ar
+                  = working_day.nullo.number_piece.round(2).if_nil("0")
+              %tr
+                %td.al
+                  = "Producción"
+                %td.ar
+                  = working_day.nullo.percentage_production.round(2).if_nil("0")
+              %tr
+                %td
+                  = t :available_time
+                %td.ar
+                  = working_day.disponible_time.present? ? (OperationTimes::Deduct.basic(working_day.disponible_time,working_day.station.get_sum_effective_time)) : "00:00:00" 
+              %tr
+                %td
+                  = t :effective_time
+                %td.ar
+                  = working_day.station.get_sum_effective_time.present? ? working_day.station.get_sum_effective_time : "00:00:00"
+              %tr
+                %td
+                  = t :delayed_time
+                %td.red.ar
+                  = working_day.delayed_time.present? ? (working_day.delayed_time.utc.strftime "%H:%M:%S") : "00:00:00"
+    .right_graph.float_left
   
   .grid_8.panel.padding1.background_gray_clear.top
-    .left_graph.float_left{:style => "display:none"}
     #slider.float_left
       .graphs
-    .right_graph.float_left{:style => "display:none"}
-  
   .clear
 #push
 

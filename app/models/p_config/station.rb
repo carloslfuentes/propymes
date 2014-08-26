@@ -8,11 +8,6 @@ module PConfig
     
     accepts_nested_attributes_for :product_stations
     
-<<<<<<< HEAD
-    has_many    :users
-=======
->>>>>>> 5292a7707b2dfc7744f033bc241d000274fd101e
-    has_many    :working_days
     has_many    :events
     belongs_to  :standard
     belongs_to  :standard_type

@@ -84,7 +84,7 @@
             %hr/
           .top
             %h5
-              = working_day.product.nullo.name.if_nil("N/P")
+              = working_day.product.nullo.name.if_nil("N/A")
             %progress{:value => working_day.nullo.number_piece.if_nil(0), :max => working_day.nullo.target_pieces.if_nil(1)}
             .al.float_left
               = working_day.nullo.number_piece.to_i.if_nil(0)

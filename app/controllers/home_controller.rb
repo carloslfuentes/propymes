@@ -27,6 +27,9 @@ class HomeController < ApplicationController
   end
   
   def manager
+    #Falta crear scope para linea y batch
+    @type_line = WorkingDay.actives
+    @type_batch = WorkingDay.actives
     render :action => 'manager'
   end
   
