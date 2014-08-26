@@ -7,7 +7,6 @@ module PConfig
     
     accepts_nested_attributes_for :product_stations
     
-    
     has_many    :users
     has_many    :working_days
     has_many    :events

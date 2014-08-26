@@ -16,6 +16,7 @@ PROPYMES::Application.routes.draw do
       post :add_items
       post :timers
       get :change_product
+      get :graphs_to_manager
     end
   end
   

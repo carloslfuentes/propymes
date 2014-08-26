@@ -95,4 +95,14 @@ class HomeController < ApplicationController
     render :json => hash.to_json
   end
   
+  def graphs_to_manager
+    hash = {}
+    @working_days = WorkingDay.actives
+    hash[:graphs] = []
+    @working_days.each do |working_day|
+      hash[:graphs] << working_day.station.rate_graph
+    end
+    render :json => hash.to_json
+  end
+  
 end

@@ -306,6 +306,7 @@ $(function() {
   };
 });
 
+//Reload Timers
 $(function() {
   $.fn.reloadTimers = function(data){
     //Boot Variable

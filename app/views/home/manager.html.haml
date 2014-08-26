@@ -1,0 +1,70 @@
+.wrapper.top
+  .grid_8.padding1
+    .grid_2.first
+      .panel{:style => "height:180px;"}
+    .grid_2
+      .panel{:style => "height:180px;"}
+    .grid_2
+      .panel{:style => "height:180px;"}
+    .grid_2
+      .panel{:style => "height:180px;"}
+  
+  .grid_8.panel.padding1.background_gray_clear.top
+    .left_graph.float_left{:style => "display:none"}
+    #slider.float_left
+      .graphs
+    .right_graph.float_left{:style => "display:none"}
+  
+  .clear
+#push
+
+:javascript
+  $(document).ready(function(){
+    // Load Graphs
+    $.get("home/graphs_to_manager").done(function(data){
+      if(data["graphs"].length > 1){
+        var html = "<ul>";
+        
+        $.each(data["graphs"], function(index, value){
+          var key = value[0]["key"].replace(/[^a-z0-9\s]/gi, '').replace(/\s/g, '_'),
+              array = value;
+          
+          html += "<li class='chart' id='" + key + "'/>";
+          
+          $(".graphs").append(html);
+          $("#" + key).Chart(array, {type:"LineChart", chart_height:"500", tooltips:false, showLegend:true, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
+        });
+        $('.left_graph, .right_graph').show();
+      }else{
+        //Cuando sea solo una grafica acoplarla....
+      }
+      load_values();
+    });
+    
+    // Slide Graphics
+    function load_values(){
+      slideCount = $('#slider ul li').length;
+      slideWidth = $('#slider ul li').width();
+      slideHeight = $('#slider ul li').height();
+      sliderUlWidth = slideCount * slideWidth;
+      
+      $('#slider').css({ width: slideWidth, height: slideHeight });
+      $('#slider ul').css({ width: sliderUlWidth, marginLeft: - slideWidth });
+      $('#slider ul li:last-child').prependTo('#slider ul');
+    }
+    
+    function moveLeft() {
+      $('#slider ul').animate({
+        left: + slideWidth
+      });
+    };
+    
+    function moveRight() {
+      $('#slider ul').animate({
+        left: - slideWidth
+      });
+    };
+    
+    $('.left_graph').live("click", function () { moveLeft(); });
+    $('.right_graph').click(function () { moveRight(); });
+  })

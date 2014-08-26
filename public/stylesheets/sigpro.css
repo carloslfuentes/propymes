@@ -479,13 +479,50 @@ progress::-webkit-progress-value {
   background-color:#00FFFF;
 }*/
 
-/* Operators 
+/* Grpahs Manager */
+#slider {
+  position: relative;
+  overflow: hidden;
+  margin: 0 20px 0 20px;
+}
 
+#slider ul {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 
-.operator_access ul li.active a {
-    background: #eee;
-    background: -webkit-gradient(linear, left top, left bottom, from(#f1f1f1), to(#eee));
-    background: -moz-linear-gradient(top,  #f1f1f1,  #eee);
-    border-bottom: 1px solid #eee;
-    margin-bottom: -1px;
-}*/
+#slider ul li {
+  position: relative;
+  display: block;
+  float: left;
+  margin: 0;
+  padding: 0;
+  width: 840px;
+  height: 500px;
+  text-align: center;
+  line-height: 300px;
+}
+
+.left_graph, .right_graph{
+  margin: 200px 0 0 0;
+  cursor: pointer;
+}
+
+.left_graph{
+  width: 0;
+  height: 0;
+  border-top: 25px solid transparent;
+  border-right: 50px solid #ef9c00;
+  border-bottom: 25px solid transparent;
+}
+
+.right_graph{
+  width: 0;
+  height: 0;
+  border-top: 25px solid transparent;
+  border-left: 50px solid #ef9c00;
+  border-bottom: 25px solid transparent;
+}
+
