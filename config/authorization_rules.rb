@@ -50,7 +50,7 @@ privileges do
   privilege :manage, :p_config_users,:includes =>[:index, :new, :edit, :show]
   privilege :manage, :p_config_reasons,:includes =>[:index, :new, :edit, :show]
   privilege :manage, :p_config_work_times,:includes =>[:index, :new, :edit, :show]
-  privilege :manage, :p_config_stations,:includes =>[:index, :new, :edit, :show, :comprovate_ip]
+  privilege :manage, :p_config_stations,:includes =>[:index, :new, :edit, :show, :comprovate_ip,:choose_products]
   privilege :manage, :p_config_boot_variables,:includes =>[:index, :new, :edit, :show]
   privilege :manage, :p_config_fixed_amounts,:includes =>[:index, :new, :edit, :show]
   privilege :manage, :p_config_inputs,:includes =>[:index, :new, :edit, :show]

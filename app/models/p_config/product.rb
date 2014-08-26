@@ -9,5 +9,7 @@ module PConfig
     default_value_for :is_enabled, true
     
     scope :for_station, proc{ |ip| joins(:stations).where("stations.ip_station = ?", ip)}
+    scope :only_lineal, joins(:product_type).where(:product_types=>{:type_of_production=>'lineal'})
+    scope :for_lineal, proc { |type|joins(:product_type).where(:product_types=>{:type_of_production=>type})}
   end
 end

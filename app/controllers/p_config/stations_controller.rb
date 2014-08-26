@@ -16,5 +16,14 @@ module PConfig
       hash[:status] = @working_day.save ? params[:status] : "Problemas al guardar log"
       render :json => hash.to_json
     end
+    
+    def index
+      @stations_lineal = PConfig::Station.only_lineal
+      @stations_base = PConfig::Station.only_base
+    end
+    
+    def choose_products
+      @station = PConfig::Station.find_by_id params[:id]
+    end
   end
 end

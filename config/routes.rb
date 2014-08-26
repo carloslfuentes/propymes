@@ -37,6 +37,9 @@ PROPYMES::Application.routes.draw do
         get :comprovate_ip
         get :change_status
       end
+      member do
+        get :choose_products
+      end
     end
     resources :users do
       collection do

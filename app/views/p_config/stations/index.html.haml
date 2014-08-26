@@ -1,7 +1,47 @@
 .wrapper
   .grid_8.first.top
     .grid_6.first
-      = render :partial => '/partials/datagrid', :locals => {:links=>["edit", "show"],:objects => @stations, :fild_names=> [:name, :standard_type_id,:description, :is_enabled]}
+      %hr
+      %h3
+        = "linea"
+      %hr
+      %table.style.full
+        %thead
+          %tr
+            %th
+              = "name"
+            %th
+              = "ip"
+        
+        %tbody
+          - @stations_lineal.each do |lineal|
+            %tr  
+              %td.ac
+                = link_to lineal.name, choose_products_p_config_station_path(lineal.id)
+              %td.ac
+                = lineal.ip_station
+        
+    .grid_6.first
+      %hr
+        %h3
+          = "Base"
+      %hr
+      
+        %table.style.full
+          %thead
+            %tr
+              %th
+                = "name"
+              %th
+                = "ip"
+          
+          %tbody
+            - @stations_base.each do |lineal|
+              %tr  
+                %td.ac
+                  = lineal.name
+                %td.ac
+                  = lineal.ip_station
     .grid_2
       .panel.padding3
         %a.button.background_orange.white{:href => new_p_config_station_path}
