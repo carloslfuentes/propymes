@@ -26,6 +26,7 @@ PROPYMES::Application.routes.draw do
   
   #Configurations
   namespace :p_config do
+    resources :line_sets
     resources :standard_types
     resources :fixed_amounts
     resources :products do 

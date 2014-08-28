@@ -77,6 +77,12 @@
               = PConfig::Station.model_name.human(:count => :other)
           %td.ar
             = PConfig::Station.count.to_s
+        %tr
+          %td
+            %a.not_decoration.blue{:href => p_config_line_sets_path}
+              = PConfig::LineSet.model_name.human(:count => :other)
+          %td.ar
+            = PConfig::LineSet.count.to_s
   .grid_2
     .panel.padding3
       %a.button.background_orange.white{:href => home_path}

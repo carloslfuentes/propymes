@@ -1,0 +1,29 @@
+.wrapper.top
+  .grid_8
+    .grid_4.first
+      .panel.padding1.background_gray_clear
+        %h3
+          = t :new_standard
+        .form
+          =#f.hidden_field :product_id, :value=>params[:product_id]
+          .clearfix
+            = f.label :name
+            = f.text_field :name, :required => true
+          .clearfix
+            = f.label :description
+            = f.text_area :description
+    .grid_4.top
+      .panel.padding1.background_gray_clear
+        .ar
+          .clearfix.top
+            %button.button.background_orange.white{:type => "submit"}
+              = t :save
+            %button.button.background_gray.gray{:type => "reset"}
+              = t :clear
+            %a.button.background_gray.gray{:href => p_config_line_sets_path}
+              = t :cancel
+:javascript
+  $(document).ready(function(){
+    
+  });
+

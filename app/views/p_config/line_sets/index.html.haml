@@ -1,0 +1,10 @@
+.wrapper.top
+  .grid_8
+    .grid_6.first
+      = render :partial => '/partials/datagrid', :locals => {:links => ["edit", "show"],:objects => @line_sets, :fild_names=> [:id, :name, :description]}
+    .grid_2
+      .panel.padding3
+        %a.button.background_orange.white{:href => new_p_config_line_set_path}
+          = t :new
+        %a.button.background_gray.gray{:href => configurations_path}
+          = t :configuration
