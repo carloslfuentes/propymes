@@ -1,0 +1,44 @@
+%li
+  .panel.padding1
+    .ac.bold
+      %h2
+        = working_day.station.name
+    %hr/
+    .row
+      %table.top.full
+        %tbody.bold
+          %tr
+            %td.al
+              = "Producto"
+            %td.ar
+              = working_day.product.nullo.name.if_nil("N/A")
+          %tr
+            %td.al
+              = "Operador"
+            %td.ar
+              = working_day.user.name
+          %tr
+            %td.al
+              = "No. Piezas"
+            %td.ar
+              = working_day.nullo.number_piece.round(2).if_nil("0")
+          %tr
+            %td.al
+              = "Producción"
+            %td.ar
+              = working_day.nullo.percentage_production.round(2).if_nil("0")
+          %tr
+            %td
+              = t :available_time
+            %td.ar
+              = working_day.disponible_time.present? ? (OperationTimes::Deduct.basic(working_day.disponible_time,working_day.station.get_sum_effective_time)) : "00:00:00" 
+          %tr
+            %td
+              = t :effective_time
+            %td.ar
+              = working_day.station.get_sum_effective_time.present? ? working_day.station.get_sum_effective_time : "00:00:00"
+          %tr
+            %td
+              = t :delayed_time
+            %td.red.ar
+              = working_day.delayed_time.present? ? (working_day.delayed_time.utc.strftime "%H:%M:%S") : "00:00:00"

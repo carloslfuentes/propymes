@@ -1,111 +1,59 @@
 //Esta web debde de cargar con java para estar actualizando en automatico
 //Por demo solo se crea el html
 .wrapper.top
-  //Line
   .grid_8.padding1
+    //Line
     %h1.background_gray_clear
       = "Lineal"
     %br/
     .left_graph.float_left
-    - @type_line.each do |working_day|
-      .grid_2
-        .panel.padding1{:style => "height:170px;"}
-          .ac.bold
-            %h2
-              = working_day.station.name
-          %hr/
-          %table.top.full
-            %tbody.bold
-              %tr
-                %td.al
-                  = "Producto"
-                %td.ar
-                  = working_day.product.nullo.name.if_nil("N/A")
-              %tr
-                %td.al
-                  = "Operador"
-                %td.ar
-                  = working_day.user.name
-              %tr
-                %td.al
-                  = "No. Piezas"
-                %td.ar
-                  = working_day.nullo.number_piece.round(2).if_nil("0")
-              %tr
-                %td.al
-                  = "Producción"
-                %td.ar
-                  = working_day.nullo.percentage_production.round(2).if_nil("0")
-              %tr
-                %td
-                  = t :available_time
-                %td.ar
-                  = working_day.disponible_time.present? ? (OperationTimes::Deduct.basic(working_day.disponible_time,working_day.station.get_sum_effective_time)) : "00:00:00" 
-              %tr
-                %td
-                  = t :effective_time
-                %td.ar
-                  = working_day.station.get_sum_effective_time.present? ? working_day.station.get_sum_effective_time : "00:00:00"
-              %tr
-                %td
-                  = t :delayed_time
-                %td.red.ar
-                  = working_day.delayed_time.present? ? (working_day.delayed_time.utc.strftime "%H:%M:%S") : "00:00:00"
+    #slider
+      %ul
+        - @type_line.each do |working_day|
+          = render :partial => "partials/grids_manager", :locals => {:working_day => working_day}
     .right_graph.float_left
   
-  .grid_8.panel.padding1.background_gray_clear.top
-    #slider.float_left
-      .graphs
+  //.grid_8.panel.padding1.background_gray_clear.top
+  //  #slider.float_left
+  //    .graphs
   .clear
 #push
 
 :javascript
   $(document).ready(function(){
-    // Load Graphs
-    $.get("home/graphs_to_manager").done(function(data){
-      if(data["graphs"].length > 1){
-        var html = "<ul>";
-        
-        $.each(data["graphs"], function(index, value){
-          var key = value[0]["key"].replace(/[^a-z0-9\s]/gi, '').replace(/\s/g, '_'),
-              array = value;
-          
-          html += "<li class='chart' id='" + key + "'/>";
-          
-          $(".graphs").append(html);
-          $("#" + key).Chart(array, {type:"LineChart", chart_height:"500", tooltips:false, showLegend:true, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
-        });
-        $('.left_graph, .right_graph').show();
-      }else{
-        //Cuando sea solo una grafica acoplarla....
-      }
-      load_values();
-    });
-    
+    //Load Values
+    load_values();
+
     // Slide Graphics
     function load_values(){
       slideCount = $('#slider ul li').length;
       slideWidth = $('#slider ul li').width();
       slideHeight = $('#slider ul li').height();
       sliderUlWidth = slideCount * slideWidth;
-      
+
       $('#slider').css({ width: slideWidth, height: slideHeight });
       $('#slider ul').css({ width: sliderUlWidth, marginLeft: - slideWidth });
       $('#slider ul li:last-child').prependTo('#slider ul');
     }
-    
+
     function moveLeft() {
       $('#slider ul').animate({
         left: + slideWidth
+      }, 200, function () {
+          $('#slider ul li:last-child').prependTo('#slider ul');
+          $('#slider ul').css('left', '');
       });
     };
-    
+
     function moveRight() {
       $('#slider ul').animate({
         left: - slideWidth
+      }, 200, function () {
+          $('#slider ul li:first-child').appendTo('#slider ul');
+          $('#slider ul').css('left', '');
       });
     };
-    
+
     $('.left_graph').live("click", function () { moveLeft(); });
-    $('.right_graph').click(function () { moveRight(); });
+    $('.right_graph').live("click", function () { moveRight(); });
   })
