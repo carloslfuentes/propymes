@@ -29,12 +29,12 @@
               = working_day.nullo.percentage_production.round(2).if_nil("0")
           %tr
             %td
-              = t :available_time
+              = "T. Disponible"
             %td.ar
               = working_day.disponible_time.present? ? (OperationTimes::Deduct.basic(working_day.disponible_time,working_day.station.get_sum_effective_time)) : "00:00:00" 
           %tr
             %td
-              = t :effective_time
+              = "T. Efectivo"
             %td.ar
               = working_day.station.get_sum_effective_time.present? ? working_day.station.get_sum_effective_time : "00:00:00"
           %tr

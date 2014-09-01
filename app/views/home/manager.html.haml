@@ -1,17 +1,14 @@
 //Esta web debde de cargar con java para estar actualizando en automatico
 //Por demo solo se crea el html
 .wrapper.top
+  %h1.bold
+    = "Lineal"
+  %hr/
   .left_graph.float_left
-  #slider
+  #slider.float_left
     %ul
-      %li.panel.padding1.background_blue
-      %li.panel.padding1.background_royal_blue
-      %li.panel.padding1.background_sky_blue
-      %li.panel.padding1.background_aqua
-      %li.panel.padding1.background_gray_clear
-      %li.panel.padding1.background_black
-        //- @type_line.each do |working_day|
-        //= render :partial => "partials/grids_manager", :locals => {:working_day => working_day}
+      - @type_line.each do |working_day|
+        = render :partial => "partials/grids_manager", :locals => {:working_day => working_day}
   .right_graph.float_right
   
   //.grid_8.panel.padding1.background_gray_clear.top
@@ -22,19 +19,16 @@
 
 :javascript
   $(document).ready(function(){
+    // -------------------
+    // ---- Carusel ------
+    // -------------------
+     
     //Load Values
     load_values();
 
     // Slide Graphics
     function load_values(){
-      //slideCount = $('#slider ul li').length;
       slideWidth = $('#slider ul li').width();
-      //slideHeight = $('#slider ul li').height();
-      //sliderUlWidth = slideCount * slideWidth;
-
-      //$('#slider').css({ width: slideWidth, height: slideHeight });
-      //$('#slider ul').css({ width: sliderUlWidth, marginLeft: - slideWidth });
-      //$('#slider ul li:last-child').prependTo('#slider ul');
     }
 
     function moveLeft() {
@@ -57,4 +51,12 @@
 
     $('.left_graph').live("click", function () { moveLeft(); });
     $('.right_graph').live("click", function () { moveRight(); });
+    
+    // ----------------------------
+    // ---- Click to Station ------
+    // ----------------------------
+    
+    $('#slider ul li').live("click", function(){
+      //Aqui mandamos get para la generacion de la grafica
+    });
   })
