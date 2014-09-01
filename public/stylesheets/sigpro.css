@@ -481,20 +481,24 @@ progress::-webkit-progress-value {
 
 /* Grpahs Manager */
 #slider {
-  position: absolute;
-  
-}
+  margin: 0;
+}  
 
 #slider ul {
   position: absolute;
-  padding:0;
+  margin: 0;
+  padding: 0;
+  width: 990px;
+  height: 200px;
+  overflow: hidden;
 }
 
 #slider ul li {
-  margin: 5px;
   display: block;
-  float: left;
-  width: 232px;
+  float:left;
+  margin: 5px;
+  width:232px;
+  height:200px
 }
 
 .left_graph, .right_graph{

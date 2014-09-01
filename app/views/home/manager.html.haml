@@ -1,17 +1,18 @@
 //Esta web debde de cargar con java para estar actualizando en automatico
 //Por demo solo se crea el html
 .wrapper.top
-  .grid_8.padding1
-    //Line
-    %h1.background_gray_clear
-      = "Lineal"
-    %br/
-    .left_graph.float_left
-    #slider
-      %ul
-        - @type_line.each do |working_day|
-          = render :partial => "partials/grids_manager", :locals => {:working_day => working_day}
-    .right_graph.float_left
+  .left_graph.float_left
+  #slider
+    %ul
+      %li.panel.padding1.background_blue
+      %li.panel.padding1.background_royal_blue
+      %li.panel.padding1.background_sky_blue
+      %li.panel.padding1.background_aqua
+      %li.panel.padding1.background_gray_clear
+      %li.panel.padding1.background_black
+        //- @type_line.each do |working_day|
+        //= render :partial => "partials/grids_manager", :locals => {:working_day => working_day}
+  .right_graph.float_right
   
   //.grid_8.panel.padding1.background_gray_clear.top
   //  #slider.float_left
@@ -26,14 +27,14 @@
 
     // Slide Graphics
     function load_values(){
-      slideCount = $('#slider ul li').length;
+      //slideCount = $('#slider ul li').length;
       slideWidth = $('#slider ul li').width();
-      slideHeight = $('#slider ul li').height();
-      sliderUlWidth = slideCount * slideWidth;
+      //slideHeight = $('#slider ul li').height();
+      //sliderUlWidth = slideCount * slideWidth;
 
-      $('#slider').css({ width: slideWidth, height: slideHeight });
-      $('#slider ul').css({ width: sliderUlWidth, marginLeft: - slideWidth });
-      $('#slider ul li:last-child').prependTo('#slider ul');
+      //$('#slider').css({ width: slideWidth, height: slideHeight });
+      //$('#slider ul').css({ width: sliderUlWidth, marginLeft: - slideWidth });
+      //$('#slider ul li:last-child').prependTo('#slider ul');
     }
 
     function moveLeft() {
