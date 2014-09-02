@@ -39,7 +39,7 @@
             - @stations_base.each do |lineal|
               %tr  
                 %td.ac
-                  = lineal.name
+                  = link_to lineal.name, choose_products_p_config_station_path(lineal.id)
                 %td.ac
                   = lineal.ip_station
     .grid_2

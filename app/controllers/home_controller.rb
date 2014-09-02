@@ -108,4 +108,8 @@ class HomeController < ApplicationController
     render :json => hash.to_json
   end
   
+  def select_graph
+    
+  end
+  
 end

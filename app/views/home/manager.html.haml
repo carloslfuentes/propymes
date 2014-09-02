@@ -8,12 +8,12 @@
   #slider.float_left
     %ul
       - @type_line.each do |working_day|
-        = render :partial => "partials/grids_manager", :locals => {:working_day => working_day}
+        %li.background_black{:working_day_id => working_day.id}
+          = render :partial => "partials/grids_manager", :locals => {:working_day => working_day}
   .right_graph.float_right
   
-  //.grid_8.panel.padding1.background_gray_clear.top
-  //  #slider.float_left
-  //    .graphs
+  .grid_6.panel.padding1.background_gray_clear.top
+    .graphs
   .clear
 #push
 
@@ -57,6 +57,9 @@
     // ----------------------------
     
     $('#slider ul li').live("click", function(){
-      //Aqui mandamos get para la generacion de la grafica
+      working_day_id = $(this).attr("working_day_id");
+      $.post("home/select_graph",{working_day_id: working_day_id}).done(function(data){
+        //Agregar a la grafica
+      });
     });
   })
