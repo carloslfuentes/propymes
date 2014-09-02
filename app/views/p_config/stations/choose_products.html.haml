@@ -8,11 +8,19 @@
             .float_right
               %a.action-button{:class => "modal", :rel => "#add_products"}
                 %span.add
-          %table.full.not-style
-            = f.fields_for :product_stations, @station.product_stations do |c|
-              =c.text_field :product_id
-              %h4.not_bold.blue
-                #be_added_to
+          %table.style.full#products_table
+            %thead
+              %tr
+                %th#id_th{:style=>"display:none;"}
+                  = "Id"
+                %th
+                  = "Producto"
+                %th
+                  = "Descripción"
+            / = f.fields_for :product_stations, @station.product_stations do |c|
+            /   =c.text_field :product_id
+            /   %h4.not_bold.blue
+            /     #be_added_to
       .grid_4.top
         .panel.padding1.background_gray_clear
           %h3
@@ -34,9 +42,10 @@
 #add_products.widget.panel.padding1.background_gray_clear{:style => "min-height:100px;"}
   .content
     .form
+      -option_station=@station.product_stations.blank? ? 0 : @station.product_stations.map{|r| r.station_id}.join(",")
       .clearfix
         = label_tag PConfig::Product.model_name.human(:count => :other)
-        = select_tag :product_id, options_for_select(PConfig::Product.for_lineal(@station.type_of_production).where("products.id not in (#{@station.product_stations.map{|r| r.product_id}.join(',')})").map{|prod| [prod.name, prod.id]}), {:multiple => true, :size =>15}
+        = select_tag :product_id, options_for_select(PConfig::Product.for_lineal(@station.type_of_production).where("products.id not in (#{option_station})").map{|prod| [prod.name, prod.id]}), {:multiple => true, :size =>15}
       %hr/
       .ar
         .clearfix.top
@@ -85,16 +94,48 @@
     generateProductsList();
 
     function generateProductsList(){
-      var product_ids = "#{@station_products}".split(",");
-      alert(product_ids);
-      var counter = 0;
-      var ini = "p_config_station_product_stations_attributes_";
-      var pro = "_product_id";
-      var sta = "_station_id";
+      var station_products = "#{@station_products}".split(',');
+      var table = $('#products_table');
+      var row = '<tr>texto-para-reemplazar</tr>';
+      var rowContent =  '<td class="ac">texto-para-reemplazar</td>';
+      var rowContentId =  '<td id="id-para-reemplazar" class="ac" style="display:none;">texto-para-reemplazar</td>';
+      var tempRow = "";
+      var n = 0;
+      console.log(table);
+      console.log(station_products);
+      station_products.forEach(function(producto){ 
+        producto.split('|').forEach(function(bloque){
+          if (n==0){
+            tempRow += rowContentId.replace("texto-para-reemplazar",bloque).replace("id-para-reemplazar","p_config_station_product_stations_attributes_"+bloque+"_product_id");
+            n++;
+          } else {
+            tempRow += rowContent.replace("texto-para-reemplazar",bloque);
+          }
+        });
+        tempRow = row.replace("texto-para-reemplazar",tempRow);
+        $(table).append(tempRow);
+        tempRow = "";
+        n = 0;
+      });
+
+      // - @stations_base.each do |lineal|
+      // %tr  
+      //   %td.ac
+      //     = link_to lineal.name, choose_products_p_config_station_path(lineal.id)
+      //   %td.ac
+      //     = lineal.ip_station
 
 
-
-      "p_config_station_product_stations_attributes_"+counter+"_product_id";
+      // %tr  
+      //   %td.ac
+      //     = link_to lineal.name, choose_products_p_config_station_path(lineal.id)
+      //   %td.ac
+      //     = lineal.ip_station
+      // // var counter = 0;
+      // var ini = "p_config_station_pr+oduct_stations_attributes_";
+      // var pro = "_product_id";
+      // var sta = "_station_id";
+      //"p_config_station_product_stations_attributes_"+counter+"_product_id";
 
 
     }
