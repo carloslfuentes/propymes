@@ -1,6 +1,5 @@
-//Esta web debde de cargar con java para estar actualizando en automatico
-//Por demo solo se crea el html
 .wrapper.top
+  //Lineal
   %h1.bold
     = "Lineal"
   %hr/
@@ -8,32 +7,30 @@
   #slider.float_left
     %ul
       - @type_line.each do |working_day|
-        %li.background_black{:working_day_id => working_day.id}
+        %li{:working_day_id => working_day.id}
           = render :partial => "partials/grids_manager", :locals => {:working_day => working_day}
   .right_graph.float_right
   
-  .grid_6.panel.padding1.background_gray_clear.top
-    .graphs
+  //Grahps
+  .grid_5{:style => "margin:0 0 0 54px"}
+    .chart#select_graph{:style => "display:none"}
+  
+  .clear
+%hr.top
+
+.wrapper.top
+  .grid_8.top
+    .grid_2.first
+      
   .clear
 #push
 
 :javascript
   $(document).ready(function(){
-    // -------------------
-    // ---- Carusel ------
-    // -------------------
-     
-    //Load Values
-    load_values();
-
-    // Slide Graphics
-    function load_values(){
-      slideWidth = $('#slider ul li').width();
-    }
-
+    // Carusel
     function moveLeft() {
       $('#slider ul').animate({
-        left: + slideWidth
+        left: + $('#slider ul li').width()
       }, 200, function () {
           $('#slider ul li:last-child').prependTo('#slider ul');
           $('#slider ul').css('left', '');
@@ -42,7 +39,7 @@
 
     function moveRight() {
       $('#slider ul').animate({
-        left: - slideWidth
+        left: - $('#slider ul li').width()
       }, 200, function () {
           $('#slider ul li:first-child').appendTo('#slider ul');
           $('#slider ul').css('left', '');
@@ -52,14 +49,18 @@
     $('.left_graph').live("click", function () { moveLeft(); });
     $('.right_graph').live("click", function () { moveRight(); });
     
-    // ----------------------------
-    // ---- Click to Station ------
-    // ----------------------------
-    
+    // Select Graph
     $('#slider ul li').live("click", function(){
       working_day_id = $(this).attr("working_day_id");
-      $.post("home/select_graph",{working_day_id: working_day_id}).done(function(data){
-        //Agregar a la grafica
+      select_graph = $("#select_graph").empty();
+      $.get("home/select_graph",{working_day_id: working_day_id}).done(function(data){
+        if(data.length > 0){
+          select_graph.show();
+          select_graph.attr("class","top panel background_gray_clear");
+          select_graph.Chart(data, {type:"LineChart", chart_height:"300px", tooltips:false, showLegend:true, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
+        }else{
+          select_graph.hide();
+        }
       });
     });
   })
