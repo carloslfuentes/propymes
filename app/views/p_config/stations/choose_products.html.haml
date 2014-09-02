@@ -36,7 +36,7 @@
     .form
       .clearfix
         = label_tag PConfig::Product.model_name.human(:count => :other)
-        = select_tag :product_id, options_for_select(PConfig::Product.for_lineal(@station.type_of_production).map{|prod| [prod.name, prod.id]}), {:multiple => true, :size =>15}
+        = select_tag :product_id, options_for_select(PConfig::Product.for_lineal(@station.type_of_production).where("products.id not in (#{@station.product_stations.map{|r| r.product_id}.join(',')})").map{|prod| [prod.name, prod.id]}), {:multiple => true, :size =>15}
       %hr/
       .ar
         .clearfix.top
@@ -44,6 +44,10 @@
             = t :add
           %a.button.background_gray.gray{:onclick => "$().closeModal();"}
             = t :cancel
+
+
+
+
 :javascript
   $(document).ready(function(){
     
@@ -59,7 +63,7 @@
         $("#dependent").hide();
       }
     });
-    
+
     //Test Ping FIXME Falta acomodar funcion
     $("#ping").click(function(){
       var ip_station = $("#p_config_station_ip_station").val(),
@@ -77,4 +81,24 @@
         span.find("span").removeAttr('class').attr('class', 'cross');
       }
     });
+
+    generateProductsList();
+
+    function generateProductsList(){
+      var product_ids = "#{@station_products}".split(",");
+      alert(product_ids);
+      var counter = 0;
+      var ini = "p_config_station_product_stations_attributes_";
+      var pro = "_product_id";
+      var sta = "_station_id";
+
+
+
+      "p_config_station_product_stations_attributes_"+counter+"_product_id";
+
+
+    }
+    
+
+
   });
