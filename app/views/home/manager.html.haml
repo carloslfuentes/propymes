@@ -19,6 +19,8 @@
 %hr.top
 
 .wrapper.top
+  %h1
+    = "Reportes"
   .grid_8.top
     .grid_2.first
       
@@ -51,16 +53,29 @@
     
     // Select Graph
     $('#slider ul li').live("click", function(){
+      marked_station($(this));
       working_day_id = $(this).attr("working_day_id");
       select_graph = $("#select_graph").empty();
       $.get("home/select_graph",{working_day_id: working_day_id}).done(function(data){
+        select_graph.show();
+        select_graph.attr("class","bold ac top panel background_gray_clear");
         if(data.length > 0){
-          select_graph.show();
-          select_graph.attr("class","top panel background_gray_clear");
           select_graph.Chart(data, {type:"LineChart", chart_height:"300px", tooltips:false, showLegend:true, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
         }else{
-          select_graph.hide();
+          select_graph.css("height", 300);
+          select_graph.css("font-size", 26);
+          select_graph.html("Grafica no Disponible");
+          select_graph.css("line-height", "285px");
         }
       });
     });
+    
+    function marked_station(station){
+      unmarked_station();
+      station.attr("class","active");
+    }
+    
+    function unmarked_station(){
+      $('#slider ul').find(".active").removeClass("active");
+    }
   })

@@ -20,7 +20,7 @@
           .clearfix
             = f.label :ip_station
             = f.text_field :ip_station, :class => "validate[required,custom[ip]]", :required => true
-            %a.action-button.top{:id => "ping"}
+            %a.action-button.top.float_right{:id => "ping"}
               %span.connect
           .clearfix
             = f.label :is_enabled
