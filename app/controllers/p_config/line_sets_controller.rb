@@ -10,6 +10,11 @@ module PConfig
   		@line_set.line_set_stations.where(:line_set_id => params[:id]).destroy_all
   		update!
   	end
+  	
+  	def new
+  	  @line_set = PConfig::LineSet.new
+  	  @array_name = []
+  	end
 
   end
 end
