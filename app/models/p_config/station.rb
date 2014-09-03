@@ -3,13 +3,13 @@ module PConfig
   class Station < ActiveRecord::Base
     has_many    :product_stations, :dependent => :delete_all
     has_many    :products, :through => :product_stations
-    has_many    :line_set_stations, :dependent => :delete_all
-    has_many    :line_sets, :through => :line_set_stations
     has_many    :working_days
     has_many    :users
     
     accepts_nested_attributes_for :product_stations
     
+    has_many    :users
+    has_many    :working_days
     has_many    :events
     belongs_to  :standard
     belongs_to  :standard_type
@@ -21,7 +21,7 @@ module PConfig
     
     scope :is_enabled, where(:is_enabled=>true)
     scope :only_lineal, where(:type_of_production=>'lineal')
-    scope :only_base, where(:type_of_production=>'batch') 
+    scope :only_base, where(:type_of_production=>'batch')
     
     def self.rev_ip(host)
       Net::Ping::TCP.new(host, 'http')
