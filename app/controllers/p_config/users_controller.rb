@@ -9,9 +9,21 @@ module PConfig
       end
     end
     
+    def edit
+      @user = User.find_by_id params[:id]
+      @array_name = @user.roles.map{|r| r.title} 
+    end
+    
+    def update
+      @user = User.find_by_id params[:id]
+      @user.roles.destroy_all
+      update!
+    end
+    
     def new
       @user = PConfig::User.new
       @person = PConfig::Person.new
+      @array_name = []
     end
     
     def show
