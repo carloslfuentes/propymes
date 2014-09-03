@@ -3,6 +3,8 @@ module PConfig
   class Station < ActiveRecord::Base
     has_many    :product_stations, :dependent => :delete_all
     has_many    :products, :through => :product_stations
+    has_many    :line_set_stations, :dependent => :delete_all
+    has_many    :line_set, :through => :line_set_stations
     has_many    :working_days
     has_many    :users
     
