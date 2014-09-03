@@ -24,7 +24,7 @@ module PConfig
     
     def choose_products
       @station = PConfig::Station.find_by_id params[:id]
-      @station_products = @station.product_stations.map{|r| r.product_id.to_s+"|"+r.product.name}.join(",")
+      @station_products = @station.product_stations.map{|r| r.product_id.to_s+"|"+r.product.name+"|"+r.product.description}.join(",")
     end
   end
 end

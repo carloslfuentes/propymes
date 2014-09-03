@@ -98,18 +98,13 @@ class HomeController < ApplicationController
     render :json => hash.to_json
   end
   
-  def graphs_to_manager
+  def select_graph
     hash = {}
-    @working_days = WorkingDay.actives
-    hash[:graphs] = []
-    @working_days.each do |working_day|
-      hash[:graphs] << working_day.station.rate_graph
+    @working_day = WorkingDay.find_by_id(params[:working_day_id])
+    if @working_day
+      hash = @working_day.station.rate_graph
     end
     render :json => hash.to_json
-  end
-  
-  def select_graph
-    
   end
   
 end

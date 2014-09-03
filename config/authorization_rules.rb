@@ -60,5 +60,5 @@ privileges do
   privilege :manage, :p_config_line_sets,:includes =>[:index, :new, :edit, :show]
   
   privilege :manage, :configurations,:includes =>[:index,:home,:add_permissions_user,:create_permission_user]
-  privilege :manage, :home,:includes =>[:index, :operator, :manager, :validate_status, :timer_actions, :add_items, :timers, :change_product, :graphs_to_manager]
+  privilege :manage, :home,:includes =>[:index, :operator, :manager, :validate_status, :timer_actions, :add_items, :timers, :change_product, :select_graph]
 end

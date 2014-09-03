@@ -21,7 +21,7 @@ module PConfig
     
     scope :is_enabled, where(:is_enabled=>true)
     scope :only_lineal, where(:type_of_production=>'lineal')
-    scope :only_base, where(:type_of_production=>'base') 
+    scope :only_base, where(:type_of_production=>'batch') 
     
     def self.rev_ip(host)
       Net::Ping::TCP.new(host, 'http')
