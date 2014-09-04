@@ -1,5 +1,5 @@
 .wrapper.top
-  //Lineal
+  // Lineal
   %h1.bold
     = "Lineal"
   %hr/
@@ -10,17 +10,23 @@
         %li{:working_day_id => working_day.id}
           = render :partial => "partials/grids_manager", :locals => {:working_day => working_day}
   .right_graph.float_right
+  .clear
   
-  //Grahps
-  .grid_5{:style => "margin:0 0 0 54px"}
-    .chart#select_graph{:style => "display:none"}
-  
+  // Grahps and Description for station
+  .grid_8.top
+    .grid_5.first{:style => "margin:0 0 0 54px"}
+      .chart#select_graph{:style => "display:none"}
+    
+    .grid_2.panel.background_aqua{:style => "width:245px; height:300px;"}
+      = "lskdm"
+    
   .clear
 %hr.top
 
 .wrapper.top
   %h1
     = "Reportes"
+  %hr/
   .grid_8.top
     .grid_2.first
       
@@ -58,7 +64,7 @@
       select_graph = $("#select_graph").empty();
       $.get("home/select_graph",{working_day_id: working_day_id}).done(function(data){
         select_graph.show();
-        select_graph.attr("class","bold ac top panel background_gray_clear");
+        select_graph.attr("class","bold ac panel background_gray_clear");
         if(data.length > 0){
           select_graph.Chart(data, {type:"LineChart", chart_height:"300px", tooltips:false, showLegend:true, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
         }else{
