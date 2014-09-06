@@ -1,5 +1,5 @@
 .wrapper.top
-  //Lineal
+  // Lineal
   %h1.bold
     = "Lineal"
   %hr/
@@ -10,15 +10,27 @@
         %li{:working_day_id => working_day.id}
           = render :partial => "partials/grids_manager", :locals => {:working_day => working_day}
   .right_graph.float_right
+  .clear
   
-  //Grahps
-  .grid_5{:style => "margin:0 0 0 54px"}
-    .chart#select_graph{:style => "display:none"}
+  // Grahps and Description for station
+  .grid_8.top
+    .grid_5.first{:style => "margin:0 0 0 54px"}
+      .chart#select_graph.panel.bold.ac.background_gray_clear
+    
+    .grid_2.panel{:style => "width:245px; height:300px;"}
+      #description
+      //Aqui se llenara la descripcion de cada stacion. Esto se hara con metodo de js. SF
+      //%table.full.not-style
+      //  %tbody#description
+      //    %tr
   
   .clear
 %hr.top
 
 .wrapper.top
+  %h1
+    = t :reports
+  %hr/
   .grid_8.top
     .grid_2.first
       
@@ -27,6 +39,19 @@
 
 :javascript
   $(document).ready(function(){
+    
+    // Vars
+    var select_graph = $("#select_graph");
+    var description = $("#description");
+    var hash_garph_init = #{@graph_first_station.to_json};
+    
+    //Graph Station Type Line Init
+    if(hash_garph_init.length > 0){
+      select_graph.Chart(hash_garph_init, {type:"LineChart", chart_height:"300px", tooltips:false, showLegend:true, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
+    }else{
+      notFoundGraph();
+    }
+    
     // Carusel
     function moveLeft() {
       $('#slider ul').animate({
@@ -49,18 +74,51 @@
     $('.left_graph').live("click", function () { moveLeft(); });
     $('.right_graph').live("click", function () { moveRight(); });
     
-    // Select Graph
+    // Select Station
     $('#slider ul li').live("click", function(){
-      working_day_id = $(this).attr("working_day_id");
-      select_graph = $("#select_graph").empty();
+      var station = $(this);
+      markedStation(station);
+      working_day_id = station.attr("working_day_id");
+      selectToGraph(working_day_id);
+    });
+    
+    // Select Graph for Station
+    function selectToGraph(working_day_id){
+      select_graph.empty();
       $.get("home/select_graph",{working_day_id: working_day_id}).done(function(data){
-        if(data.length > 0){
-          select_graph.show();
-          select_graph.attr("class","top panel background_gray_clear");
-          select_graph.Chart(data, {type:"LineChart", chart_height:"300px", tooltips:false, showLegend:true, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
+        if(data["graph"].length > 0){
+          select_graph.Chart(data["graph"], {type:"LineChart", chart_height:"300px", tooltips:false, showLegend:true, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
+          loadDescription(data["descriptions"]);
         }else{
-          select_graph.hide();
+          notFoundGraph();
         }
       });
-    });
+    }
+    
+    // Not Found Graph
+    function notFoundGraph(){
+      select_graph.css("height", 300);
+      select_graph.css("font-size", 26);
+      select_graph.html("Grafica no Disponible");
+      select_graph.css("line-height", "285px");
+    }
+    
+    // Marked and UnMarked Stations
+    function markedStation(station){
+      unmarkedStation();
+      station.attr("class","active");
+    }
+    
+    function unmarkedStation(){
+      $('#slider ul').find(".active").removeClass("active");
+    }
+    
+    // Load description
+    function loadDescription(vars){
+      $.each(vars["working_day"], function(index, value){
+        console.log(index + " - " + value);
+        description.
+      });
+    }
+    
   })

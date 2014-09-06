@@ -501,6 +501,10 @@ progress::-webkit-progress-value {
   width:210px;
 }
 
+.active {
+  background: #f7f7f7;
+}
+
 #slider ul li:hover {
   background: #f7f7f7;
   cursor: pointer;

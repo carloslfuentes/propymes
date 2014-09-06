@@ -10,8 +10,11 @@ class WorkingDay < ActiveRecord::Base
   default_value_for :effective_time, "00:00:00"
   
   scope :created_today, proc{|date| where(:created_at => date.to_s + " 00:00:00" .. date.to_s + " 23:59:59" ) }
-  scope :actives, where("status in ('standby','waiting_active','active')")
+  #quitar stop solo lo use para prueba en vista manager
+  scope :actives, where("status in ('standby','waiting_active','active','stop')")
   scope :pending_change, where("status in ('standby','pending change','active')")
+  scope :lineal, joins(:station).where("stations.type_of_production ='lineal'")
+  scope :batch, joins(:station).where("stations.type_of_production ='batch'")
   
   def add_log
     hash={:product_id=>self.product_id,:working_day_id=>self.id, :reason=>self.reason,

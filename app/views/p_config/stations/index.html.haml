@@ -1,10 +1,8 @@
 .wrapper
   .grid_8.first.top
     .grid_6.first
-      %hr
       %h3
         = "Linea"
-      %hr
       %table.style.full
         %thead
           %tr
@@ -22,10 +20,8 @@
                 = lineal.ip_station
         
     .grid_6.first
-      %hr
       %h3
-        = "Base"
-      %hr
+        = "Batch"
       %table.style.full
         %thead
           %tr
@@ -35,7 +31,7 @@
               = "ip"
         
         %tbody
-          - @stations_base.each do |lineal|
+          - @stations_batch.each do |lineal|
             %tr  
               %td.ac
                 = link_to lineal.name, choose_products_p_config_station_path(lineal.id)
