@@ -27,9 +27,10 @@ class HomeController < ApplicationController
   end
   
   def manager
-    #Falta crear scope para linea y batch
-    @type_line = WorkingDay.actives
-    @type_batch = WorkingDay.actives
+    #Quitar comentado !! Pruebas
+    @type_line = WorkingDay.actives#.lineal
+    @type_batch = WorkingDay.batch
+    @graph_first_station = @type_line.first.station.rate_graph if @type_line.present?
     render :action => 'manager'
   end
   
@@ -102,7 +103,8 @@ class HomeController < ApplicationController
     hash = {}
     @working_day = WorkingDay.find_by_id(params[:working_day_id])
     if @working_day
-      hash = @working_day.station.rate_graph
+      hash[:graph] = @working_day.station.rate_graph
+      hash[:descriptions] = @working_day
     end
     render :json => hash.to_json
   end

@@ -39,6 +39,7 @@ en:
   delayed_time: 'Inactive Time'
   finish_work: 'Finish Work'
   change_product: 'Change Product'
+  reports: 'Reports'
   #Config
   operating_parameters: 'Operating Parameters'
   production_parameters: 'Production Parameters'

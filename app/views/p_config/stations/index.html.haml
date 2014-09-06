@@ -21,7 +21,7 @@
         
     .grid_6.first
       %h3
-        = "Base"
+        = "Batch"
       %table.style.full
         %thead
           %tr
@@ -31,7 +31,7 @@
               = "ip"
         
         %tbody
-          - @stations_base.each do |lineal|
+          - @stations_batch.each do |lineal|
             %tr  
               %td.ac
                 = link_to lineal.name, choose_products_p_config_station_path(lineal.id)
