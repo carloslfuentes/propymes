@@ -53,8 +53,8 @@ class WorkingDay < ActiveRecord::Base
   
   def selected_product(hash={})
     product = PConfig::Product.find_by_id hash[:product_id]
-    if self.status == "standby"
-      if (wd =WorkingDay.find_by_station_id_and_product_id(self.station_id, hash[:product_id])).present?
+    if self.product_id != hash[:product_id].to_i && self.product_id.present?# && self.status == "standby"
+      if (wd =WorkingDay.find_by_station_id_and_product_id_and_status(self.station_id, hash[:product_id], "pending change")).present?
         wd.reason   = "change product"
         wd.description  = "Cambio de producto"
         wd.delayed_time=self.delayed_time
@@ -94,7 +94,7 @@ class WorkingDay < ActiveRecord::Base
         self.save
         wd.save
         return wd
-     end
+      end
     end
     self.product_id = product.id
     self.standard_id = product.standards.find_by_standard_type_id(self.standard_type_id).id
