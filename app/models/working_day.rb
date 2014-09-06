@@ -11,7 +11,7 @@ class WorkingDay < ActiveRecord::Base
   
   scope :created_today, proc{|date| where(:created_at => date.to_s + " 00:00:00" .. date.to_s + " 23:59:59" ) }
   #quitar stop solo lo use para prueba en vista manager
-  scope :actives, where("status in ('standby','waiting_active','active','stop')")
+  scope :actives, where("status in ('standby','waiting_active','active')")
   scope :pending_change, where("status in ('standby','pending change','active')")
   scope :lineal, joins(:station).where("stations.type_of_production ='lineal'")
   scope :batch, joins(:station).where("stations.type_of_production ='batch'")
