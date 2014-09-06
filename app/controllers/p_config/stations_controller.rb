@@ -19,7 +19,7 @@ module PConfig
     
     def index
       @stations_lineal = PConfig::Station.only_lineal
-      @stations_base = PConfig::Station.only_base      
+      @stations_batch = PConfig::Station.only_batch      
     end
     
     def choose_products
