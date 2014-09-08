@@ -30,6 +30,11 @@ class HomeController < ApplicationController
     #Quitar comentado !! Pruebas
     @type_line = WorkingDay.actives#.lineal
     @type_batch = WorkingDay.batch
+    #Init
+    @station_name = @type_line.first.station.name
+    @standard_name = @type_line.first.standard.name
+    @check_in = @type_line.first.start_time.strftime("%H:%M:%S")
+    @check_out = @type_line.first.nullo.end_time.strftime("%H:%M:%S").if_nil("N/A")
     @graph_first_station = @type_line.first.station.rate_graph if @type_line.present?
     render :action => 'manager'
   end
@@ -104,7 +109,10 @@ class HomeController < ApplicationController
     @working_day = WorkingDay.find_by_id(params[:working_day_id])
     if @working_day
       hash[:graph] = @working_day.station.rate_graph
-      hash[:descriptions] = @working_day
+      hash[:station_name] = @working_day.station.name
+      hash[:standard_name] = @working_day.standard.nullo.name.if_nil("N/A")
+      hash[:check_in] = @working_day.nullo.start_time.strftime("%H:%M:%S").if_nil("N/A")
+      hash[:check_out] = @working_day.nullo.end_time.strftime("%H:%M:%S").if_nil("N/A")
     end
     render :json => hash.to_json
   end

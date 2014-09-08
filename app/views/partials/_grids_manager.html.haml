@@ -15,7 +15,8 @@
           %td.al
             = "Operador"
           %td.ar
-            = working_day.user.name
+            %a{:href => "#", :class => "modal", :rel => "#graphic_projection"}
+              = working_day.user.name
         %tr
           %td.al
             = "No. Piezas"
@@ -23,7 +24,7 @@
             = working_day.nullo.number_piece.round(2).if_nil("0")
         %tr
           %td.al
-            = "Producción"
+            = "% Producción"
           %td.ar
             = working_day.nullo.percentage_production.round(2).if_nil("0")
         %tr
@@ -38,6 +39,6 @@
             = working_day.station.get_sum_effective_time.present? ? working_day.station.get_sum_effective_time : "00:00:00"
         %tr
           %td
-            = t :delayed_time
+            = "T. Inactivo"
           %td.red.ar
             = working_day.delayed_time.present? ? (working_day.delayed_time.utc.strftime "%H:%M:%S") : "00:00:00"

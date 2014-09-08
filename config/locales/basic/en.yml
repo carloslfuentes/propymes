@@ -40,6 +40,8 @@ en:
   finish_work: 'Finish Work'
   change_product: 'Change Product'
   reports: 'Reports'
+  check_in: 'Check In'
+  check_out: 'Check Out'
   #Config
   operating_parameters: 'Operating Parameters'
   production_parameters: 'Production Parameters'

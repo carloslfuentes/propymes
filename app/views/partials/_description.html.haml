@@ -1,0 +1,21 @@
+%table.full
+  %tbody.bold
+    %tr
+      %td.al
+        = PConfig::Standard.model_name.human
+      %td.ar
+        #standard_name
+          = @standard_name
+    %tr
+      %td.al
+        = t :check_in
+      %td.ar.background_aqua
+        #check_in
+          = @check_in
+    %tr
+      %td.al
+        = t :check_out
+      %td.ar.background_aqua
+        #check_out
+          = @check_out
+//Incluir Todos los parametros

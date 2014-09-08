@@ -1,0 +1,21 @@
+.grid_8
+  .grid_2.first
+    .panel
+      %h3
+        = "Seleccione Producto"
+        .float_right
+          %a.action-button
+            %span.add
+      = text_field_tag :range_product, nil, :type => :range
+
+  .grid_6
+    = "GRafica"
+
+.clear
+
+:javascript
+  $(document).ready(function(){
+    $(".add").live("click", function(){
+      //Aqui clonare el primer producto.
+    }); 
+  })

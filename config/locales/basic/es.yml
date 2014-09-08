@@ -40,6 +40,8 @@ es:
   finish_work: 'Terminar Labores'
   change_product: 'Cambiar Producto'
   reports: 'Reportes'
+  check_in: 'Hora de Entrada'
+  check_out: 'Hora de Salida'
   #Config FIXME Eliminar o cambiar ya que esto se utiliza en el edit y tmb dice nuevo.
   operating_parameters: 'Parámetros Operativos'
   production_parameters: 'Parámetros de Producción'

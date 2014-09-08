@@ -10,7 +10,6 @@
         %li{:working_day_id => working_day.id}
           = render :partial => "partials/grids_manager", :locals => {:working_day => working_day}
   .right_graph.float_right
-  .clear
   
   // Grahps and Description for station
   .grid_8.top
@@ -19,12 +18,19 @@
     
     .grid_2.panel{:style => "width:245px; height:300px;"}
       #description
-      //Aqui se llenara la descripcion de cada stacion. Esto se hara con metodo de js. SF
-      //%table.full.not-style
-      //  %tbody#description
-      //    %tr
-  
+        %h3.ac
+          #station_name
+            = @station_name
+          %hr/
+        = render :partial => "partials/description"
+
+// Modal Graphic Projection
+#graphic_projection.widget.panel.padding3.background_white{:style => "width:900px; height:350px;"}
+  .content
+    = render :partial => "partials/graphic_projection"
+
   .clear
+.clear
 %hr.top
 
 .wrapper.top
@@ -35,6 +41,7 @@
     .grid_2.first
       
   .clear
+.clear
 #push
 
 :javascript
@@ -88,19 +95,22 @@
       $.get("home/select_graph",{working_day_id: working_day_id}).done(function(data){
         if(data["graph"].length > 0){
           select_graph.Chart(data["graph"], {type:"LineChart", chart_height:"300px", tooltips:false, showLegend:true, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
-          loadDescription(data["descriptions"]);
         }else{
           notFoundGraph();
         }
+        loadDescription(data);
       });
     }
     
     // Not Found Graph
     function notFoundGraph(){
+      // Graph
       select_graph.css("height", 300);
       select_graph.css("font-size", 26);
       select_graph.html("Grafica no Disponible");
       select_graph.css("line-height", "285px");
+      // Description
+      clearDescription();
     }
     
     // Marked and UnMarked Stations
@@ -114,11 +124,15 @@
     }
     
     // Load description
-    function loadDescription(vars){
-      $.each(vars["working_day"], function(index, value){
-        console.log(index + " - " + value);
-        description.
-      });
+    function loadDescription(data){
+      description.find("#station_name").html(data["station_name"]);
+      description.find("#standard_name").html(data["standard_name"]);
+      description.find("#check_in").html(data["check_in"]);
+      description.find("#check_out").html(data["check_out"]);
+    }
+    
+    function clearDescription(){
+      
     }
     
   })

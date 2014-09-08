@@ -324,6 +324,11 @@ textarea {
 }
 
 /* Buttons */
+a{
+  color:blue;
+  text-decoration:none;
+}
+
 .button {
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
