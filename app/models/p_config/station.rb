@@ -6,11 +6,12 @@ module PConfig
     has_many    :line_set_stations, :dependent => :delete_all
     has_many    :line_set, :through => :line_set_stations
     has_many    :working_days
-    has_many    :users
+    has_many    :station_users, :dependent => :delete_all
+    has_many    :users, :through => :station_users
     
-    accepts_nested_attributes_for :product_stations
+    accepts_nested_attributes_for :product_stations,:station_users
     
-    has_many    :users
+    #has_many    :users
     has_many    :working_days
     has_many    :events
     belongs_to  :standard

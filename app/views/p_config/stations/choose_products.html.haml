@@ -1,32 +1,44 @@
 = form_for @station, :url=>{:controller=>"p_config/stations",:action=> "update"} do |f|
   .wrapper.top
     .grid_8
-      .grid_4
-        .panel.padding1.background_gray_clear
-          %h3
-            = PConfig::Product.model_name.human(:count => :other)
-            .float_right
-              %a.action-button{:class => "modal", :rel => "#add_products"}
-                %span.add
-          %table.style.full#products_table
-            %thead
-              %tr
-                %th#id_th{:style=>"display:none;"}
-                  = "Id"
-                %th
-                  = "Producto"
-                %th
-                  = "Descripción"
-            / = f.fields_for :product_stations, @station.product_stations do |c|
-            /   =c.text_field :product_id
-            /   %h4.not_bold.blue
-            /     #be_added_to
       .grid_4.top
-        .panel.padding1.background_gray_clear
-          %h3
-            = "Users"
-          - @station.users.each do |u|
-            =u.name
+        .grid_1.top
+          .panel.padding1{:style => "height:220px;"}
+            %table.style.full
+              %thead
+                %tr{:style => "text-align:center;"}
+                  %th
+                    = t "products"
+              %tbody.add_product
+        .grid_2.top
+          .panel.padding1.background_gray_clear
+            %table
+              %tr
+                %td
+                  = t "products"
+              %tr
+                %td
+                  -option_station=@station.product_stations.blank? ? 0 : @station.product_stations.map{|r| r.station_id}.join(",")
+                  = select_tag :product_id, options_for_select(PConfig::Product.for_lineal(@station.type_of_production).where("products.id not in (#{option_station})").map{|prod| [prod.name, prod.id]}), { :size =>11, :style => "width:150px;"}
+      .grid_4.top
+        .grid_1.top
+          .panel.padding1{:style => "height:220px;"}
+            %table.style.full
+              %thead
+                %tr{:style => "text-align:center;"}
+                  %th
+                    = t "users"
+              %tbody.add_users
+        .grid_2.top
+          .panel.padding1.background_gray_clear
+            %table
+              %tr
+                %td
+                  = t "users"
+              %tr
+                %td
+                  = select_tag :user_id, options_for_select(PConfig::User.all.map{|row| [row.name, row.id]}), :size =>11, :style => "width:150px;"
+      
       .grid_4.top
         .panel.padding1.background_gray_clear
           .ar
@@ -37,106 +49,61 @@
                 = t :clear
               %a.button.background_gray.gray{:href => p_config_stations_path}
                 = t :cancel
-
-//Add Products
-#add_products.widget.panel.padding1.background_gray_clear{:style => "min-height:100px;"}
-  .content
-    .form
-      -option_station=@station.product_stations.blank? ? 0 : @station.product_stations.map{|r| r.station_id}.join(",")
-      .clearfix
-        = label_tag PConfig::Product.model_name.human(:count => :other)
-        = select_tag :product_id, options_for_select(PConfig::Product.for_lineal(@station.type_of_production).where("products.id not in (#{option_station})").map{|prod| [prod.name, prod.id]}), {:multiple => true, :size =>15}
-      %hr/
-      .ar
-        .clearfix.top
-          %a.button.background_orange.white{:id => "addProducts"}
-            = t :add
-          %a.button.background_gray.gray{:onclick => "$().closeModal();"}
-            = t :cancel
-
-
-
-
 :javascript
+  var index = 0;
+  function remove_group(objectId,textName,string3){
+    $("#"+string3+"_"+objectId).remove(); 
+    $("#"+string3).append('<option value="' + objectId +'">' +  textName + '</option>');
+  }
   $(document).ready(function(){
-    
-    //Add Products
-    $("#addProducts").live("click",function(){
-      $(this).addElements({select:$("#product_id"), be_added_to:$("#be_added_to"), prefix_id:"p_config_station_product_stations_attributes", prefix_name:"p_config_station[product_stations_attributes]"});
+    chargeItems();
+    chargeItemsProduct()
+    $('#product_id').click(function(e) {
+      var productId =$(this).find("option:selected").val();
+      var userText =$(this).find("option:selected").text();
+      prefixId = getId("p_config_station","product_stations","product_id");
+      prefixName = getName("p_config_station","product_stations","product_id");
+      add_group(productId,prefixId,prefixName,userText,"product_id","add_product");
+      $(this).find("option:selected").remove();
     });
-    
-    $("#p_config_station_type_of_production").live("change",function(){
-      if($(this).val() == "lineal"){
-        $("#dependent").show();
-      }else{
-        $("#dependent").hide();
+    $('#user_id').click(function(e) {
+      var userId =$(this).find("option:selected").val();
+      var userText =$(this).find("option:selected").text();
+      prefixId = getId("p_config_station","station_users","user_id");
+      prefixName = getName("p_config_station","station_users","user_id");
+      add_group(userId,prefixId,prefixName,userText,"user_id","add_users");
+      $(this).find("option:selected").remove();
+    });
+    function chargeItemsProduct(){
+      charge("#{@station_products.join(",")}","p_config_station","product_stations","product_id","add_product");
+    }
+    function chargeItems(){
+      charge("#{@array_users.join(",")}","p_config_station","station_users","user_id","add_users");
+    }
+    function charge(objectArray,object1,object2,fieldName,addObject){
+      for (var i = 0, f; f = objectArray.split(",")[i]; i++) {
+        tmp = f.split("|")
+        objectId = tmp[1];
+        text = tmp[0];
+        prefixId = getId(object1,object2,fieldName);
+        prefixName = getName(object1,object2,fieldName);
+        add_group(objectId,prefixId,prefixName,text,fieldName,addObject);
+        $("#"+fieldName).find("option[value='" + tmp[1] + "']").remove();
       }
-    });
-
-    //Test Ping FIXME Falta acomodar funcion
-    $("#ping").click(function(){
-      var ip_station = $("#p_config_station_ip_station").val(),
-          span = $(this);
-      if(ip_station){
-        span.find("span").removeAttr('class').attr('class', 'help');
-        $.get("/p_config/stations/comprovate_ip",{ip_station: ip_station}).done(function(data){
-          if(data["ping"]){
-            span.find("span").removeAttr('class').attr('class', 'accept');
-          }else{
-            span.find("span").removeAttr('class').attr('class', 'exclamation-red');
-          }
-        });
-      }else{
-        span.find("span").removeAttr('class').attr('class', 'cross');
-      }
-    });
-
-    generateProductsList();
-
-    function generateProductsList(){
-      var station_products = "#{@station_products}".split(',');
-      var table = $('#products_table');
-      var row = '<tr>texto-para-reemplazar</tr>';
-      var rowContent =  '<td class="ac">texto-para-reemplazar</td>';
-      var rowContentId =  '<td id="id-para-reemplazar" class="ac" style="display:none;">texto-para-reemplazar</td>';
-      var tempRow = "";
-      var n = 0;
-      console.log(table);
-      console.log(station_products);
-      station_products.forEach(function(producto){ 
-        producto.split('|').forEach(function(bloque){
-          if (n==0){
-            tempRow += rowContentId.replace("texto-para-reemplazar",bloque).replace("id-para-reemplazar","p_config_station_product_stations_attributes_"+bloque+"_product_id");
-            n++;
-          } else {
-            tempRow += rowContent.replace("texto-para-reemplazar",bloque);
-          }
-        });
-        tempRow = row.replace("texto-para-reemplazar",tempRow);
-        $(table).append(tempRow);
-        tempRow = "";
-        n = 0;
-      });
-
-      // - @stations_base.each do |lineal|
-      // %tr  
-      //   %td.ac
-      //     = link_to lineal.name, choose_products_p_config_station_path(lineal.id)
-      //   %td.ac
-      //     = lineal.ip_station
-
-
-      // %tr  
-      //   %td.ac
-      //     = link_to lineal.name, choose_products_p_config_station_path(lineal.id)
-      //   %td.ac
-      //     = lineal.ip_station
-      // // var counter = 0;
-      // var ini = "p_config_station_pr+oduct_stations_attributes_";
-      // var pro = "_product_id";
-      // var sta = "_station_id";
-      //"p_config_station_product_stations_attributes_"+counter+"_product_id";
-
-
+    }
+    function getName(object1,object2,fieldName){
+      return object1+"["+object2+"_attributes]"+"["+index+"]"+"["+fieldName+"]";
+    }
+    function getId(object1,object2,fieldName){
+      return object1+"_"+object2+"_attributes_"+index+"_"+fieldName;
+    }
+    function add_group(objectId,prefixId,prefixName,text,fieldName,addObject){    
+      element = "<tr onclick='remove_group("+objectId+",&quot;"+text+"&quot;"+",&quot;"+fieldName+"&quot;);' id='"+fieldName+"_"+ objectId +"'><td>";
+      element += "<input id='" + prefixId + "' name='" + prefixName + "' value='" + objectId + "' type='hidden'/>";
+      element += "<text_field style='text-align:center;'>" + text + "</text_field>";
+      element += "</td></tr>";
+      
+      $("."+addObject).append(element);
+      index += 1;
     }
   });
