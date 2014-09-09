@@ -54,7 +54,7 @@
     
     //Graph Station Type Line Init
     if(hash_garph_init.length > 0){
-      select_graph.Chart(hash_garph_init, {type:"LineChart", chart_height:"300px", tooltips:false, showLegend:true, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
+      select_graph.Chart(hash_garph_init, {type:"LineChart", chart_height:"300px", tooltips:true, showLegend:true, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
     }else{
       notFoundGraph();
     }
@@ -94,7 +94,7 @@
       select_graph.empty();
       $.get("home/select_graph",{working_day_id: working_day_id}).done(function(data){
         if(data["graph"].length > 0){
-          select_graph.Chart(data["graph"], {type:"LineChart", chart_height:"300px", tooltips:false, showLegend:true, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
+          select_graph.Chart(data["graph"], {type:"LineChart", chart_height:"300px", tooltips:true, showLegend:true, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
         }else{
           notFoundGraph();
         }
