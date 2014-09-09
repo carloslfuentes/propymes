@@ -33,7 +33,7 @@ class HomeController < ApplicationController
     #Init
     @station_name = @type_line.first.station.name
     @standard_name = @type_line.first.standard.name
-    @check_in = @type_line.first.start_time.strftime("%H:%M:%S")
+    @check_in = @type_line.first.nullo.start_time.strftime("%H:%M:%S").if_nil("N/A")
     @check_out = @type_line.first.nullo.end_time.strftime("%H:%M:%S").if_nil("N/A")
     @graph_first_station = @type_line.first.station.rate_graph if @type_line.present?
     render :action => 'manager'

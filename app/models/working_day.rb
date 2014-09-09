@@ -204,4 +204,19 @@ class WorkingDay < ActiveRecord::Base
     return (worktime - total_boot_variables.to_f).utc.strftime("%H:%M:%S")
   end
   
+  def projection_graph
+    #time_disponible = (self.get_minutes_time(self.disponible_time) * 60)
+    time_disponible = (self.disponible_time.utc + 6.hour).to_i * 1000
+    avarange = time_disponible / self.target_pieces
+    hash = {}
+    hash[:key] = "Proyeccion" + self.target_pieces.to_s
+    hash[:values] = []
+    count = 0
+    (1 .. self.target_pieces.to_i + 1).each do |piece|
+      count += avarange
+      hash[:values] << {:date => count, :value => piece}
+    end
+    return hash
+  end
+  
 end
