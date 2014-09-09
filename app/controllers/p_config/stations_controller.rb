@@ -1,5 +1,13 @@
 module PConfig
   class StationsController < InheritedResources::Base
+    
+    def update
+      @station = PConfig::Station.find_by_id params[:id]
+      @station.station_users.destroy_all
+      @station.product_stations.destroy_all
+      update!
+    end
+      
     def comprovate_ip
       #system('ping -n 4 -k 172.16.246.235')
       pt = PConfig::Station.rev_ip params[:ip_station]
@@ -24,7 +32,8 @@ module PConfig
     
     def choose_products
       @station = PConfig::Station.find_by_id params[:id]
-      @station_products = @station.product_stations.map{|r| r.product_id.to_s+"|"+r.product.name+"|"+r.product.description}.join(",")
+      @station_products = @station.product_stations.map{|r| r.product.name+"|"+r.product_id.to_s}
+      @array_users = @station.users.map{|r| (r.person.name+"|"+r.id.to_s)}
     end
   end
 end
