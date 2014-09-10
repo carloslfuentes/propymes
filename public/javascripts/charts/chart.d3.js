@@ -49,12 +49,13 @@
       chart.yAxis.tickFormat(function(d) { if(typeof d == 'number'){ return d3.format(formatY)(d);}else{ return d; } });
       //chart.forceY([1,1000000]); Forzar Y a un Rango
       //sellectAll("rect").attr("width", bar_width)
+      
     }else if(type == "LineChart"){
       chart = nv.models.lineChart();
       chart.margin({top: margin.top, right: margin.right, bottom: margin.bottom, left: margin.left});
       chart.tooltips(tooltips);
       chart.showLegend(showLegend);
-      chart.color(['#83061D']);
+      //chart.color(['#83061D']);
       chart.tooltipContent(function(key, x, y, e, graph) { return '<h3>' + key + '</h3>' + '<p>' +  y + ' al ' + x + '</p>'; });
       chart.xAxis.tickFormat(function(d) { if(typeof d == 'number'){ return d3.time.format(formatX)(new Date(d)); }else{ return d; } });
       //chart.yAxis.tickFormat(function(d) { if(typeof d == 'number'){ return d3.format(formatY)(d);}else{ return d; } });
@@ -70,6 +71,7 @@
       chart.yAxis.tickFormat(function(d) { if(typeof d == 'number'){ return d3.format(formatY)(d);}else{ return d; } });
       chart.x2Axis.tickFormat(function(d) { if(typeof d == 'number'){ return d3.time.format(formatX)(new Date(d)); }else{ return d; } });
       chart.y2Axis.tickFormat(function(d) { if(typeof d == 'number'){ return d3.format(formatY)(d);}else{ return d; } });
+      
     }else if(type == "LineAreaChart"){
       
       chart = nv.models.stackedAreaChart();

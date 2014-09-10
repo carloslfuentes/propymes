@@ -48,8 +48,8 @@ module PConfig
           hash[:values] << {:date => (log.effective_time.utc + 6.hour).to_i * 1000, :value => log.number_piece.to_i }
         end
         data << hash
-        start_time = (working_day.working_day_logs.first.effective_time.utc + 6.hour).to_i * 1000
-        data << working_day.projection_graph(start_time)
+        start_time = working_day.working_day_logs.first.effective_time
+        data << working_day.projection_graph(start_time, working_day.number_piece)
       end
       return data
     end

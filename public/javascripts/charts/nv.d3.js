@@ -4092,6 +4092,15 @@ nv.models.lineChart = function() {
       lines
         .width(availableWidth)
         .height(availableHeight)
+        
+        
+        
+        
+        //Aqui se tiene que agregar parametro para linea 
+        
+        
+        
+        
         .color(data.map(function(d,i) {
           return d.color || color(d, i);
         }).filter(function(d,i) { return !data[i].disabled }));
@@ -9849,7 +9858,10 @@ nv.models.scatterPlusLineChart = function() {
           .width(availableWidth)
           .height(availableHeight)
           .color(data.map(function(d,i) {
+            console.log(d.color);
+            console.log(color(d,i));
             return d.color || color(d, i);
+            
           }).filter(function(d,i) { return !data[i].disabled }))
 
       wrap.select('.nv-scatterWrap')
