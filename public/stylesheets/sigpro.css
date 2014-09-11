@@ -520,11 +520,29 @@ progress::-webkit-progress-value {
   cursor: pointer;
 }
 
+.left_graph_desactivate{
+  margin: 80px 0 0 0;
+  width: 0;
+  height: 0;
+  border-top: 25px solid transparent;
+  border-right: 50px solid #F6F6F6;
+  border-bottom: 25px solid transparent;
+}
+
 .left_graph{
   width: 0;
   height: 0;
   border-top: 25px solid transparent;
   border-right: 50px solid #ef9c00;
+  border-bottom: 25px solid transparent;
+}
+
+.right_graph_desactivate{
+  margin: 80px 0 0 0;
+  width: 0;
+  height: 0;
+  border-top: 25px solid transparent;
+  border-left: 50px solid #F6F6F6;
   border-bottom: 25px solid transparent;
 }
 

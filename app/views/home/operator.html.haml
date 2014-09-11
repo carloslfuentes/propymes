@@ -86,11 +86,16 @@
             %h5
               = working_day.product.nullo.name.if_nil("N/A")
             %progress{:value => working_day.nullo.number_piece.if_nil(0), :max => working_day.nullo.target_pieces.if_nil(1)}
-            .al.float_left
-              = working_day.nullo.number_piece.to_i.if_nil(0)
-            .ar
-              = working_day.nullo.target_pieces.if_nil(1)
-      
+            %table.full
+              %tbody
+                %tr
+                  %td.al{:style => "width:40px;"}
+                    = working_day.nullo.number_piece.to_i.if_nil(0)
+                  %td.ac.bold.orange
+                    = "EFF. " + working_day.nullo.percentage_production.if_nil(0).to_s + " %"
+                  %td.ar{:style => "width:40px;"}
+                    = working_day.nullo.target_pieces.if_nil(1)
+    
     //Events
     .panel.padding1.gray.top
       %h3

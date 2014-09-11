@@ -3,13 +3,13 @@
   %h1.bold
     = "Lineal"
   %hr/
-  .left_graph.float_left
+  .left_graph
   #slider.float_left
     %ul
-      - @type_line.each do |working_day|
+      - @workingDay_line.each do |working_day|
         %li{:working_day_id => working_day.id}
           = render :partial => "partials/grids_manager", :locals => {:working_day => working_day}
-  .right_graph.float_right
+  .right_graph
   
   // Grahps and Description for station
   .grid_8.top
@@ -25,9 +25,9 @@
         = render :partial => "partials/description"
 
 // Modal Graphic Projection
-#graphic_projection.widget.panel.padding3.background_white{:style => "width:900px; height:350px;"}
+#notes.widget.panel.padding3.background_white{:style => "width:900px; height:350px;"}
   .content
-    = render :partial => "partials/graphic_projection"
+    = "Notes Se mandara llamar el new de notas"
 
   .clear
 .clear
@@ -50,14 +50,30 @@
     // Vars
     var select_graph = $("#select_graph");
     var description = $("#description");
-    var hash_garph_init = #{@graph_first_station.to_json};
+    var garph_init = #{@graph.to_json};
     
     //Graph Station Type Line Init
-    if(hash_garph_init.length > 0){
-      select_graph.Chart(hash_garph_init, {type:"LineChart", chart_height:"300px", tooltips:true, showLegend:true, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
+    if(garph_init.length > 0){
+      validateButtonsGraph();
+      select_graph.Chart(garph_init, {type:"LineChart", chart_height:"300px", tooltips:true, showLegend:true, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
     }else{
       notFoundGraph();
     }
+    
+    //Validate Buttons Graph
+    function validateButtonsGraph(){
+      if("#{@workingDay_line.length}" < 4){
+        $('.left_graph').attr("class", "left_graph_desactivate float_left");
+        $('.right_graph').attr("class", "right_graph_desactivate float_right");
+      }else{
+        $('.left_graph').attr("class", "left_graph float_left");
+        $('.right_graph').attr("class", "right_graph float_right");
+      }
+    }
+    
+    //Click To Buttons Graphs (Left Right)
+    $('.left_graph').live("click", function () { moveLeft(); });
+    $('.right_graph').live("click", function () { moveRight(); });
     
     // Carusel
     function moveLeft() {
@@ -77,9 +93,6 @@
           $('#slider ul').css('left', '');
       });
     };
-
-    $('.left_graph').live("click", function () { moveLeft(); });
-    $('.right_graph').live("click", function () { moveRight(); });
     
     // Select Station
     $('#slider ul li').live("click", function(){
@@ -96,21 +109,21 @@
         if(data["graph"].length > 0){
           select_graph.Chart(data["graph"], {type:"LineChart", chart_height:"300px", tooltips:true, showLegend:true, formatX:'%X'},{ top:20, right:30, bottom:20, left:30 });
         }else{
-          notFoundGraph();
+          notFoundGraph(data);
         }
-        loadDescription(data);
+        loadDescription(data, false);
       });
     }
     
     // Not Found Graph
-    function notFoundGraph(){
+    function notFoundGraph(data){
       // Graph
       select_graph.css("height", 300);
       select_graph.css("font-size", 26);
       select_graph.html("Grafica no Disponible");
       select_graph.css("line-height", "285px");
       // Description
-      clearDescription();
+      loadDescription(data, true);
     }
     
     // Marked and UnMarked Stations
@@ -124,15 +137,15 @@
     }
     
     // Load description
-    function loadDescription(data){
-      description.find("#station_name").html(data["station_name"]);
-      description.find("#standard_name").html(data["standard_name"]);
-      description.find("#check_in").html(data["check_in"]);
-      description.find("#check_out").html(data["check_out"]);
+    function loadDescription(data, empty){
+      $.each(data, function(index, value){
+        if(empty){
+          description.find("#"+index).html("");
+        }else{
+          if(index != "graph"){
+            description.find("#"+index).html(value);
+          }
+        }
+      });
     }
-    
-    function clearDescription(){
-      
-    }
-    
   })

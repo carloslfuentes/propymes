@@ -209,7 +209,6 @@ class WorkingDay < ActiveRecord::Base
     average = (time_disponible / self.target_pieces.to_d)
     hash = {}
     hash[:key] = "Proyec. " + self.product.name
-    hash[:style] = 'background:#000'
     hash[:values] = []
     count = 0
     hash[:values] << {:date => (start_time.utc + 6.hour).to_i * 1000, :value => 0}

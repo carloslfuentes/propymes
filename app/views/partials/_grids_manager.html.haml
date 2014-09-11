@@ -8,37 +8,37 @@
       %tbody.bold
         %tr
           %td.al
-            = "Producto"
+            = PConfig::Product.model_name.human
           %td.ar
             = working_day.product.nullo.name.if_nil("N/A")
         %tr
           %td.al
-            = "Operador"
+            = t :operator
           %td.ar
-            %a{:href => "#", :class => "modal", :rel => "#graphic_projection"}
+            %a{:href => "#", :class => "modal", :rel => "#notes"}
               = working_day.user.name
         %tr
           %td.al
-            = "No. Piezas"
+            = t :pieces
           %td.ar
             = working_day.nullo.number_piece.round(2).if_nil("0")
         %tr
           %td.al
-            = "% Producción"
+            = t :efficiency
           %td.ar
-            = working_day.nullo.percentage_production.round(2).if_nil("0")
+            = working_day.nullo.percentage_production.round(2).if_nil("0").to_s + " %"
         %tr
           %td
-            = "T. Disponible"
+            = t :available_time
           %td.ar
             = working_day.disponible_time.present? ? (OperationTimes::Deduct.basic(working_day.disponible_time,working_day.station.get_sum_effective_time)) : "00:00:00" 
         %tr
           %td
-            = "T. Efectivo"
+            = t :effective_time
           %td.ar
             = working_day.station.get_sum_effective_time.present? ? working_day.station.get_sum_effective_time : "00:00:00"
         %tr
           %td
-            = "T. Inactivo"
+            = t :delayed_time
           %td.red.ar
             = working_day.delayed_time.present? ? (working_day.delayed_time.utc.strftime "%H:%M:%S") : "00:00:00"

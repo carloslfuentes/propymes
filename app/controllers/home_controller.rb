@@ -28,14 +28,10 @@ class HomeController < ApplicationController
   
   def manager
     #Quitar comentado !! Pruebas
-    @type_line = WorkingDay.actives#.lineal
-    @type_batch = WorkingDay.batch
-    #Init
-    @station_name = @type_line.first.station.name
-    @standard_name = @type_line.first.standard.name
-    @check_in = @type_line.first.nullo.start_time.strftime("%H:%M:%S").if_nil("N/A")
-    @check_out = @type_line.first.nullo.end_time.strftime("%H:%M:%S").if_nil("N/A")
-    @graph_first_station = @type_line.first.station.rate_graph if @type_line.present?
+    @workingDay_line = WorkingDay.actives#.lineal
+    #@type_batch = WorkingDay.batch
+    #Load First Description
+    descriptions(@workingDay_line.first)
     render :action => 'manager'
   end
   
@@ -105,16 +101,22 @@ class HomeController < ApplicationController
   end
   
   def select_graph
-    hash = {}
     @working_day = WorkingDay.find_by_id(params[:working_day_id])
     if @working_day
-      hash[:graph] = @working_day.station.rate_graph
-      hash[:station_name] = @working_day.station.name
-      hash[:standard_name] = @working_day.standard.nullo.name.if_nil("N/A")
-      hash[:check_in] = @working_day.nullo.start_time.strftime("%H:%M:%S").if_nil("N/A")
-      hash[:check_out] = @working_day.nullo.end_time.strftime("%H:%M:%S").if_nil("N/A")
+      descriptions(@working_day, true)
     end
-    render :json => hash.to_json
+    render :json => @hash.to_json
   end
+  
+  def descriptions(working_day, return_in_hash = false)
+    @hash = {}
+    @graph = @hash[:graph] = working_day.station.rate_graph
+    @station_name = @hash[:station_name] = working_day.station.name
+    @standard_name = @hash[:standard_name] = working_day.standard.nullo.name.if_nil("N/A")
+    @baseline = @hash[:baseline] = working_day.nullo.target_pieces.if_nil("N/A")
+    @check_in = @hash[:check_in] = working_day.nullo.start_time.strftime("%H:%M:%S").if_nil("N/A")
+    @check_out = @hash[:check_out] = working_day.nullo.end_time.strftime("%H:%M:%S").if_nil("N/A")
+  end
+  
   
 end
